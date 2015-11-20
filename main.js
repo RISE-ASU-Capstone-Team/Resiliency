@@ -42,8 +42,9 @@ function render() {
 }
 
 function init() {
-    var canvasWidth = window.innerWidth-20;
+    var canvasWidth = window.innerWidth-400;
     var canvasHeight = window.innerHeight-20;
+
 
     var canvasRatio = canvasWidth / canvasHeight;
 
