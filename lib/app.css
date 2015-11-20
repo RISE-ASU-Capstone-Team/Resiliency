@@ -89,6 +89,13 @@ body {
   margin:5px;
   position:relative;
 }
+#sideBar{
+  width:350px;
+  height: 700px;
+  margin:5px;
+  float:right;
+  position: relative;
+}
 #container{
     position:relative;
 }
