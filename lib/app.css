@@ -1,14 +1,88 @@
-html {
-    overflow-y: scroll;
-}
-
 body {
   font-family: Consolas, monospace;
-  overflow-x: hidden;
   margin-left: 0px;
   margin-right: 0px;
   font-size: 1.75em;
+}
+
+.innerbody {
+  height: 100%;
+  top: 0px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+#dashboard {
+  padding: 0px;
+  float: left;
+}
+.border {
+  border: solid 1px silver;
+  padding: 3px;
+}
+.wordwrap {
+  white-space: pre-wrap;
+  /* css-3 */
+  white-space: -moz-pre-wrap;
+  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
+}
+.middlealign {
+  text-align: center;
+  position: relative;
+  padding-top: 50%;
+  transform: translateY(-50%);
+  /* css-3 */
+  -webkit-transform: translateY(-50%);
+  /* Chrome 36+ */
+  -o-transform: translateY(-50%);
+  /* Opera 10.5-23 */
+  -webkit-transform: translateY(-50%);
+  /* Opera 23+ */
+  -webkit-transform: translateY(-50%);
+  /* Safari 3.1+ */
+  -ms-transform: translateY(-50%);
+  /* Internet Explorer 9.0+ */
+  -moz-transform: translateY(-50%);
+  /* Firefox 3.5+ */
+}
+.clear {
+  clear: both;
+  height: 0;
+  font-size: 0;
+  overflow: hidden;
+  margin: 0;
   padding: 0;
+  width: 0;
+  line-height: 0;
+}
+.hidden {
+  display: none;
+}
+.menuclass{
+  position:relative;
+  margin-left:15px;
+  width:auto;
+  z-index: 2;
+}
+.taglist{
+  position:absolute;
+  margin-left:15px;
+  width:auto;
+  z-index: 2;
+}
+.col-md-8{
+  position:absolute;
+}
+.col-md-4{
+  background-color:rgba(255,255,255,.65);
+  width:auto;
+  margin:5px;
 }
 #menu{
   left:0;
@@ -22,10 +96,15 @@ body {
   float:right;
   position: relative;
 }
+#leftBar{
+  width: auto;
+  height:200px;
+  background-color: black;
+  display: block;
+}
 
 #container{
     position:relative;
-    float: left;
 }
 #loadNotification{
     text-shadow: 0 0 5px #FFFFFF;
@@ -42,111 +121,8 @@ nav #notifications{overflow:hidden; overflow-y:scroll;}
 nav #objectlist{height:350px;}
 nav #objectlist{overflow:hidden; overflow-y:scroll;}
 
-nav {
-    opacity: 0;
-    left: 0px;
-    top: 0px;
-    position: fixed;
-    z-index: 0;
-    width: 30%;
-    height: 100%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background: #3e3c3d;
-    background: -moz-linear-gradient(top, #3e3c3d 0%, #2d2c2d 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3e3c3d), color-stop(100%, #2d2c2d));
-    background: -webkit-linear-gradient(top, #3e3c3d 0%, #2d2c2d 100%);
-    background: -o-linear-gradient(top, #3e3c3d 0%, #2d2c2d 100%);
-    background: -ms-linear-gradient(top, #3e3c3d 0%, #2d2c2d 100%);
-    background: linear-gradient(to bottom, #3e3c3d 0%, #2d2c2d 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3e3c3d', endColorstr='#2d2c2d', GradientType=0);
+#mainDashboard{
+	padding: 60px;
+	float: left;
 }
 
-#hamburger {
-    border: 1px solid #374C77;
-    border-radius: 3px 3px 3px 3px;
-    cursor: pointer;
-    display: block;
-    height: 24px;
-    padding: 3px 4px 3px;
-    position: relative;
-    width: 25px;
-    background: #4569b2;
-    background: -moz-linear-gradient(top, #4569b2 0%, #4062a5 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #4569b2), color-stop(100%, #4062a5));
-    background: -webkit-linear-gradient(top, #4569b2 0%, #4062a5 100%);
-    background: -o-linear-gradient(top, #4569b2 0%, #4062a5 100%);
-    background: -ms-linear-gradient(top, #4569b2 0%, #4062a5 100%);
-    background: linear-gradient(to bottom, #4569b2 0%, #4062a5 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4569b2', endColorstr='#4062a5', GradientType=0);
-}
-
-/*
-The white stripes in the hamburger button
-*/
-#hamburger div {
-    background-color: #fff;
-    border: 1px solid #eee;
-    border-radius: 2px 2px 2px 2px;
-    height: 2px;
-    margin-top: 3px;
-    width: 90%;
-}
-
-header {
-    background-color: #3b5998;
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    position: relative;
-    width: 100%;
-    z-index: 1;
-    -webkit-box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.4);
-    box-shadow: 0px 3px 7px 0px rgba(0, 0, 0, 0.4);
-}
-
-#content {
-    background-color: #FFFFFF;
-    position: relative;
-    width: auto;
-    height: 100%;
-    -webkit-box-shadow: -10px 0px 9px 0px rgba(0, 0, 0, 0.4);
-    box-shadow: -10px 0px 9px 0px rgba(0, 0, 0, 0.4);
-    display: block;
-}
-
-#contentLayer {
-    display: none;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 30%;
-    z-index: 5;
-}
-
-nav ul {
-    list-style: none;
-    margin: 0;
-    width: 100%;
-    padding: 0;
-}
-
-nav li {
-    position: relative;
-    font-size: 1em;
-    font-weight: bold;
-    border-bottom: 1px solid #222222;
-    border-top: 1px solid #444444;
-    padding: 15px;
-}
-
-nav li a {
-    color: #fff;
-    text-decoration: none;
-}
