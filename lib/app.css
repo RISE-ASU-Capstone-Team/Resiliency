@@ -103,6 +103,12 @@ body {
   display: block;
 }
 
+#MenuSample{
+  width:auto;
+  height: auto;
+  display:block;
+}
+
 #container{
     position:relative;
 }

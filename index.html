@@ -15,19 +15,59 @@
     <script src="lib/bootstrap.js"></script>
     <link rel="stylesheet" href="lib/bootstrap.css" />
     <link rel="stylesheet" href="lib/app.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 </head>
 <body>
 
         <div id="container">
              <div id="sideBar" class="sideBar">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">Menu 1</a></li>
-                    <li><a href="#">Menu 2</a></li>
-                    <li><a href="#">Menu 3</a></li>
-                </ul>
-            </div>           
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home">PROJECT</a></li>
+                    <li><a data-toggle="tab" href="#menu1">POWER</a></li>
+                    <li><a data-toggle="tab" href="#menu2">WATER</a></li>
+                    <li><a data-toggle="tab" href="#menu3">ROAD</a></li>
+                  </ul>
+
+                  <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                      <h3>PROJECT</h3>
+                        <p>Nodes: 10</p>
+                        <p>Connections: 4</p>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                      <h3>POWER</h3>
+                        <p>Nodes: 10</p>
+                        <p>Connections: 4</p>
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                      <h3>WATER</h3>
+                        <p>Nodes: 10</p>
+                        <p>Connections: 4</p>
+                    </div>
+                    <div id="menu3" class="tab-pane fade">
+                      <h3>ROAD</h3>
+                        <p>Nodes: 10</p>
+                        <p>Connections: 4</p>
+                    </div>
+                  </div>
+
+              </br>
+              </br>
+              --------------------------------------
+                    <div id="MenuSample" class="MenuSample">
+                            <p>OBJECTS</p>
+                            <p> Generation</p>
+                            <p> Conversion</p>
+                            <p> Loads</p>
+
+
+                    </div>
+            </div>  
+
         <div class="col-md-4 collapse"></div>
         
      </div>
@@ -39,6 +79,9 @@
                     <li><a href="#">Menu 3</a></li>
                 </ul>
             </div>   
+
+
+
      <script src="main.js"></script>
 </body>
 </html>

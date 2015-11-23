@@ -42,7 +42,7 @@ function render() {
 }
 
 function init() {
-    var canvasWidth = window.innerWidth-375;
+    var canvasWidth = window.innerWidth-400;
     var canvasHeight = window.innerHeight-150;
 
 
