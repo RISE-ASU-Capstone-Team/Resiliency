@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <title>Yep</title>
-    <script src="lib/jquery-1.8.3.min.js"></script>
-    <script src="lib/three.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>    <script src="lib/three.min.js"></script>
     <script src="lib/Detector.js"></script>
     <script src="lib/Coordinates.js"></script>
     <script src="lib/uclass_shaders.js"></script>
@@ -22,7 +21,27 @@
 
 </head>
 <body>
+	
+	<nav id="leftBar" class="leftBar">
+      <ul id="leftBarTabs">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Menu 1</a></li>
+        <li><a href="#">Menu 2</a></li>
+        <li><a href="#">Menu 3</a></li>
+      </ul>
+    </nav>
+	<div id="contentLayer"></div>
+	<div id="body">
+	<header>
+      <div id="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </header>
+    
 
+    <section id="content">
         <div id="container">
              <div id="sideBar" class="sideBar">
                   <ul class="nav nav-tabs">
@@ -71,14 +90,8 @@
         <div class="col-md-4 collapse"></div>
         
      </div>
-            <div id="leftBar" class="leftBar">
-                <ul id="leftBarTabs">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">Menu 1</a></li>
-                    <li><a href="#">Menu 2</a></li>
-                    <li><a href="#">Menu 3</a></li>
-                </ul>
-            </div>   
+     </section>
+  </div>
 
 
 
