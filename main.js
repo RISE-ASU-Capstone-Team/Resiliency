@@ -92,7 +92,8 @@ $("#hamburger").click(function()
       duration: 70,
       complete: function() {
         $('nav').css('opacity', 0);
-      }
+		$('#contentLayer').css('display', 'none');      
+	}
     });
   });
 

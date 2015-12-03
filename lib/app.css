@@ -151,5 +151,7 @@ nav li a {
 }
 
 canvas {
+	height: auto;
+	width: auto;
 	pointer-events: auto;
 }
