@@ -38,6 +38,31 @@ app.get('/:name', function (req, res, next) {
 
 });
 
+//Recieve files from /src/ directory.
+app.get('/src/:name', function (req, res, next) {
+
+  var options = {
+    root: __dirname + '/src/',
+    dotfiles: 'allow',
+    headers: {
+        'x-timestamp': Date.now(),
+        'x-sent': true
+    }
+  };
+
+  var fileName = req.params.name;
+  res.sendFile(fileName, options, function (err) {
+    if (err) {
+      console.log(err);
+      res.status(err.status).end();
+    }
+    else {
+      console.log('Sent:', fileName);
+    }
+  });
+
+});
+
 //Recieve files from /lib/ directory.
 app.get('/lib/:name', function (req, res, next) {
 
