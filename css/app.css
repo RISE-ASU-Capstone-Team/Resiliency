@@ -27,11 +27,13 @@ body {
     height: 50%;
     float: left;
     position: relative;
-
 }
 #map {
   height: 400px;
   width: 400px;
+}
+#editor{
+  height: 100px;
 }
 
 nav {
