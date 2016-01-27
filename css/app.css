@@ -33,7 +33,7 @@ body {
   width: 400px;
 }
 #editor{
-  height: 100px;
+  height: 300px;
 }
 
 nav {
@@ -58,7 +58,6 @@ nav {
     background: linear-gradient(to bottom, #3e3c3d 0%, #2d2c2d 100%);
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3e3c3d', endColorstr='#2d2c2d', GradientType=0);
 }
-
 
 header {
     background-color: #3b5998;
