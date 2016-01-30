@@ -1,0 +1,47 @@
+div.scroll {
+    width: 400px;
+    height: 545px;
+    overflow: scroll;
+    margin: auto;
+    padding: 20px;
+}
+
+tr:hover{background-color:#f5f5f5}
+
+html *
+{
+   font-family: helvetica !important;
+}
+
+td.rowName{
+	font-weight: bold;
+	color: rgb(59, 89, 152);
+	padding-left: 10px;
+	font-size:18px;
+}
+
+td.rowData{
+	color: rgb(102,102,102);
+	font-size:16px;
+}
+td.topRow{
+	padding-top: 12px;
+}
+
+td{
+	padding: 2px;
+}
+
+td.tableHeader{
+	background-color: rgb(59, 89, 152);
+    color: white;
+    padding: 6px;
+    text-align: center;
+    font-size:22px;
+    font-weight: bold;
+}
+
+div.blueTable{
+
+	box-shadow: 0 0 8px #888;
+}

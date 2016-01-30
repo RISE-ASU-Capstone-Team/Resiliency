@@ -9,7 +9,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 }).addTo(map);
 
 $.ajax({
-    url: "\\static\\testpoints.json",
+    url: "\\data\\testpoints.json",
     success: function (data) {
         var obj = JSON.parse(data);
         console.log(obj);
