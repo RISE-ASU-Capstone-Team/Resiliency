@@ -12,9 +12,20 @@ var jsonObjectTest =
     }
 }
 
+var networkWaterJSON=
+{
+    "junctions":"4,000",
+    "reservoirs":"15",
+    "tanks":"5",
+    "pipes":"5,000",
+    "pumps":"10",
+    "valves":"30"
+
+}
+
 
 jsontoTable(jsonObjectTest)
-
+waterNetworkTable(networkWaterJSON)
 
 function jsontoTable(jsonObject){
     // var jsOBject = {};
@@ -36,4 +47,19 @@ function jsontoTable(jsonObject){
 	document.getElementById("temperature").innerHTML=jsonObject.project.temperature;
 	document.getElementById("description").innerHTML=jsonObject.project.description;
 	
+}
+
+function waterNetworkTable(networkWaterJSON){
+
+    document.getElementById("junctions").innerHTML=networkWaterJSON.junctions;
+    document.getElementById("reservoirs").innerHTML=networkWaterJSON.reservoirs;
+    document.getElementById("tanks").innerHTML=networkWaterJSON.tanks;
+    document.getElementById("pipes").innerHTML=networkWaterJSON.pipes;
+    document.getElementById("pumps").innerHTML=networkWaterJSON.pumps;
+    document.getElementById("valves").innerHTML=networkWaterJSON.valves;
+
+
+
+
+    
 }

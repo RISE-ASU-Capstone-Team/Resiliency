@@ -30,6 +30,7 @@ td.topRow{
 
 td{
 	padding: 2px;
+    
 }
 
 td.tableHeader{
@@ -39,9 +40,11 @@ td.tableHeader{
     text-align: center;
     font-size:22px;
     font-weight: bold;
+    width: 345px;
 }
 
 div.blueTable{
 
 	box-shadow: 0 0 8px #888;
+    width: 345px;
 }
