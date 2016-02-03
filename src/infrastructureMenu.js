@@ -1,19 +1,16 @@
-var jsonObjectTest = 
-{
-
-        "name": "IEEE 123 Bus Feeder",
-        "type": "SG: Unbalanced",
-        "format": "ANSI standard",
-        "transformerDelta": "Dyn 1",
-        "units": ["     Imperial","(kV) kilovolts","(kA) kiloamps","(kVA) kvolt-amp"],
-        "frequency": "  60 Hz",
-        "temperature": "(F) Fahrenheit",
-        "description": "The IEEE 123 node test",
+var jsonObjectTest = {
+    "name": "IEEE 123 Bus Feeder",
+    "type": "SG: Unbalanced",
+    "format": "ANSI standard",
+    "transformerDelta": "Dyn 1",
+    "units": ["     Imperial","(kV) kilovolts","(kA) kiloamps","(kVA) kvolt-amp"],
+    "frequency": "  60 Hz",
+    "temperature": "(F) Fahrenheit",
+    "description": "The IEEE 123 node test",
     
 }
 
-var networkWaterJSON =
-{
+var networkWaterJSON = {
     "junctions":"4,000",
     "reservoirs":"15",
     "tanks":"5",
@@ -23,8 +20,7 @@ var networkWaterJSON =
 
 }
 
-var projectJSON =
-{
+var projectJSON = {
     "projectName":"My Awesome Project",
     "projectCreation":"2/1/16",
     "projectDescription":"Some power, water and road stuff going on here"
@@ -36,7 +32,7 @@ jsontoTable(jsonObjectTest)
 
 
 
-function projectDescriptionTable(projectJSON){
+function projectDescriptionTable(projectJSON) {
 
     document.getElementById("projectName").innerHTML=projectJSON.projectName;
     document.getElementById("projectCreation").innerHTML=projectJSON.projectCreation;
@@ -44,7 +40,7 @@ function projectDescriptionTable(projectJSON){
   
 
 }
-function jsontoTable(jsonObject){
+function jsontoTable(jsonObject) {
     // var jsOBject = {};
     // try {
     // jsOBject =
@@ -66,7 +62,7 @@ function jsontoTable(jsonObject){
 	
 }
 
-function waterNetworkTable(JSON){
+function waterNetworkTable(JSON) {
 
     document.getElementById("junctions").innerHTML=JSON.junctions;
     document.getElementById("reservoirs").innerHTML=JSON.reservoirs;
