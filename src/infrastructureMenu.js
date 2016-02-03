@@ -1,6 +1,6 @@
 var jsonObjectTest = 
 {
-    "project": {
+
         "name": "IEEE 123 Bus Feeder",
         "type": "SG: Unbalanced",
         "format": "ANSI standard",
@@ -9,10 +9,10 @@ var jsonObjectTest =
         "frequency": "  60 Hz",
         "temperature": "(F) Fahrenheit",
         "description": "The IEEE 123 node test",
-    }
+    
 }
 
-var networkWaterJSON=
+var networkWaterJSON =
 {
     "junctions":"4,000",
     "reservoirs":"15",
@@ -23,10 +23,27 @@ var networkWaterJSON=
 
 }
 
+var projectJSON =
+{
+    "projectName":"My Awesome Project",
+    "projectCreation":"2/1/16",
+    "projectDescription":"Some power, water and road stuff going on here"
+}
 
-jsontoTable(jsonObjectTest)
 waterNetworkTable(networkWaterJSON)
+projectDescriptionTable(projectJSON)
+jsontoTable(jsonObjectTest)
 
+
+
+function projectDescriptionTable(projectJSON){
+
+    document.getElementById("projectName").innerHTML=projectJSON.projectName;
+    document.getElementById("projectCreation").innerHTML=projectJSON.projectCreation;
+    document.getElementById("projectDescription").innerHTML=projectJSON.projectDescription;
+  
+
+}
 function jsontoTable(jsonObject){
     // var jsOBject = {};
     // try {
@@ -49,17 +66,13 @@ function jsontoTable(jsonObject){
 	
 }
 
-function waterNetworkTable(networkWaterJSON){
+function waterNetworkTable(JSON){
 
-    document.getElementById("junctions").innerHTML=networkWaterJSON.junctions;
-    document.getElementById("reservoirs").innerHTML=networkWaterJSON.reservoirs;
-    document.getElementById("tanks").innerHTML=networkWaterJSON.tanks;
-    document.getElementById("pipes").innerHTML=networkWaterJSON.pipes;
-    document.getElementById("pumps").innerHTML=networkWaterJSON.pumps;
-    document.getElementById("valves").innerHTML=networkWaterJSON.valves;
+    document.getElementById("junctions").innerHTML=JSON.junctions;
+    document.getElementById("reservoirs").innerHTML=JSON.reservoirs;
+    document.getElementById("tanks").innerHTML=JSON.tanks;
+    document.getElementById("pipes").innerHTML=JSON.pipes;
+    document.getElementById("pumps").innerHTML=JSON.pumps;
+    document.getElementById("valves").innerHTML=JSON.valves;
 
-
-
-
-    
 }
