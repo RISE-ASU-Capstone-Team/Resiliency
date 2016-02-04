@@ -77,16 +77,34 @@
    ] \
  }";
 
- var testObj = JSON.parse(testData);
- loadPanelObjects(testObj);
+ var componentsArr = null;
+
+ //initEditorPanel();
+
+ function initEditorPanel() {
+   var testObj = JSON.parse(testData);
+   componentsArr = new Array();
+
+   loadPanelObjects(testObj);
+}
 
 function loadPanelObjects(jsonobj) {
-  console.log(jsonobj);
+  //console.log(jsonobj);
 
   for (var i = 0; i < jsonobj.Components.length; i++) {
     var component = jsonobj.Components[i]
     var img = document.createElement("img");
+    img.class = "dragComponent";
     img.src = component.Icon;
+    img.style = "width:64px;height:64px;"
+    img.draggable="true";
+    img.dataset.RiseVariableName=component.RiseVariableName;
+    //img.ondragstart = function(ev) {
+    //    ev.dataTransfer.setData("componentVariableName", ev.target.dataset.RiseVariableName);
+    //  };
+
+    componentsArr[component.RiseVariableName] = component;
+    createLeafletIcon(component.RiseVariableName, img.src);
 
     var src = null;
     if (component.System = "Power") {
@@ -98,4 +116,18 @@ function loadPanelObjects(jsonobj) {
     }
     src.appendChild(img);
   }
+}
+
+function allowDropComponent(ev) {
+    ev.preventDefault();
+}
+
+function dropComponent(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("componentVariableName");
+    if (data != null) {
+      var component = componentsArr[data];
+      //console.log(component);
+
+    }
 }
