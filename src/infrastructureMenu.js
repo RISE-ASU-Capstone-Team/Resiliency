@@ -7,7 +7,7 @@ var jsonObjectTest = {
     "frequency": "  60 Hz",
     "temperature": "(F) Fahrenheit",
     "description": "The IEEE 123 node test",
-    
+
 }
 
 var networkWaterJSON = {
@@ -37,7 +37,7 @@ function projectDescriptionTable(projectJSON) {
     document.getElementById("projectName").innerHTML=projectJSON.projectName;
     document.getElementById("projectCreation").innerHTML=projectJSON.projectCreation;
     document.getElementById("projectDescription").innerHTML=projectJSON.projectDescription;
-  
+
 
 }
 function jsontoTable(jsonObject) {
@@ -48,7 +48,7 @@ function jsontoTable(jsonObject) {
     //    return JSON.parse(jsonObject);
     // } catch (e) {
     //     return null;
-    //   console.log("Error when reading from Local Storage\n" + e);        
+    //   console.log("Error when reading from Local Storage\n" + e);
     // }
 
 	document.getElementById("name").innerHTML=jsonObject.name;
@@ -59,7 +59,7 @@ function jsontoTable(jsonObject) {
 	document.getElementById("frequency").innerHTML=jsonObject.frequency;
 	document.getElementById("temperature").innerHTML=jsonObject.temperature;
 	document.getElementById("description").innerHTML=jsonObject.description;
-	
+
 }
 
 function waterNetworkTable(JSON) {
