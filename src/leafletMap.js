@@ -16,55 +16,14 @@ $.ajax({
     }
 });
 
+function addMarkerToMap(position, icon) {
 
-$(document).ready(function() {
+    var options = {
+          icon: icon,
+          clickable: true,
+          draggable: true,
+          keyboard: false
+        };
 
-  initEditorPanel();
-
-	// Drag & Drop
-	$(".dragComponent").draggable({
-		helper: 'clone',		// GJS - Sets that the item should be "cloned" instead of moved.
-		containment: 'map', // Only can be dragged within the map element
-		start: function(evt, ui) {
-			//$('#box').fadeTo('fast', 0.6, function() {});
-		},
-		stop: function(evt, ui) {
-			//$('#box').fadeTo('fast', 1.0, function() {});
-
-			var options = {
-				pid: guid(),
-				type: ui.helper.attr('type'),
-				icon: eval(ui.helper.attr('type') + 'Icon'),
-				draggable: true
-			};
-
-			insertPoint(
-				map.containerPointToLatLng([ui.offset.left, ui.offset.top]),
-				options
-			);
-		}
-	});
-});
-
-function insertPoint(position,options) {
-
-	var point = L.marker(position,options).addTo(map);
-
-	point.on('dragend', function(evt){
-		updatePoint(point);
-	});
-
-	markers.push(point);
-}
-
-var icons = [];
-function createLeafletIcon(key, imgPath) {
-  var newIcon = new L.Icon({
-		    options: {
-		        iconSize: [30,30],
-		        iconAnchor: [0,0],
-            iconUrl:imgPath
-		    }
-		});
-  icons[key] = newIcon;
+    var point = L.marker(position, options).addTo(map);
 }

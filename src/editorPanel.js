@@ -79,7 +79,7 @@
 
  var componentsArr = null;
 
- //initEditorPanel();
+ initEditorPanel();
 
  function initEditorPanel() {
    var testObj = JSON.parse(testData);
@@ -102,9 +102,9 @@ function loadPanelObjects(jsonobj) {
     //img.ondragstart = function(ev) {
     //    ev.dataTransfer.setData("componentVariableName", ev.target.dataset.RiseVariableName);
     //  };
+    img.ondragend = dropComponent;
 
     componentsArr[component.RiseVariableName] = component;
-    createLeafletIcon(component.RiseVariableName, img.src);
 
     var src = null;
     if (component.System = "Power") {
@@ -124,10 +124,26 @@ function allowDropComponent(ev) {
 
 function dropComponent(ev) {
     ev.preventDefault();
-    var data = ev.dataTransfer.getData("componentVariableName");
+    //var data = ev.dataTransfer.getData("componentVariableName");
+    var data = ev.target.dataset.RiseVariableName;
     if (data != null) {
       var component = componentsArr[data];
-      //console.log(component);
+      var latlng = map.containerPointToLatLng([ev.x, ev.y]);
+
+      var newIcon = new L.Icon({
+          options: {
+            iconSize: [30,30],
+            iconUrl: component.Icon}
+          });
+      var options = {
+						icon: newIcon,
+						clickable: true,
+						draggable: true,
+            keyboard: false
+          };
+
+      var point = L.marker(latlng).addTo(map);
+      //addMarkerToMap(latlng)
 
     }
 }
