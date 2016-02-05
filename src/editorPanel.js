@@ -130,13 +130,6 @@ function dropComponent(ev) {
       var component = componentsArr[data];
       var latlng = map.containerPointToLatLng([ev.x, ev.y]);
 
-      var compIcon = L.Icon.extend({
-      			options: {
-      				iconSize:     [30, 30],
-      				iconAnchor:   [0, 0]
-      			}
-      		});
-
       var newIcon = new compIcon({iconUrl: component.Icon});
 
       var options = {
@@ -146,8 +139,6 @@ function dropComponent(ev) {
             keyboard: false
           };
 
-      var point = L.marker(latlng, {icon: newIcon}).addTo(map);
-      //addMarkerToMap(latlng)
-
+      addMarkerToMap(latlng, options);
     }
 }
