@@ -31,6 +31,11 @@ var compIcon = L.Icon.extend({
     });
 
 map.on('zoomend', handleMapZoom);
+/*
+map.on('click', function(e) {
+    console.log("1) Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
+    var newMarker = L.marker(e.latlng, {icon: new compIcon({iconUrl: "data/FixedResister-Icon.png"})}).addTo(map);
+});*/
 
 function handleMapZoom(e) {
   resizeMarkers();

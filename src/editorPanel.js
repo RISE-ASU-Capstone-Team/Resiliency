@@ -128,7 +128,11 @@ function dropComponent(ev) {
     var data = ev.target.dataset.RiseVariableName;
     if (data != null) {
       var component = componentsArr[data];
-      var latlng = map.containerPointToLatLng([ev.x, ev.y]);
+      var rect = map._container.getBoundingClientRect();
+      var x = ev.pageX - rect.left;
+      var y = ev.pageY - rect.top;
+      var latlng = map.containerPointToLatLng([x, y]);
+          console.log("2) Lat, Lon : " + latlng.lat + ", " + latlng.lng)
 
       var newIcon = new compIcon({iconUrl: component.Icon});
 
