@@ -99,9 +99,7 @@ function loadPanelObjects(jsonobj) {
     img.style = "width:64px;height:64px;"
     img.draggable="true";
     img.dataset.RiseVariableName=component.RiseVariableName;
-    //img.ondragstart = function(ev) {
-    //    ev.dataTransfer.setData("componentVariableName", ev.target.dataset.RiseVariableName);
-    //  };
+    img.ondragstart = dragStartComponent;
     img.ondragend = dropComponent;
 
     componentsArr[component.RiseVariableName] = component;
@@ -122,6 +120,11 @@ function allowDropComponent(ev) {
     ev.preventDefault();
 }
 
+function dragStartComponent(ev) {
+    //ev.dataTransfer.setData("componentVariableName", ev.target.dataset.RiseVariableName);
+    ev.dataTransfer.setDragImage(ev.target, ev.target.width/2.0, ev.target.height/2.0);
+}
+
 function dropComponent(ev) {
     ev.preventDefault();
     //var data = ev.dataTransfer.getData("componentVariableName");
@@ -132,9 +135,11 @@ function dropComponent(ev) {
       var x = ev.pageX - rect.left;
       var y = ev.pageY - rect.top;
       var latlng = map.containerPointToLatLng([x, y]);
-          console.log("2) Lat, Lon : " + latlng.lat + ", " + latlng.lng)
 
-      var newIcon = new compIcon({iconUrl: component.Icon});
+      var newIcon = new compIcon({
+          iconUrl: component.Icon,
+          iconAnchor: [defaultIconSize.x/2.0, defaultIconSize.y/2.0]
+        });
 
       var options = {
 						icon: newIcon,

@@ -16,7 +16,7 @@ $.ajax({
     }
 });
 
-var defaultIconSize = new L.Point(30, 30);
+var defaultIconSize = new L.Point(64, 64);
 var markers = [];
 function addMarkerToMap(position, options) {
     var newMarker = L.marker(position, options).addTo(map);
@@ -25,7 +25,7 @@ function addMarkerToMap(position, options) {
 
 var compIcon = L.Icon.extend({
       options: {
-        iconSize: [30, 30],
+        iconSize: defaultIconSize,
         iconAnchor: [0, 0]
       }
     });
@@ -53,7 +53,7 @@ function resizeMarkers() {
     var newIconSize = transformation.transform(defaultIconSize, sizeFactor(currentZoom));
 
     // adjust the icon anchor to the new size
-    var newIconAnchor = new L.Point(Math.round(newIconSize.x / 2), newIconSize.y);
+    var newIconAnchor = new L.Point(Math.round(newIconSize.x / 2), Math.round(newIconSize.y / 2));
 
     // finally, declare a new icon and update the marker
     var newIcon = new compIcon({
