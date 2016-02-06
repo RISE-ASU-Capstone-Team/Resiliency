@@ -77,16 +77,32 @@
    ] \
  }";
 
- var testObj = JSON.parse(testData);
- loadPanelObjects(testObj);
+ var componentsArr = null;
+
+ initEditorPanel();
+
+ function initEditorPanel() {
+   var testObj = JSON.parse(testData);
+   componentsArr = new Array();
+
+   loadPanelObjects(testObj);
+}
 
 function loadPanelObjects(jsonobj) {
-  console.log(jsonobj);
+  //console.log(jsonobj);
 
   for (var i = 0; i < jsonobj.Components.length; i++) {
     var component = jsonobj.Components[i]
     var img = document.createElement("img");
+    img.class = "dragComponent";
     img.src = component.Icon;
+    img.style = "width:64px;height:64px;"
+    img.draggable="true";
+    img.dataset.RiseVariableName=component.RiseVariableName;
+    img.ondragstart = dragStartComponent;
+    img.ondragend = dropComponent;
+
+    componentsArr[component.RiseVariableName] = component;
 
     var src = null;
     if (component.System = "Power") {
@@ -98,4 +114,40 @@ function loadPanelObjects(jsonobj) {
     }
     src.appendChild(img);
   }
+}
+
+function allowDropComponent(ev) {
+    ev.preventDefault();
+}
+
+function dragStartComponent(ev) {
+    //ev.dataTransfer.setData("componentVariableName", ev.target.dataset.RiseVariableName);
+    ev.dataTransfer.setDragImage(ev.target, ev.target.width/2.0, ev.target.height/2.0);
+}
+
+function dropComponent(ev) {
+    ev.preventDefault();
+    //var data = ev.dataTransfer.getData("componentVariableName");
+    var data = ev.target.dataset.RiseVariableName;
+    if (data != null) {
+      var component = componentsArr[data];
+      var rect = map._container.getBoundingClientRect();
+      var x = ev.pageX - rect.left;
+      var y = ev.pageY - rect.top;
+      var latlng = map.containerPointToLatLng([x, y]);
+
+      var newIcon = new compIcon({
+          iconUrl: component.Icon,
+          iconAnchor: [defaultIconSize.x/2.0, defaultIconSize.y/2.0]
+        });
+
+      var options = {
+						icon: newIcon,
+						clickable: true,
+						draggable: true,
+            keyboard: false
+          };
+
+      addMarkerToMap(latlng, options);
+    }
 }

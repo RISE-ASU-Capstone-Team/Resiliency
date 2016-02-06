@@ -15,3 +15,66 @@ $.ajax({
         console.log(obj);
     }
 });
+
+var defaultIconSize = new L.Point(64, 64);
+var markers = [];
+function addMarkerToMap(position, options) {
+    var newMarker = L.marker(position, options).addTo(map);
+    markers.push(newMarker);
+}
+
+var compIcon = L.Icon.extend({
+      options: {
+        iconSize: defaultIconSize,
+        iconAnchor: [0, 0]
+      }
+    });
+
+map.on('zoomend', handleMapZoom);
+/*
+map.on('click', function(e) {
+    console.log("1) Lat, Lon : " + e.latlng.lat + ", " + e.latlng.lng)
+    var newMarker = L.marker(e.latlng, {icon: new compIcon({iconUrl: "data/FixedResister-Icon.png"})}).addTo(map);
+});*/
+
+function handleMapZoom(e) {
+  resizeMarkers();
+}
+
+function resizeMarkers() {
+
+  // use leaflet's internal methods to scale the size (a bit overkill for this case...)
+  var transformation = new L.Transformation(1, 0, 1, 0);
+
+  var currentZoom = map.getZoom();
+
+  for (var i = 0; i < markers.length; i++) {
+    var marker = markers[i];
+    var newIconSize = transformation.transform(defaultIconSize, sizeFactor(currentZoom));
+
+    // adjust the icon anchor to the new size
+    var newIconAnchor = new L.Point(Math.round(newIconSize.x / 2), Math.round(newIconSize.y / 2));
+
+    // finally, declare a new icon and update the marker
+    var newIcon = new compIcon({
+        iconUrl: marker._icon.src,
+        iconSize: newIconSize,
+        iconAnchor: newIconAnchor
+      });
+    marker.setIcon(newIcon);
+  }
+}
+
+function sizeFactor(zoom) {
+  if (zoom <= 8) return 0.3;
+  else if (zoom == 9) return 0.4;
+  else if (zoom == 10) return 0.5;
+  else if (zoom == 11) return 0.7;
+  else if (zoom == 12) return 0.85;
+  else if (zoom == 13) return 1.0;
+  else if (zoom == 14) return 1.3;
+  else if (zoom == 15) return 1.6;
+  else if (zoom == 16) return 1.9;
+  else // zoom >= 17
+  return 2.2;
+}
