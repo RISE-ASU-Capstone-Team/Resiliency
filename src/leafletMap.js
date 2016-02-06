@@ -51,12 +51,11 @@ function resizeMarkers() {
     var newIconAnchor = new L.Point(Math.round(newIconSize.x / 2), newIconSize.y);
 
     // finally, declare a new icon and update the marker
-    var newIcon = new L.Icon.Default({
-      iconSize: newIconSize,
-      iconAnchor: newIconAnchor,
-      shadowSize: newShadowSize,
-    });
-
+    var newIcon = new compIcon({
+        iconUrl: marker._icon.src,
+        iconSize: newIconSize,
+        iconAnchor: newIconAnchor
+      });
     marker.setIcon(newIcon);
   }
 }
