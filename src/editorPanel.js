@@ -100,6 +100,7 @@ function loadPanelObjects(jsonobj) {
     img.style = "width:64px;height:64px;"
     img.draggable="true";
     img.dataset.RiseVariableName=component.RiseVariableName;
+    img.title = component.Description;
 
     componentsArr[component.RiseVariableName] = component;
 
@@ -131,11 +132,11 @@ $(document).ready(function() {
     	//create a custom drag image
     	dragIcon = document.createElement('img');
     	dragIcon.src = ev.target.src;
-      dragIcon.width(64);
-      dragIcon.height(64);
+      //dragIcon.width = 64;
+      //dragIcon.height = 64;
 
     	//set the custom drag image
-    	dt.setDragImage(dragIcon, 64, 64);
+    	dt.setDragImage(dragIcon, dragIcon.width/2.0, dragIcon.height/2.0);
     });
   $("#editor .tab-pane")
     .bind("dragend", function(ev) {
