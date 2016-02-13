@@ -77,9 +77,9 @@
    ] \
  }";
 
- var componentsArr = null;
+var componentsArr = null;
 
- initEditorPanel();
+initEditorPanel();
 
  function initEditorPanel() {
    var testObj = JSON.parse(testData);
@@ -95,13 +95,11 @@ function loadPanelObjects(jsonobj) {
     var component = jsonobj.Components[i]
     var img = document.createElement("img");
     img.class = "dragComponent";
+    img.className = "dragComponent";
     img.src = component.Icon;
     img.style = "width:64px;height:64px;"
     img.draggable="true";
     img.dataset.RiseVariableName=component.RiseVariableName;
-    img.ondragstart = dragStartComponent;
-    //img.ondrag = dragComponent;
-    img.ondragend = dropComponent;
 
     componentsArr[component.RiseVariableName] = component;
 
@@ -118,60 +116,68 @@ function loadPanelObjects(jsonobj) {
 }
 
 var dragMousePositionX, dragMousePositionY;
-//function dragComponent(ev) {
-//}
 
-function allowDropComponent(ev) {
-    ev.preventDefault();
-}
+$(document).ready(function() {
+  $("#editor .tab-pane")
+    .bind("dragstart", function(ev) {
+      if (!$(ev.target).hasClass("dragComponent")) return true;
 
-function dragStartComponent(ev) {
-    //ev.dataTransfer.setData("componentVariableName", ev.target.dataset.RiseVariableName);
-    ev.dataTransfer.setDragImage(ev.target, ev.target.width/2.0, ev.target.height/2.0);
-}
+      var dt = ev.originalEvent.dataTransfer;
+      var dragIcon = null;
 
-function mapDragEnter(ev) {
-    ev.preventDefault();
-}
+    	//set a reference to the element that is currenly being dragged
+    	dt.setData("id",ev.target.id);
 
-function mapDragOver(ev) {
-  //ev=ev.originalEvent;
-  //console.log(ev);
-  var potentialX, potentialY;
-   potentialX=ev.clientX||ev.pageX;
-   potentialY=ev.clientY||ev.pageY;
-  if (potentialX > 0 || potentialY > 0) {
-     dragMousePositionX=potentialX;
-     dragMousePositionY=potentialY;
-     //console.log('clientX:' + ev.clientX + " clientY:" + ev.clientY + ' || pageX:' + ev.pageX + " pageY:" + ev.pageY);
-   }
-}
+    	//create a custom drag image
+    	dragIcon = document.createElement('img');
+    	dragIcon.src = ev.target.src;
+      dragIcon.width(64);
+      dragIcon.height(64);
 
-function dropComponent(ev) {
-    ev.preventDefault();
-    //var data = ev.dataTransfer.getData("componentVariableName");
-    var data = ev.target.dataset.RiseVariableName;
-    if (data != null) {
-      var component = componentsArr[data];
-      var rect = map._container.getBoundingClientRect();
-      //var x = ev.pageX - rect.left;
-      //var y = ev.pageY - rect.top;
-      var x =dragMousePositionX - rect.left;
-      var y = dragMousePositionY - rect.top;
-      var latlng = map.containerPointToLatLng([x, y]);
+    	//set the custom drag image
+    	dt.setDragImage(dragIcon, 64, 64);
+    });
+  $("#editor .tab-pane")
+    .bind("dragend", function(ev) {
+      if (!$(ev.target).hasClass("dragComponent")) return true;
 
-      var newIcon = new compIcon({
-          iconUrl: component.Icon,
-          iconAnchor: [defaultIconSize.x/2.0, defaultIconSize.y/2.0]
+      var e = ev.originalEvent;
+      var data = e.target.dataset.RiseVariableName;
+      if (data != null) {
+        var component = componentsArr[data];
+        var rect = map._container.getBoundingClientRect();
+        var x = dragMousePositionX - rect.left;
+        var y = dragMousePositionY - rect.top;
+        var latlng = map.containerPointToLatLng([x, y]);
+
+        var newIcon = new compIcon({
+            iconUrl: component.Icon,
+            iconAnchor: [defaultIconSize.x/2.0, defaultIconSize.y/2.0]
+          });
+
+        var options = {
+  						icon: newIcon,
+  						clickable: true,
+  						draggable: true,
+              keyboard: false
+            };
+
+        addMarkerToMap(latlng, options);
+      }
+    });
+    $('#map')
+      .bind("dragenter", function(ev) {
+          ev.preventDefault();
         });
-
-      var options = {
-						icon: newIcon,
-						clickable: true,
-						draggable: true,
-            keyboard: false
-          };
-
-      addMarkerToMap(latlng, options);
-    }
-}
+    $('#map')
+      .bind("dragover", function(ev) {
+        var e = ev.originalEvent;
+        var potentialX, potentialY;
+         potentialX=e.clientX||e.pageX;
+         potentialY=e.clientY||e.pageY;
+        if (potentialX > 0 || potentialY > 0) {
+           dragMousePositionX=potentialX;
+           dragMousePositionY=potentialY;
+         }
+    });
+});
