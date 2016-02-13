@@ -100,6 +100,7 @@ function loadPanelObjects(jsonobj) {
     img.draggable="true";
     img.dataset.RiseVariableName=component.RiseVariableName;
     img.ondragstart = dragStartComponent;
+    //img.ondrag = dragComponent;
     img.ondragend = dropComponent;
 
     componentsArr[component.RiseVariableName] = component;
@@ -116,6 +117,10 @@ function loadPanelObjects(jsonobj) {
   }
 }
 
+var dragMousePositionX, dragMousePositionY;
+//function dragComponent(ev) {
+//}
+
 function allowDropComponent(ev) {
     ev.preventDefault();
 }
@@ -125,6 +130,23 @@ function dragStartComponent(ev) {
     ev.dataTransfer.setDragImage(ev.target, ev.target.width/2.0, ev.target.height/2.0);
 }
 
+function mapDragEnter(ev) {
+    ev.preventDefault();
+}
+
+function mapDragOver(ev) {
+  //ev=ev.originalEvent;
+  //console.log(ev);
+  var potentialX, potentialY;
+   potentialX=ev.clientX||ev.pageX;
+   potentialY=ev.clientY||ev.pageY;
+  if (potentialX > 0 || potentialY > 0) {
+     dragMousePositionX=potentialX;
+     dragMousePositionY=potentialY;
+     //console.log('clientX:' + ev.clientX + " clientY:" + ev.clientY + ' || pageX:' + ev.pageX + " pageY:" + ev.pageY);
+   }
+}
+
 function dropComponent(ev) {
     ev.preventDefault();
     //var data = ev.dataTransfer.getData("componentVariableName");
@@ -132,8 +154,10 @@ function dropComponent(ev) {
     if (data != null) {
       var component = componentsArr[data];
       var rect = map._container.getBoundingClientRect();
-      var x = ev.pageX - rect.left;
-      var y = ev.pageY - rect.top;
+      //var x = ev.pageX - rect.left;
+      //var y = ev.pageY - rect.top;
+      var x =dragMousePositionX - rect.left;
+      var y = dragMousePositionY - rect.top;
       var latlng = map.containerPointToLatLng([x, y]);
 
       var newIcon = new compIcon({
