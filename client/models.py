@@ -11,4 +11,4 @@ class Power(models.Model):
     created_date = models.BigIntegerField(default=time.time())
 
     def __str__(self):
-        return self.title
+        return self.name
