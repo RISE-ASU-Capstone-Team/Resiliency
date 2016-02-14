@@ -35,6 +35,18 @@ body {
 #editor{
   height: 300px;
 }
+#editor_power{
+  height: 280px;
+  overflow-y: scroll;
+}
+#editor_water{
+  height: 280px;
+  overflow-y: scroll;
+}
+#editor_road{
+  height: 280px;
+  overflow-y: scroll;
+}
 
 nav {
     opacity: 0;
