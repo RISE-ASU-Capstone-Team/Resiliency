@@ -1,7 +1,7 @@
 
 
  $.ajax({
-     url: "\\data\\components.json",
+     url: "/static/components.json",
      success: function (data) {
          var obj = JSON.parse(data);
          loadPanelObjects(obj);
@@ -82,10 +82,10 @@ var componentsArr = null;
 initEditorPanel();
 
  function initEditorPanel() {
-   var testObj = JSON.parse(testData);
+   //var testObj = JSON.parse(testData);
    componentsArr = new Array();
 
-   loadPanelObjects(testObj);
+   //loadPanelObjects(testObj);
 }
 
 function loadPanelObjects(jsonobj) {
