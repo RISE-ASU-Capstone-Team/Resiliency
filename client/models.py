@@ -1,20 +1,14 @@
 from django.db import models
-from django.utils import timezone
+import time
 
 
 # Create your models here.
 class Power(models.Model):
-    author = models.ForeignKey('auth.User')
-    title = models.CharField(max_length=200)
-    text = models.TextField()
-    created_date = models.DateTimeField(
-            default=timezone.now)
-    published_date = models.DateTimeField(
-            blank=True, null=True)
-
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
+    name = models.CharField(max_length=100, default="")
+    type = models.IntegerField(default=0)
+    latitude = models.FloatField(max_length=50, default=0)
+    longitude = models.FloatField(max_length=50, default=0)
+    created_date = models.BigIntegerField(default=time.time())
 
     def __str__(self):
-        return self.title
+        return self.name

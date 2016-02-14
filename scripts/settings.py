@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'client',
 ]
 
@@ -113,6 +114,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "layout"),
     os.path.join(BASE_DIR, "src"),
     os.path.join(BASE_DIR, "data"),
+    os.path.join(BASE_DIR, "client/static"),
 ]
 
 

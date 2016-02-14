@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="clientApp">
 
 <head>
   <title>Resiliency Application</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <script src="/static/stats.min.js"></script>
+  <script src="/static/angular-1.4.9.js"></script>
+  <script src="/static/angular-route-1.4.9.js"></script>
+  <script src="/static/app.js"></script>
+  <script src="/static/controllers.js"></script>
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
@@ -14,7 +18,8 @@
   <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
   <link rel="stylesheet" href="/static/infrastructureMenu.css" />
   <link rel="stylesheet" href="/static/app.css" />
-  <link rel="stylesheet" href="/static/hamburgerMenu.css" </head>
+  <link rel="stylesheet" href="/static/hamburgerMenu.css" />
+</head>
 
   <body>
     <nav id="leftBar" class="leftBar">
