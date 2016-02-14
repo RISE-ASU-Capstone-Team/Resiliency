@@ -6,7 +6,7 @@
       "RiseVariableName": "genSynchronous",
       "Description": "Synchronous Generator",
       "OpenDssName": "null",
-      "Icon": "data/MultiCell-Icon.png",
+      "Icon": "/static/MultiCell-Icon.png",
       "Variables": [
         {
           "VariableName": "status",
@@ -38,7 +38,7 @@
       "RiseVariableName": "genSolarPVMod",
       "Description": "Solar PV Module",
       "OpenDssName": "null",
-      "Icon": "data/FixedResister-Icon.png",
+      "Icon": "/static/FixedResister-Icon.png",
       "Variables": [
         {
           "VariableName": "capacity",
