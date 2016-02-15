@@ -57,3 +57,7 @@ h3.NodeHeader{
 .NodeList{
   color: rgb(59, 89, 152);
 }
+
+div.attributesTable{
+  padding: 20px;
+}
