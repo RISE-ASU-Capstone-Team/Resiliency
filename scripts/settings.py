@@ -109,12 +109,12 @@ STATICFILES_FINDERS = (
 )
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "css"),
-    os.path.join(BASE_DIR, "lib"),
-    os.path.join(BASE_DIR, "layout"),
-    os.path.join(BASE_DIR, "src"),
     os.path.join(BASE_DIR, "data"),
     os.path.join(BASE_DIR, "client/static"),
+    os.path.join(BASE_DIR, "client/static/css"),
+    os.path.join(BASE_DIR, "client/static/layout"),
+    os.path.join(BASE_DIR, "client/static/lib"),
+    os.path.join(BASE_DIR, "client/static/src"),
 ]
 
 
