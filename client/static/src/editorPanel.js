@@ -41,6 +41,9 @@ $(document).ready(function() {
       loadPanelObjects(result);
   });
 
+  $("#editor").resize(function(ev) {
+    $("#editor_content").width($("#editor").width() - $("#editor_content").left());
+  });
   $("#editor .tab-pane")
     .bind("dragstart", function(ev) {
       if (!$(ev.target).hasClass("dragComponent")) return true;
@@ -88,19 +91,19 @@ $(document).ready(function() {
         addMarkerToMap(latlng, options);
       }
     });
-    $('#map')
-      .bind("dragenter", function(ev) {
-          ev.preventDefault();
-        });
-    $('#map')
-      .bind("dragover", function(ev) {
-        var e = ev.originalEvent;
-        var potentialX, potentialY;
-         potentialX=e.clientX||e.pageX;
-         potentialY=e.clientY||e.pageY;
-        if (potentialX > 0 || potentialY > 0) {
-           dragMousePositionX=potentialX;
-           dragMousePositionY=potentialY;
-         }
+  $('#map')
+    .bind("dragenter", function(ev) {
+        ev.preventDefault();
+      });
+  $('#map')
+    .bind("dragover", function(ev) {
+      var e = ev.originalEvent;
+      var potentialX, potentialY;
+       potentialX=e.clientX||e.pageX;
+       potentialY=e.clientY||e.pageY;
+      if (potentialX > 0 || potentialY > 0) {
+         dragMousePositionX=potentialX;
+         dragMousePositionY=potentialY;
+       }
     });
 });

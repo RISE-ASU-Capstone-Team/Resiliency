@@ -20,8 +20,6 @@
 </head>
 
 <body>
-
-
   <nav id="leftBar" class="leftBar">
     <ul id="leftBarTabs">
       <li class="active"><a href="#">Home</a></li>
@@ -32,8 +30,6 @@
   </nav>
   <div id="contentLayer"></div>
   <!-- Invisible layer for clicking out of HamburgerMenu -->
-
-
 
   <div id="body">
     <header>
@@ -48,69 +44,28 @@
       <div id="map"></div>
 
       <footer id="editor">
-      Editor Panel
-        <ul class="nav nav-tabs">
+      <!-- Editor Panel -->
+        <ul id="editor_tabs" class="nav nav-pills nav-stacked">
           <li class="active"><a data-toggle="tab" href="#editor_power">POWER</a></li>
           <li><a data-toggle="tab" href="#editor_water">WATER</a></li>
           <li><a data-toggle="tab" href="#editor_road">ROAD</a></li>
         </ul>
 
-        <div class="tab-content">
+        <div id="editor_content" class="tab-content">
           <div id="editor_power" class="tab-pane fade in active">
-            <p>Power Tab</p>
+            <p class="editor_content_header">Power Components</p>
           </div>
           <div id="editor_water" class="tab-pane fade">
-            <p>Water Tab</p>
+            <p class="editor_content_header">Water Components</p>
           </div>
           <div id="editor_road" class="tab-pane fade">
-            <p>Road Tab</p>
+            <p class="editor_content_header">Road Components</p>
           </div>
         </div>
       </footer>
     </section>
 
-
-
     <div id="sideBar" class="sideBar">
-
-      <div class="attributesTable">
-        <div class="blueTable">
-          <table>
-            <tr>
-              <td colspan="2" class="tableHeader">Component</td>
-            </tr>
-            <tr>
-              <td class="rowName" style="padding-top: 15px;"> Name:</td>
-              <td style="padding-top: 15px;" class="rowData" id="componentName">SG 1</td>
-            </tr>
-
-            <tr>
-              <td class="rowName"> Status:</td>
-              <td class="rowData" id="componentStatus">
-
-                <div class="switch">
-                  <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox">
-                  <label for="cmn-toggle-1"></label>
-                </div>
-              </td>
-            </tr>
-
-            <tr>
-              <td class="rowName" style="padding-bottom: 15px"> Bus Number:</td>
-              <td class="rowData" id="componentBus">5</td>
-            </tr>
-
-            <tr>
-              <td class="rowName" style="padding-bottom: 15px"> MIN Real Power Generation:</td>
-              <td style="padding-bottom: 15px" class="rowData" id="componentDescription">6.7</td>
-            </tr>
-          </table>
-        </div>
-
-
-
-      </div>
-
       <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#home">PROJECT</a></li>
         <li><a data-toggle="tab" href="#menu1">POWER</a></li>
@@ -156,7 +111,7 @@
             <div class="blueTable">
               <table>
                 <tr>
-                  <td colspan="2" class="tableHeader">Power Network</td>
+                  <td colspan="2" class="tableHeader">Power Network Statistics</td>
                 </tr>
                 <tr>
                   <td class="rowName" style="padding-top: 15px;"> Name:</td>
@@ -272,9 +227,6 @@
         </div>
 
       </div>
-
-      </br>
-      </br>
       --------------------------------------
       <div id="MenuSample" class="MenuSample">
         <p>OBJECTS</p>
