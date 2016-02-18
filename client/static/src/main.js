@@ -1,7 +1,24 @@
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+var csrftoken = $.cookie('csrftoken');
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
 $("#map").height($(window).height() - $("#editor").height() - $("#hamburger").height() -100).width(($(window).width() - $("#sideBar").width() - 20));
 $("#editor").width($("#map").width());
 $("#editor_content").width($("#editor").width() - $("#editor_tabs").width() - 40);
+$("#cmn-toggle-1").click(function(value){
+    // TODO : UPDATE NODE STATUS
+});
+
 map.invalidateSize();
+
 window.onresize = function (event) {
     $("#map").height($(window).height() - $("#editor").height() - $("#hamburger").height() -100).width(($(window).width() - $("#sideBar").width() - 20));
     $("#editor").width($("#map").width());
@@ -26,3 +43,13 @@ function formatTableName(name){
     }
     return ret.slice(0, -1);
 }
+
+// This is a code template for posting new node information to the server
+// It applies specifically to Power nodes but is easily adaptable to others
+/*
+$.post("http://localhost:8000/data/api/power/", {name: "Anywhere", type: 1,
+       latitude: -35, longitude: 117.2, active: true}).
+    done(function(data){
+        console.log("data: " + data);
+    })
+*/
