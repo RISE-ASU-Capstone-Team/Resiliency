@@ -18,7 +18,7 @@ clientApp.config(function($routeProvider) {
 clientApp.controller('PowerListController',
     ['$scope', '$http', function(scope, http){
         http.get('http://localhost:8000/data/api/power'
-            + '/?format=json').success(function(data){
+                + '/?format=json').success(function(data){
             scope.powerList = data;
             powerNodes= data;
         })
@@ -34,8 +34,12 @@ clientApp.controller('PowerListController',
                 tr = document.createElement('tr');
                 td = document.createElement('td');
                 td.className = "rowName";
-                td.innerHTML = formatTableName(keys[i]);
-                tr.appendChild(td);
+                if(keys[i] == 'active'){
+                    $('#cmn-toggle-1').prop('checked', data[keys[i]]);
+                }else{
+                    td.innerHTML = formatTableName(keys[i]);
+                    tr.appendChild(td);
+                }
                 if(i+1 == keys.length){
                     td.style = "padding-bottom: 15px";
                 }

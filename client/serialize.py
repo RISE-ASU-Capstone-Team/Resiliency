@@ -6,4 +6,5 @@ from django.contrib.auth.models import User
 class PowerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Power
-        fields = ('id', 'name', 'type', 'latitude', 'longitude', 'created_date')
+        fields = ('id', 'name', 'active', 'type', 'latitude', 'longitude',
+                  'created_date')
