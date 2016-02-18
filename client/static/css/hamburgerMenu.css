@@ -39,3 +39,7 @@ The white stripes in the hamburger button
 	left: 15%;
     z-index: 5;
 }
+#leftBar{
+    height: 100%;
+    position: absolute;
+}

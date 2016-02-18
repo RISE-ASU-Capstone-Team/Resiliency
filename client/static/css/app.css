@@ -19,12 +19,14 @@ body {
   width: auto;
   height: auto;
   float: right;
-  margin:5px;
+  margin-left:5px;
+  margin-right:5px;
+  margin-top:5px;
   position: relative;
 }
 #content {
     width: 50%;
-    height: 50%;
+    height: auto;
     float: left;
     position: relative;
 }
@@ -33,7 +35,7 @@ body {
   width: 400px;
 }
 #editor{
-  height: 300px;
+  height: 120px;
 }
 
 #editor_power{
@@ -60,7 +62,7 @@ body {
   padding-top: 10px;
   padding-left: 10px;
   /* background-color: rgb(255,0,0); */
-  height: 300px;
+  height: 100px;
 }
 
 .editor_content_header {
@@ -128,4 +130,8 @@ canvas {
 	height: auto;
 	width: auto;
 	pointer-events: auto;
+}
+button.nodeList{
+    background:none;
+    border:none;
 }
