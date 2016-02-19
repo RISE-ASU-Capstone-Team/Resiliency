@@ -1,7 +1,7 @@
 
-var componentsArr = null;
+var defaultComponentsArr = null;
 function initEditorPanel() {
-   componentsArr = new Array();
+   defaultComponentsArr = new Array();
 }
 
 function loadPanelObjects(jsonobj) {
@@ -17,7 +17,7 @@ function loadPanelObjects(jsonobj) {
     img.dataset.RiseVariableName=component.RiseVariableName;
     img.title = component.Description;
 
-    componentsArr[component.RiseVariableName] = component;
+    defaultComponentsArr[component.RiseVariableName] = component;
 
     var src = null;
     if (component.System = "Power") {
@@ -93,7 +93,7 @@ $(document).ready(function() {
       var e = ev.originalEvent;
       var data = e.target.dataset.RiseVariableName;
       if (data != null) {
-        var component = componentsArr[data];
+        var component = defaultComponentsArr[data];
         var rect = map._container.getBoundingClientRect();
         var x = dragMousePositionX - rect.left;
         var y = dragMousePositionY - rect.top;
