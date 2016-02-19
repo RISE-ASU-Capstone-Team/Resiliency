@@ -36,6 +36,12 @@ map.on('zoomend', handleMapZoom);
 
 function handleMarkerClick(e) {
   var component = this.componentData;
+  for (var i = 0; i < component.Variables.length; i++) {
+    var variable = component.Variables[i];
+    
+    var description = variable.Description;
+    var value = variable.Value;
+  }
 }
 
 function handleMapZoom(e) {
