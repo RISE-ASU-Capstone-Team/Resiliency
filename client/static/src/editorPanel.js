@@ -44,6 +44,29 @@ $(document).ready(function() {
   $("#editor").resize(function(ev) {
     $("#editor_content").width($("#editor").width() - $("#editor_content").left());
   });
+/*
+  $(".editor_content_header").bind("click", function(ev) {
+    //getting the next element
+    $content = $("#editor");
+
+    var opt = {
+    duration : 500,
+    complete : function () {},
+    step     : function (current_number) {
+        var newTop = $(window).height() - $content.height() - 50 + 'px';
+        $content.css({ top: newTop });
+        //$content.animate({'top': newTop}, 1000);
+      }
+    };
+    //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+    $content.slideToggle(opt);
+
+    if ($content.offset().top == 570) {
+         $content.animate({'top': '0px'}, 1000);
+    } else {
+         $content.animate({'top': '300px'}, 1000);
+    }
+  }); */
   $("#editor .tab-pane")
     .bind("dragstart", function(ev) {
       if (!$(ev.target).hasClass("dragComponent")) return true;
@@ -88,7 +111,7 @@ $(document).ready(function() {
               keyboard: false
             };
 
-        addMarkerToMap(latlng, options);
+        addMarkerToMap(component, latlng, options);
       }
     });
   $('#map')
