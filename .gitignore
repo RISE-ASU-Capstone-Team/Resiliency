@@ -3,5 +3,5 @@ __pycache__/
 client/__pycache__/
 scripts/__pycache__/
 *.pyc
-log/*
+log/*.*
 *.log
