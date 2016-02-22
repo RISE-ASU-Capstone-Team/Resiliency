@@ -15,6 +15,11 @@ $("#editor").width($("#map").width());
 $("#editor_content").width($("#editor").width() - $("#editor_tabs").width() - 40);
 $("#cmn-toggle-1").click(function(value){
     // TODO : UPDATE NODE STATUS
+    $.post("http://localhost:8000/data/api/power/", {name: "Anywhere", type: 1,
+            latitude: -35, longitude: 117.2, active: true}).
+        done(function(data){
+          // TODO : WHATEVER YOU WANT AFTER POST COMPLETED
+        })
 });
 
 map.invalidateSize();
