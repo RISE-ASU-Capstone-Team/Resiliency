@@ -10,6 +10,7 @@ body {
   font-size: 1.75em;
   padding: 0;
 }
+
 #menu{
   left:0;
   margin:5px;
@@ -36,6 +37,7 @@ body {
 }
 #editor{
   height: 120px;
+  position : relative;
 }
 
 #editor_power{

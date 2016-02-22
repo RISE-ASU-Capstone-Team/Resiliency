@@ -1,7 +1,7 @@
 
-var componentsArr = null;
+var defaultComponentsArr = null;
 function initEditorPanel() {
-   componentsArr = new Array();
+   defaultComponentsArr = new Array();
 }
 
 function loadPanelObjects(jsonobj) {
@@ -17,7 +17,7 @@ function loadPanelObjects(jsonobj) {
     img.dataset.RiseVariableName=component.RiseVariableName;
     img.title = component.Description;
 
-    componentsArr[component.RiseVariableName] = component;
+    defaultComponentsArr[component.RiseVariableName] = component;
 
     var src = null;
     if (component.System = "Power") {
@@ -44,6 +44,29 @@ $(document).ready(function() {
   $("#editor").resize(function(ev) {
     $("#editor_content").width($("#editor").width() - $("#editor_content").left());
   });
+/*
+  $(".editor_content_header").bind("click", function(ev) {
+    //getting the next element
+    $content = $("#editor");
+
+    var opt = {
+    duration : 500,
+    complete : function () {},
+    step     : function (current_number) {
+        var newTop = $(window).height() - $content.height() - 50 + 'px';
+        $content.css({ top: newTop });
+        //$content.animate({'top': newTop}, 1000);
+      }
+    };
+    //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+    $content.slideToggle(opt);
+
+    if ($content.offset().top == 570) {
+         $content.animate({'top': '0px'}, 1000);
+    } else {
+         $content.animate({'top': '300px'}, 1000);
+    }
+  }); */
   $("#editor .tab-pane")
     .bind("dragstart", function(ev) {
       if (!$(ev.target).hasClass("dragComponent")) return true;
@@ -70,7 +93,7 @@ $(document).ready(function() {
       var e = ev.originalEvent;
       var data = e.target.dataset.RiseVariableName;
       if (data != null) {
-        var component = componentsArr[data];
+        var component = defaultComponentsArr[data];
         var rect = map._container.getBoundingClientRect();
         var x = dragMousePositionX - rect.left;
         var y = dragMousePositionY - rect.top;
@@ -88,7 +111,7 @@ $(document).ready(function() {
               keyboard: false
             };
 
-        addMarkerToMap(latlng, options);
+        addMarkerToMap(component, latlng, options);
       }
     });
   $('#map')

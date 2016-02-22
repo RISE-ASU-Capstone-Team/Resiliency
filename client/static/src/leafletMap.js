@@ -18,8 +18,10 @@ $.ajax({
 
 var defaultIconSize = new L.Point(64, 64);
 var markers = [];
-function addMarkerToMap(position, options) {
+function addMarkerToMap(componentData, position, options) {
     var newMarker = L.marker(position, options).addTo(map);
+    newMarker.componentData = componentData;
+    newMarker.on('click', handleMarkerClick);
     markers.push(newMarker);
 }
 
@@ -31,6 +33,16 @@ var compIcon = L.Icon.extend({
     });
 
 map.on('zoomend', handleMapZoom);
+
+function handleMarkerClick(e) {
+  var component = this.componentData;
+  for (var i = 0; i < component.Variables.length; i++) {
+    var variable = component.Variables[i];
+    
+    var description = variable.Description;
+    var value = variable.Value;
+  }
+}
 
 function handleMapZoom(e) {
   resizeMarkers();
