@@ -37,7 +37,8 @@ body {
 }
 #editor{
   height: 120px;
-  position : relative;
+  position : absolute;
+  bottom: -120px;
 }
 
 #editor_power{

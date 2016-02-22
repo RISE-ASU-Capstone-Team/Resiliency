@@ -46,24 +46,25 @@
 
       <footer id="editor">
       <!-- Editor Panel -->
-        <ul id="editor_tabs" class="nav nav-pills nav-stacked">
-          <li class="active"><a data-toggle="tab" href="#editor_power">POWER</a></li>
-          <li><a data-toggle="tab" href="#editor_water">WATER</a></li>
-          <li><a data-toggle="tab" href="#editor_road">ROAD</a></li>
-        </ul>
-
+        <button id="editor_collapse" type="button">Collapse</button>
         <div id="editor_content" class="tab-content">
-          <button id="editor_collapse" type="button">Collapse</button>
-          <div id="editor_power" class="tab-pane fade in active">
-            <p class="editor_content_header">Power Components</p>
+          <ul id="editor_tabs" class="nav nav-pills nav-stacked">
+            <li class="active"><a data-toggle="tab" href="#editor_power">POWER</a></li>
+            <li><a data-toggle="tab" href="#editor_water">WATER</a></li>
+            <li><a data-toggle="tab" href="#editor_road">ROAD</a></li>
+          </ul>
+
+
+            <div id="editor_power" class="tab-pane fade in active">
+              <p class="editor_content_header">Power Components</p>
+            </div>
+            <div id="editor_water" class="tab-pane fade">
+              <p class="editor_content_header">Water Components</p>
+            </div>
+            <div id="editor_road" class="tab-pane fade">
+              <p class="editor_content_header">Road Components</p>
+            </div>
           </div>
-          <div id="editor_water" class="tab-pane fade">
-            <p class="editor_content_header">Water Components</p>
-          </div>
-          <div id="editor_road" class="tab-pane fade">
-            <p class="editor_content_header">Road Components</p>
-          </div>
-        </div>
 
       </footer>
     </section>

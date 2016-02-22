@@ -12,9 +12,12 @@ $.ajaxSetup({
         }
     }
 });
-$("#map").height($(window).height() - $("#editor").height() - $("#hamburger").height() -100).width(($(window).width() - $("#sideBar").width() - 20));
+$("#map").height($(window).height() - $("#editor").height() - $("#hamburger").height() - 0).width(($(window).width() - $("#sideBar").width() - 20));
+$("#content").height($("#map").height());
 $("#editor").width($("#map").width());
 $("#editor_content").width($("#editor").width() - $("#editor_tabs").width() - 40);
+$("#leftBar").height($('#content').height);
+$("#contentLayer").height($('#content').height);
 $("#cmn-toggle-1").click(function(value){
     // TODO : UPDATE NODE STATUS
     $.post("http://localhost:8000/data/api/power/", {name: "Anywhere", type: 1,
@@ -27,7 +30,8 @@ $("#cmn-toggle-1").click(function(value){
 map.invalidateSize();
 
 window.onresize = function (event) {
-    $("#map").height($(window).height() - $("#editor").height() - $("#hamburger").height() -100).width(($(window).width() - $("#sideBar").width() - 20));
+    $("#map").height($(window).height() - $("#editor").height() - $("#hamburger").height() - 0).width(($(window).width() - $("#sideBar").width() - 20));
+    $("#content").height($("#map").height());
     $("#editor").width($("#map").width());
     $("#editor_content").width($("#editor").width() - $("#editor_tabs").width() - 40);
     $("#leftBar").height($('#content').height);

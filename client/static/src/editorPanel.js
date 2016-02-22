@@ -45,26 +45,19 @@ $(document).ready(function() {
     $("#editor_content").width($("#editor").width() - $("#editor_content").left());
   });
   $("#editor_collapse").bind("click", function(ev) {
-    //getting the next element
-    $content = $("#editor");
 
-    var opt = {
-    duration : 500,
-    complete : function () {},
-    step     : function (current_number) {
-        var newTop = $(window).height() - $content.height() - 50 + 'px';
-        $content.css({ top: newTop });
-        //$content.animate({'top': newTop}, 1000);
-      }
-    };
-    //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
-    $content.slideToggle(opt);
-
-    if ($content.offset().top == 570) {
-         $content.animate({'top': '0px'}, 1000);
+    if ($("#editor_content").is(":hidden")) {
+      $("#editor_content").css({'bottom': '-120px'});
+      $("#editor_content").css({'height': '120px'});
+      $("#map").css({'height': $("#map").height()-100+'px'});
+      $("#content").css({'height': $("#content").height()-100+'px'}, 1000);
     } else {
-         $content.animate({'top': '300px'}, 1000);
+      $("#editor_content").css({'bottom': '-220px'});
+      $("#editor_content").css({'height': '20px'});
+      $("#map").css({'height': $("#map").height()+100+'px'});
+      $("#content").css({'height': $("#content").height()+100+'px'}, 1000);
     }
+    $("#editor_content").slideToggle(0);
   });
   $("#editor .tab-pane")
     .bind("dragstart", function(ev) {
