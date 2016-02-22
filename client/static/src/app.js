@@ -21,7 +21,9 @@ clientApp.controller('PowerListController',
                  + '/?format=json').success(function(d){
             scope.powerList = d;
         })
+
         var poll = function() {
+            polling = true;
             timeout(function() {
                 http.get('http://localhost:8000/data/api/update'
                     + '/?format=json').then(function successCallback(response){
@@ -39,7 +41,9 @@ clientApp.controller('PowerListController',
                 poll();
             }, 2000);
         };
-        poll();
+        if(!polling){
+            poll();
+        }
 
 
         scope.nodeListClicked = function(powerID){

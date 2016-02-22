@@ -2720,3 +2720,790 @@ could not connect to server: Connection refused (0x0000274D/10061)
 	Is the server running on host "localhost" (127.0.0.1) and accepting
 	TCP/IP connections on port 3306?
 
+DEBUG (0.000) 
+            SELECT c.relname, c.relkind
+            FROM pg_catalog.pg_class c
+            LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+            WHERE c.relkind IN ('r', 'v')
+                AND n.nspname NOT IN ('pg_catalog', 'pg_toast')
+                AND pg_catalog.pg_table_is_visible(c.oid); args=None
+DEBUG (0.000) SELECT "django_migrations"."app", "django_migrations"."name" FROM "django_migrations"; args=()
+WARNING Not Found: /favicon.ico
+DEBUG Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 134, in get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "e:\Anaconda3\lib\site-packages\django\core\urlresolvers.py", line 404, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.core.urlresolvers.Resolver404: {'path': 'favicon.ico', 'tried': [[<RegexURLResolver <RegexURLPattern list> (admin:admin) ^admin/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) ^data/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLPattern index ^$>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLResolver <RegexURLPattern list> (None:None) ^api/>]]}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 883, in _resolve_lookup
+    current = current[bit]
+TypeError: 'RegexURLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 891, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'RegexURLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 898, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in '<RegexURLResolver <RegexURLPattern list> (admin:admin) ^admin/>'
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 134, in get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "e:\Anaconda3\lib\site-packages\django\core\urlresolvers.py", line 404, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.core.urlresolvers.Resolver404: {'path': 'favicon.ico', 'tried': [[<RegexURLResolver <RegexURLPattern list> (admin:admin) ^admin/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) ^data/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLPattern index ^$>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLResolver <RegexURLPattern list> (None:None) ^api/>]]}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 883, in _resolve_lookup
+    current = current[bit]
+TypeError: 'RegexURLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 891, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'RegexURLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 898, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in "<RegexURLResolver <module 'client.urls' from 'E:\\\\python\\\\Resiliency\\\\client\\\\urls.py'> (None:None) ^data/>"
+DEBUG Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 134, in get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "e:\Anaconda3\lib\site-packages\django\core\urlresolvers.py", line 404, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.core.urlresolvers.Resolver404: {'path': 'favicon.ico', 'tried': [[<RegexURLResolver <RegexURLPattern list> (admin:admin) ^admin/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) ^data/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLPattern index ^$>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLResolver <RegexURLPattern list> (None:None) ^api/>]]}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 883, in _resolve_lookup
+    current = current[bit]
+TypeError: 'RegexURLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 891, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'RegexURLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 898, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in '<RegexURLResolver <RegexURLPattern list> (None:None) ^api/>'
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power" WHERE "client_power"."id" = 1; args=(1,)
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power" WHERE "client_power"."id" = 2; args=(2,)
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power" WHERE "client_power"."id" = 1; args=(1,)
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power" WHERE "client_power"."id" = 2; args=(2,)
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power" WHERE "client_power"."id" = 1; args=(1,)
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power" WHERE "client_power"."id" = 2; args=(2,)
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.002) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.002) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+WARNING Not Found: /favicon.ico
+DEBUG Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 134, in get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "e:\Anaconda3\lib\site-packages\django\core\urlresolvers.py", line 404, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.core.urlresolvers.Resolver404: {'path': 'favicon.ico', 'tried': [[<RegexURLResolver <RegexURLPattern list> (admin:admin) ^admin/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) ^data/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLPattern index ^$>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLResolver <RegexURLPattern list> (None:None) ^api/>]]}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 883, in _resolve_lookup
+    current = current[bit]
+TypeError: 'RegexURLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 891, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'RegexURLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 898, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in '<RegexURLResolver <RegexURLPattern list> (admin:admin) ^admin/>'
+DEBUG Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 134, in get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "e:\Anaconda3\lib\site-packages\django\core\urlresolvers.py", line 404, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.core.urlresolvers.Resolver404: {'path': 'favicon.ico', 'tried': [[<RegexURLResolver <RegexURLPattern list> (admin:admin) ^admin/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) ^data/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLPattern index ^$>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLResolver <RegexURLPattern list> (None:None) ^api/>]]}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 883, in _resolve_lookup
+    current = current[bit]
+TypeError: 'RegexURLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 891, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'RegexURLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 898, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in "<RegexURLResolver <module 'client.urls' from 'E:\\\\python\\\\Resiliency\\\\client\\\\urls.py'> (None:None) ^data/>"
+DEBUG Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 134, in get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "e:\Anaconda3\lib\site-packages\django\core\urlresolvers.py", line 404, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.core.urlresolvers.Resolver404: {'path': 'favicon.ico', 'tried': [[<RegexURLResolver <RegexURLPattern list> (admin:admin) ^admin/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) ^data/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLPattern index ^$>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLResolver <RegexURLPattern list> (None:None) ^api/>]]}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 883, in _resolve_lookup
+    current = current[bit]
+TypeError: 'RegexURLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 891, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'RegexURLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 898, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in '<RegexURLResolver <RegexURLPattern list> (None:None) ^api/>'
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+WARNING Not Found: /favicon.ico
+DEBUG Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 134, in get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "e:\Anaconda3\lib\site-packages\django\core\urlresolvers.py", line 404, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.core.urlresolvers.Resolver404: {'path': 'favicon.ico', 'tried': [[<RegexURLResolver <RegexURLPattern list> (admin:admin) ^admin/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) ^data/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLPattern index ^$>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLResolver <RegexURLPattern list> (None:None) ^api/>]]}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 883, in _resolve_lookup
+    current = current[bit]
+TypeError: 'RegexURLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 891, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'RegexURLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 898, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in '<RegexURLResolver <RegexURLPattern list> (admin:admin) ^admin/>'
+DEBUG (0.000) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 134, in get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "e:\Anaconda3\lib\site-packages\django\core\urlresolvers.py", line 404, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.core.urlresolvers.Resolver404: {'path': 'favicon.ico', 'tried': [[<RegexURLResolver <RegexURLPattern list> (admin:admin) ^admin/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) ^data/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLPattern index ^$>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLResolver <RegexURLPattern list> (None:None) ^api/>]]}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 883, in _resolve_lookup
+    current = current[bit]
+TypeError: 'RegexURLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 891, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'RegexURLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 898, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in "<RegexURLResolver <module 'client.urls' from 'E:\\\\python\\\\Resiliency\\\\client\\\\urls.py'> (None:None) ^data/>"
+DEBUG Exception while resolving variable 'name' in template 'unknown'.
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\core\handlers\base.py", line 134, in get_response
+    resolver_match = resolver.resolve(request.path_info)
+  File "e:\Anaconda3\lib\site-packages\django\core\urlresolvers.py", line 404, in resolve
+    raise Resolver404({'tried': tried, 'path': new_path})
+django.core.urlresolvers.Resolver404: {'path': 'favicon.ico', 'tried': [[<RegexURLResolver <RegexURLPattern list> (admin:admin) ^admin/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) ^data/>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLPattern index ^$>], [<RegexURLResolver <module 'client.urls' from 'E:\\python\\Resiliency\\client\\urls.py'> (None:None) >, <RegexURLResolver <RegexURLPattern list> (None:None) ^api/>]]}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 883, in _resolve_lookup
+    current = current[bit]
+TypeError: 'RegexURLResolver' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 891, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'RegexURLResolver' object has no attribute 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 898, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'name'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "e:\Anaconda3\lib\site-packages\django\template\base.py", line 905, in _resolve_lookup
+    (bit, current))  # missing attribute
+django.template.base.VariableDoesNotExist: Failed lookup for key [name] in '<RegexURLResolver <RegexURLPattern list> (None:None) ^api/>'
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.016) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power" WHERE "client_power"."id" = 1; args=(1,)
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power" WHERE "client_power"."id" = 2; args=(2,)
+DEBUG (0.000) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power" WHERE "client_power"."id" = 1; args=(1,)
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power" WHERE "client_power"."id" = 2; args=(2,)
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power" WHERE "client_power"."id" = 1; args=(1,)
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.001) SELECT "client_power"."id", "client_power"."name", "client_power"."type", "client_power"."active", "client_power"."latitude", "client_power"."longitude", "client_power"."load", "client_power"."created_date" FROM "client_power"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
+DEBUG (0.000) SELECT "client_dbchanges"."id", "client_dbchanges"."update_check" FROM "client_dbchanges"; args=()
