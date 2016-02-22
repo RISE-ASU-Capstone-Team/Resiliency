@@ -44,8 +44,7 @@ $(document).ready(function() {
   $("#editor").resize(function(ev) {
     $("#editor_content").width($("#editor").width() - $("#editor_content").left());
   });
-/*
-  $(".editor_content_header").bind("click", function(ev) {
+  $("#editor_collapse").bind("click", function(ev) {
     //getting the next element
     $content = $("#editor");
 
@@ -66,7 +65,7 @@ $(document).ready(function() {
     } else {
          $content.animate({'top': '300px'}, 1000);
     }
-  }); */
+  });
   $("#editor .tab-pane")
     .bind("dragstart", function(ev) {
       if (!$(ev.target).hasClass("dragComponent")) return true;
