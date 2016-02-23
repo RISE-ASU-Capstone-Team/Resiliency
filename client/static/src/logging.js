@@ -2,6 +2,9 @@ var Alert = (function ()
 {
     "use strict";
     var instance;
+    var log_element = document.getElementById("logged_information");
+    var log_ticker_element = document.getElementById("log_ticker");
+
 
     function Alert()
     {
@@ -19,17 +22,26 @@ var Alert = (function ()
 
     Alert.log = function(log_text) //Method for reporting general alerts.
     {
+      let output = log_text;
+      log_ticker_element.innerHTML = output;
+      log_element.innerHTML = output + "</br>" + log_element.innerHTML;
       console.log(log_text);
     }
 
     Alert.warning = function(log_text) //Method for reporting warnings.
     {
-      console.log("Warning: " + log_text);
+      let output = "Warning: " + log_text;
+      log_ticker_element.innerHTML = output;
+      log_element.innerHTML = output + "</br>" + log_element.innerHTML;
+      console.log(output);
     }
 
     Alert.error = function(log_text) //Method for reporting errors.
     {
-      console.log("Error: " + log_text);
+      let output = "Error: " + log_text;
+      log_ticker_element.innerHTML = output;
+      log_element.innerHTML = output + "</br>" + log_element.innerHTML;
+      console.log(output);
     }
 
     return Alert;

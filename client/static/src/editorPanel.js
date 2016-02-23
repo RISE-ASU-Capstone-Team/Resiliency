@@ -47,10 +47,12 @@ $(document).ready(function() {
   $("#editor_collapse").bind("click", function(ev) {
 
     if ($("#editor_content").is(":hidden")) {
+      $("#log_ticker").hide();
       $("#editor").css({'height': 'auto'});
       $("#map").css({'height': $("#map").height()-100+'px'});
       $("#content").css({'height': $("#content").height()-100+'px'}, 1000);
     } else {
+      $("#log_ticker").show();
       $("#editor").css({'height': '50px'});
       $("#map").css({'height': $("#map").height()+100+'px'});
       $("#content").css({'height': $("#content").height()+100+'px'}, 1000);

@@ -64,7 +64,7 @@
               </td>
             </tr>
             <tr>
-              <td class="rowName" > Name:</td>
+              <td class="rowName"> Name:</td>
               <td style="padding-top: 15px;" class="rowData" id="componentName">SG 1</td>
             </tr>
             <tr>
@@ -199,28 +199,31 @@
     </div>
 
     <footer id="editor">
-    <!-- Editor Panel -->
+      <div id="log_ticker" hidden="true"></div>
       <button id="editor_collapse" type="button">-</button>
 
+      <!-- Editor Panel -->
       <div id="editor_content" class="tab-content">
 
         <ul id="editor_tabs" class="nav nav-pills nav-stacked">
           <li class="active"><a data-toggle="tab" href="#editor_power">POWER</a></li>
           <li><a data-toggle="tab" href="#editor_water">WATER</a></li>
           <li><a data-toggle="tab" href="#editor_road">ROAD</a></li>
+          <li><a data-toggle="tab" href="#editor_log">LOG</a></li>
         </ul>
-
-
-          <div id="editor_power" class="tab-pane fade in active">
-            <p class="editor_content_header">Power Components</p>
-          </div>
-          <div id="editor_water" class="tab-pane fade">
-            <p class="editor_content_header">Water Components</p>
-          </div>
-          <div id="editor_road" class="tab-pane fade">
-            <p class="editor_content_header">Road Components</p>
-          </div>
+        <div id="editor_power" class="tab-pane fade in active">
+          <p class="editor_content_header">Power Components</p>
         </div>
+        <div id="editor_water" class="tab-pane fade">
+          <p class="editor_content_header">Water Components</p>
+        </div>
+        <div id="editor_road" class="tab-pane fade">
+          <p class="editor_content_header">Road Components</p>
+        </div>
+        <div id="editor_log" class="tab-pane fade">
+          <div id="logged_information">Rise Logger...</div>
+        </div>
+      </div>
 
     </footer>
   </div>

@@ -53,6 +53,12 @@ body {
   overflow-y: scroll;
 }
 
+#editor_log {
+  /* height: 280px; */
+  max-height: 180px;
+  overflow-y: scroll;
+}
+
 #editor_tabs {
   float: left;
   text-align: center;
