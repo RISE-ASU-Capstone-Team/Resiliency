@@ -1,69 +1,70 @@
 html {
-    overflow-y: scroll;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 body {
   font-family: Consolas, monospace;
-  overflow-x: hidden;
-  margin-left: 0px;
-  margin-right: 0px;
+  overflow-x: inherit;
+  overflow-y: inherit;
   font-size: 1.75em;
-  padding: 0;
 }
 
-#menu{
-  left:0;
-  margin:5px;
-  position:relative;
-}
-#sideBar{
+#sideBar {
   width: auto;
-  height: auto;
+  min-width: 350px;
+  height: 100%;
   float: right;
   margin-left:5px;
   margin-right:5px;
   margin-top:5px;
+  margin-bottom: 5px;
   position: relative;
+  overflow-y: scroll;
 }
 #content {
-    width: 50%;
+    width: auto;
     height: auto;
     float: left;
     position: relative;
 }
+
 #map {
-  height: 400px;
-  width: 400px;
-}
-#editor{
-  height: 120px;
-  position : absolute;
-  bottom: -120px;
+  height: auto;
+  width: auto;
 }
 
-#editor_power{
+#editor {
+  min-height: 200px;
+  position: relative;
+  overflow-x: scroll;
+}
+
+#editor_power {
   /* height: 280px; */
   overflow-y: scroll;
 }
-#editor_water{
+#editor_water {
   /* height: 280px; */
   overflow-y: scroll;
 }
-#editor_road{
+#editor_road {
   /* height: 280px; */
   overflow-y: scroll;
 }
 
-#editor_tabs{
+#editor_tabs {
   float: left;
   text-align: center;
   padding-right: 10px;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
-#editor_content{
-  padding-top: 10px;
-  padding-left: 10px;
-  height: 100px;
+#editor_content {
+  padding-top: 5px;
 }
+
 #editor_collapse {
     position: absolute;
     top: 10px;
@@ -136,6 +137,7 @@ canvas {
 	width: auto;
 	pointer-events: auto;
 }
+
 button.nodeList{
     background:none;
     border:none;
