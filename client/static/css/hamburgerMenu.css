@@ -1,4 +1,5 @@
 #hamburger {
+    float: left;
     border: 1px solid #374C77;
     border-radius: 3px 3px 3px 3px;
     cursor: pointer;
