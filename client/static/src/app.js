@@ -16,11 +16,12 @@ clientApp.config(function($routeProvider) {
       });
 
 clientApp.controller('PowerListController',
-    ['$scope', '$http', '$timeout', function(scope, http, timeout){
+    ['$scope', '$http', '$timeout', '$route', function(scope, http, timeout, route){
+        console.log("created");
         http.get('http://localhost:8000/data/api/power'
                  + '/?format=json').success(function(d){
             scope.powerList = d;
-        })
+        });
 
         var poll = function() {
             polling = true;
@@ -31,6 +32,7 @@ clientApp.controller('PowerListController',
                         http.get('http://localhost:8000/data/api/power'
                                  + '/?format=json').success(function(d){
                             scope.powerList = d;
+                            route.reload();
                         })
                     }else{
 

@@ -158,7 +158,9 @@
             <br>
             <h3 class="NodeHeader"> Power Nodes </h3>
             <ul class="NodeList">
-              <div ng-view></div>
+              <div ng-controller="PowerListController">
+                <div ng-view></div>
+              </div>
             </ul>
           </div>
         </div>
