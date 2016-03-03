@@ -75,6 +75,7 @@ clientApp.controller('PowerListController',
                     }
                     td = document.createElement('td');
                     td.className = "rowData";
+                    td.onclick = function(e){editComponent(this)};
                     if(keys[i] == 'active'){
 
                     }else if(keys[i] == 'created_date'){
