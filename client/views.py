@@ -40,13 +40,23 @@ class PowerViewSet(viewsets.ModelViewSet):
                                  headers=headers)
 
     def perform_create(self, serializer):
-        logger.info("attempting")
+        logger.info("attempting to add")
         cursor = connection.cursor()
         cursor.execute('update client_dbchanges set update_check=' +
                                   str(time.time())+' where id = 1')
         transaction.commit()
         cursor.close()
         logger.info("wrote to db in create")
+        serializer.save()
+
+    def perform_update(self, serializer):
+        logger.info("attempting to update")
+        cursor = connection.cursor()
+        cursor.execute('update client_dbchanges set update_check=' +
+                                  str(time.time())+' where id = 1')
+        transaction.commit()
+        cursor.close()
+        logger.info("wrote to db in update")
         serializer.save()
 
     def get_success_headers(self, data):

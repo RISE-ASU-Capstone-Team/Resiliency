@@ -55,6 +55,37 @@ function formatTableName(name){
     return ret.slice(0, -1);
 }
 
+var editComponent = function(cell){
+    var row = cell.parentNode;
+    console.log(row);
+    console.log(cell);
+    var input = document.createElement("td");
+    input.innerHTML = "<input value='" + cell.innerHTML + "' onkeydown = "
+        + "'postChange(this)'></input>";
+    row.removeChild(cell);
+    row.appendChild(input);
+}
+
+var postChange = function(input){
+    if(event.keyCode == 13){
+        var cell = input.parentNode;
+        var row = cell.parentNode;
+        row.removeChild(cell);
+        cell.innerHTML = input.value;
+        cell.className = "rowData";
+        cell.onclick = function(e){editComponent(this)};
+        row.appendChild(cell);
+        $.ajax({
+            url: "http://localhost:8000/data/api/power/1/",
+            type: 'PUT',
+            data: "name=Anywhere",
+            success: function(result) {
+                // Do something with the result
+            }
+        });
+    }
+}
+
 // This is a code template for posting new node information to the server
 // It applies specifically to Power nodes but is easily adaptable to others
 /*

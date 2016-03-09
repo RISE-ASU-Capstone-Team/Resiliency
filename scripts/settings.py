@@ -25,7 +25,7 @@ SECRET_KEY = '@7^!=ayrh#!56c!q+&yc0!_#h-heh)6)lt5^d=pdbk-4q@h)22'
 DEBUG = True
 DJANGO_LOG_LEVEL = DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
