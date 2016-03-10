@@ -15,7 +15,7 @@ $ pip install psycopg2-2.6.1-cp35-none-win_amd64.whl
 - Create a database called 'rise'
 
 ### For Mac:
-install [Postgres.app]
+Install [Postgres.app]  
 Then in terminal:
 ```sh
 $ touch ~/.bash_profile; open ~/.bash_profile
