@@ -1,8 +1,8 @@
 # Resiliency
 
-### How to run with new database configuration:
+## How to run with new database configuration:
 
-# For Windows:  
+### For Windows:  
 In the data folder exists psycopg2-2.6.1-cp35-none-win_amd64.whl.
 Then in that directory in cmd:
 ```sh
@@ -14,7 +14,7 @@ $ pip install psycopg2-2.6.1-cp35-none-win_amd64.whl
 - Use the password 'capstone' since it is the default in settings.py
 - Create a database called 'rise'
 
-# For Mac:
+### For Mac:
 install [Postgres.app]
 Then in terminal:
 ```sh
@@ -35,7 +35,7 @@ NOTE: You may need to run this afterwards:
 $ pip install django
 ```
 
-# After above is complete
+### After above is complete
 In cmd or terminal in the respository directory:
 ```sh
 $ python manage.py makemigrations client
