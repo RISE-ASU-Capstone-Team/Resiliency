@@ -20,14 +20,14 @@ Then in terminal:
 ```sh
 $ touch ~/.bash_profile; open ~/.bash_profile
 ```
-- A file should open
-- Copy and paste these lines and save the file:  
+A file should open
+Copy and paste these lines and save the file:  
    ```
 PATH="/Applications/Postgres.app/Contents/Versions/9.5/bin:$PATH"  
 
 export DYLD_FALLBACK_LIBRARY_PATH=$HOME/anaconda/lib:$DYLD_FALLBACK_LIBRARY_PATH
    ```
-- Run this command in terminal:
+Run this command in terminal:
 ```sh
 $ pip install psycopg2
 ```
