@@ -51,14 +51,13 @@ body {
 #sideBar {
   width: auto;
   min-width: 350px;
-  height: 100%;
+  max-width: 550px;
   float: right;
   margin-left:5px;
   margin-right:5px;
   margin-top:5px;
   margin-bottom: 5px;
   position: relative;
-  overflow-y: scroll;
 }
 #content {
     width: auto;
@@ -187,4 +186,17 @@ canvas {
 button.nodeList{
     background:none;
     border:none;
+}
+
+input.componentInput{
+    width: 110px;
+}
+
+.attributesTable{
+    overflow-y: auto;
+    max-height: 300px;
+    height: 40%;
+}
+#nav-tabs{
+    margin-top: 5px;
 }

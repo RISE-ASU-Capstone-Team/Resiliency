@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Power
+from .models import Node
 
 # Register your models here.
-admin.site.register(Power)
+admin.site.register(Node)

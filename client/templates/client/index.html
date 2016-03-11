@@ -52,7 +52,7 @@
     </section>
 
     <div id="sideBar" class="sideBar">
-      <div class="attributesTable">
+      <div class="attributesTable" id="attributesTable">
         <div class="blueTable">
           <table id="componentTable">
             <tr>
@@ -83,14 +83,14 @@
         </div>
       </div>
 
-      <ul class="nav nav-tabs">
+      <ul class="nav nav-tabs" id="nav-tabs">
         <li class="active"><a data-toggle="tab" href="#home">PROJECT</a></li>
         <li><a data-toggle="tab" href="#menu1">POWER</a></li>
         <li><a data-toggle="tab" href="#menu2">WATER</a></li>
         <li><a data-toggle="tab" href="#menu3">ROAD</a></li>
       </ul>
 
-      <div class="tab-content">
+      <div class="tab-content" id="tab-content">
         <div id="home" class="tab-pane fade in active">
           <div class="scroll">
             <div class="blueTable">
@@ -158,7 +158,7 @@
             <br>
             <h3 class="NodeHeader"> Power Nodes </h3>
             <ul class="NodeList">
-              <div ng-controller="PowerListController">
+              <div ng-controller="NodeListController">
                 <div ng-view></div>
               </div>
             </ul>

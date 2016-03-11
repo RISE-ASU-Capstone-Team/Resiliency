@@ -4,9 +4,9 @@ clientApp.config(function($routeProvider) {
         $routeProvider.
           when('/', {
             templateUrl: 'static/power-list.html',
-            controller: 'PowerListController'
+            controller: 'NodeListController'
           }).
-          when('/power/:powerID', {
+          when('/power/:nodeID', {
             templateUrl: 'static/power-list.html',
             controller: 'PowerDetailController'
           }).
@@ -15,12 +15,11 @@ clientApp.config(function($routeProvider) {
           });
       });
 
-clientApp.controller('PowerListController',
+clientApp.controller('NodeListController',
     ['$scope', '$http', '$timeout', '$route', function(scope, http, timeout, route){
-        console.log("created");
-        http.get('http://localhost:8000/data/api/power'
+        http.get('http://localhost:8000/data/api/node'
                  + '/?format=json').success(function(d){
-            scope.powerList = d;
+            scope.nodeList = d;
         });
 
         var poll = function() {
@@ -29,9 +28,9 @@ clientApp.controller('PowerListController',
                 http.get('http://localhost:8000/data/api/update'
                     + '/?format=json').then(function successCallback(response){
                     if((response.data[0].update_check*1000) > (new Date).getTime()-5000){
-                        http.get('http://localhost:8000/data/api/power'
+                        http.get('http://localhost:8000/data/api/node'
                                  + '/?format=json').success(function(d){
-                            scope.powerList = d;
+                            scope.nodeList = d;
                             route.reload();
                         })
                     }else{
@@ -48,10 +47,10 @@ clientApp.controller('PowerListController',
         }
 
 
-        scope.nodeListClicked = function(powerID){
+        scope.nodeListClicked = function(nodeID){
             var data;
-            http.get('http://localhost:8000/data/api/power/'
-                + powerID + '/?format=json').success(function(d){
+            http.get('http://localhost:8000/data/api/node/'
+                + nodeID + '/?format=json').success(function(d){
                 data = d;
 
                 var componentTable = document.getElementById('componentTable');
@@ -64,7 +63,7 @@ clientApp.controller('PowerListController',
                     tr = document.createElement('tr');
                     td = document.createElement('td');
                     td.className = "rowName";
-                    if(keys[i] == 'active'){
+                    if(keys[i] == 'operational_status'){
                         $('#cmn-toggle-1').prop('checked', data[keys[i]]);
                     }else{
                         td.innerHTML = formatTableName(keys[i]);
@@ -75,17 +74,27 @@ clientApp.controller('PowerListController',
                     }
                     td = document.createElement('td');
                     td.className = "rowData";
-                    td.onclick = function(e){editComponent(this)};
-                    if(keys[i] == 'active'){
+                    if(keys[i] == 'operational_status'){
 
+                    }else if(keys[i] == 'is_bus'){
+                        var input = document.createElement('input');
+                        var label = document.createElement('label');
+                        input.className = "cmn-toggle cmn-toggle-round";
+                        input.setAttribute("type", "checkbox");
+                        input.id = "cmn-toggle-2";
+                        label.setAttribute('for', "cmn-toggle-2");
+                        input.setAttribute("checked", data[keys[i]]);
+                        td.appendChild(input);
+                        td.appendChild(label);
+                        tr.appendChild(td);
                     }else if(keys[i] == 'created_date'){
                         var date = new Date(data[keys[i]]*1000);
                         var day = date.getDate();
                         var monthIndex = date.getMonth();
                         var year = date.getFullYear();
-
                         td.innerHTML = monthNames[monthIndex] + ' ' + day + ', ' + year;
                     }else{
+                        td.onclick = function(e){editComponent(this)};
                         td.innerHTML = data[keys[i]];
                     }
                     tr.appendChild(td);
@@ -99,9 +108,8 @@ clientApp.controller('PowerListController',
 
 clientApp.controller('PowerDetailController',
     ['$scope', '$http', '$routeParams', function(scope, http, params){
-        console.log(params.powerID);
         http.get('http://localhost:8000/data/api/power/'
-            + params.powerID + '/?format=json').success(function(data){
+            + params.nodeID + '/?format=json').success(function(data){
             scope.power = data;
         })
     }

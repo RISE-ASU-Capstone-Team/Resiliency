@@ -1,4 +1,7 @@
 var polling = false;
+var loadEditableCount = 13;
+var syncGenEditableCount = 11;
+var busEditableCount = 5;
 
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
@@ -16,8 +19,10 @@ $("#map").height($(window).height() - $("#editor").height() - $("#hamburger").he
 $("#content").height($("#map").height());
 $("#editor").width($("#map").width());
 $("#editor_content").width($("#editor").width() - $("#editor_tabs").width() - 40);
-$("#leftBar").height($('#content').height);
-$("#contentLayer").height($('#content').height);
+$("#leftBar").height($('#content').height());
+$("#sideBar").height($(window).height()-45);
+$("#contentLayer").height($('#content').height());
+$("#tab-content").height($(window).height()- $("#attributesTable").height() - 45);
 $("#cmn-toggle-1").click(function(value){
     // TODO : UPDATE NODE STATUS
     $.post("http://localhost:8000/data/api/power/", {name: "Anywhere", type: 1,
@@ -35,6 +40,8 @@ window.onresize = function (event) {
     $("#editor").width($("#map").width());
     $("#editor_content").width($("#editor").width() - $("#editor_tabs").width() - 40);
     $("#leftBar").height($('#content').height);
+    $("#sideBar").height($(window).height()-45);
+    $("#tab-content").height($(window).height()- $("#attributesTable").height() - 45);
     $("#contentLayer").height($('#content').height);
     map.invalidateSize();
 }
@@ -60,8 +67,8 @@ var editComponent = function(cell){
     console.log(row);
     console.log(cell);
     var input = document.createElement("td");
-    input.innerHTML = "<input value='" + cell.innerHTML + "' onkeydown = "
-        + "'postChange(this)'></input>";
+    input.innerHTML = "<input class='componentInput' value='" + cell.innerHTML
+        + "' onkeydown='postChange(this)'></input>";
     row.removeChild(cell);
     row.appendChild(input);
 }
