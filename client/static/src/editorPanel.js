@@ -103,7 +103,7 @@ $(document).ready(function() {
               keyboard: false
             };
 
-        addMarkerToMap(component, latlng, options);
+        addMarkerToMap(markers.length+1+"", component, latlng, options);
       }
     });
   $('#map')

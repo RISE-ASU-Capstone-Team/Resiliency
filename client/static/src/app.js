@@ -22,7 +22,7 @@ clientApp.controller('NodeListController',
             scope.nodeList = d;
         });
 
-        var poll = function() {
+        var pollList = function() {
             polling = true;
             timeout(function() {
                 http.get('http://localhost:8000/data/api/update'
@@ -39,13 +39,53 @@ clientApp.controller('NodeListController',
                 }, function errorCallback(response){
                     console.log("Error retrieving update");
                 })
-                poll();
+                pollList();
             }, 2000);
         };
-        if(!polling){
-            poll();
+
+        var pollMarkers = function() {
+          timeout(function() {
+              http.get('http://localhost:8000/data/api/update'
+                  + '/?format=json').then(function successCallback(response){
+                      http.get('http://localhost:8000/data/api/nodeMarker'
+                               + '/?format=json').success(function(d){
+                          refreshMarkers(d);
+                          route.reload();
+                      })
+              }, function errorCallback(response){
+                  console.log("Error retrieving update");
+              })
+              pollMarkers();
+          }, 2000);
         }
 
+        if(!polling){
+            pollList();
+            pollMarkers();
+        }
+
+        var refreshMarkers = function(d) {
+
+          var marker = {"id":4, "lat":32, "lng":-112, name:"Test Marker", "type":4, "RiseVariableName":"genSolarPVMod"};
+
+          if (!(marker.id in markers)) {
+            var component = defaultComponentsArr[marker.RiseVariableName];
+            var latlng = L.latLng(marker.lat, marker.lng);
+
+            var newIcon = new compIcon({
+                iconUrl: component.Icon,
+                iconAnchor: [defaultIconSize.x/2.0, defaultIconSize.y/2.0]
+              });
+            var options = {
+      						icon: newIcon,
+      						clickable: true,
+      						draggable: true,
+                  keyboard: false
+                };
+
+            addMarkerToMap(marker.id, component, latlng, options);
+          }
+        }
 
         scope.nodeListClicked = function(nodeID){
             var data;

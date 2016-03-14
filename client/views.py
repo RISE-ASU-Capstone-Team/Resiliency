@@ -3,7 +3,7 @@ from django.db import connection, transaction
 from django.shortcuts import get_object_or_404
 from client.serialize import LoadSerializer, NodeListSerializer, \
     DBChangesSerializer, SyncGeneratorSerializer, BusSerializer, \
-    UtilitySerializer
+    UtilitySerializer, NodeMarkerSerializer
 from client.models import Load, DBChanges, Node, SyncGenerator, Utility, Bus
 from client.permissions import IsOwnerOrReadOnly
 from rest_framework import viewsets, response, status, settings, decorators
@@ -52,7 +52,7 @@ class NodeViewSet(viewsets.ModelViewSet):
 
 class NodeMarkerViewSet(viewsets.ModelViewSet):
     queryset = Node.objects.all()
-    serializer_class = NodeListSerializer
+    serializer_class = NodeMarkerSerializer
     permission_classes = (IsOwnerOrReadOnly,)
 
     def retrieve(self, request, pk=None, *args, **kwargs):
