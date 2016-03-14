@@ -50,6 +50,11 @@ class NodeListSerializer(serializers.HyperlinkedModelSerializer):
         model = Node
         fields = ('id', 'name', 'type')
 
+class NodeMarkerSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Node
+        fields = ('id','name','type','latitude','longitude')
+
 
 class ConnectionListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

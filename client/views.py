@@ -50,6 +50,36 @@ class NodeViewSet(viewsets.ModelViewSet):
         serializer = NodeListSerializer(data, many=True)
         return response.Response(serializer.data)
 
+class NodeMarkerViewSet(viewsets.ModelViewSet):
+    queryset = Node.objects.all()
+    serializer_class = NodeListSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
+
+    def retrieve(self, request, pk=None, *args, **kwargs):
+        queryset = Node.objects.all()
+        node = get_object_or_404(queryset, pk=pk)
+        node_type = node.type
+        queryset = get_query_set(node_type)
+        node = get_object_or_404(queryset, pk=node.f_id)
+        serializer = get_serializer(node_type, node)
+        return response.Response(serializer.data)
+
+    def list(self, request, *args, **kwargs):
+        cursor = connection.cursor()
+        cursor.execute('select n.id, foo.name, n.type, n.latitude, n.longitude FROM client_node n, '
+                       '(select name from client_load UNION select name from '
+                       'client_syncgenerator UNION select name from client_bus '
+                       'UNION select name from client_utility) as foo where '
+                       'foo.name = ((SELECT l.name from client_load l where '
+                       'n.type = 0 and n.f_id = l.id) UNION (SELECT sg.name '
+                       'FROM client_syncgenerator sg WHERE n.type = 1 and '
+                       'n.f_id = sg.id) UNION (SELECT b.name FROM client_bus b '
+                       'WHERE n.type = 2 and n.f_id = b.id) UNION '
+                       '(SELECT u.name FROM client_utility u WHERE n.type = 3 '
+                       'and n.f_id = u.id))')
+        data = dictfetchall(cursor)
+        serializer = NodeListSerializer(data, many=True)
+        return response.Response(serializer.data)
 
 class LoadViewSet(viewsets.ModelViewSet):
     queryset = Load.objects.all()

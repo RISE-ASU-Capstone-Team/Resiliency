@@ -4,6 +4,7 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'^node', views.NodeViewSet)
+router.register(r'^nodeMarker',views.NodeMarkerViewSet)
 router.register(r'update', views.DBChangeViewSet)
 
 urlpatterns = [
