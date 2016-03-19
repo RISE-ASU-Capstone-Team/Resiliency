@@ -1,68 +1,28 @@
 {
   "Components" : [
     {
-      "System": "Power",
-      "Subsystem": "Generation Subsystem",
-      "RiseVariableName": "genSynchronous",
-      "Description": "Synchronous Generator",
-      "OpenDssName": "null",
+      "Name": "Synchronous Generator",
+      "System":"Power",
+      "Type": "SYNC_GENERATOR",
       "Icon": "/static/icons/SynchronousGenerator.png"
     },
     {
-      "System": "Power",
-      "Subsystem": "Generation Subsystem",
-      "RiseVariableName": "genSolarPVMod",
-      "Description": "Solar PV Module",
-      "OpenDssName": "null",
-      "Icon": "/static/icons/SolarPVModule.png"
-    },
-    {
-      "System": "Power",
-      "Subsystem": "Generation Subsystem",
-      "RiseVariableName": "genSubstation",
-      "Description": "Substation",
-      "OpenDssName": "null",
-      "Icon": "/static/icons/Substation.png"
-    },
-    {
-      "System": "Power",
-      "Subsystem": "Generation Subsystem",
-      "RiseVariableName": "genRelay",
-      "Description": "Relay",
-      "OpenDssName": "null",
-      "Icon": "/static/icons/Relay.png"
-    },
-    {
-      "System": "Power",
-      "Subsystem": "Generation Subsystem",
-      "RiseVariableName": "genLoad",
-      "Description": "Load",
-      "OpenDssName": "null",
+      "Name": "Load",
+      "System":"Power",
+      "Type": "LOAD",
       "Icon": "/static/icons/Load.png"
     },
     {
-      "System": "Power",
-      "Subsystem": "Generation Subsystem",
-      "RiseVariableName": "genFuse",
-      "Description": "Fuse",
-      "OpenDssName": "null",
-      "Icon": "/static/icons/Fuse.png"
+      "Name": "Bus",
+      "System":"Power",
+      "Type": "BUS",
+      "Icon": "/static/icons/icon.png"
     },
     {
-      "System": "Power",
-      "Subsystem": "Generation Subsystem",
-      "RiseVariableName": "gen3PTransmissionLine",
-      "Description": "3PTransmissionLine",
-      "OpenDssName": "null",
-      "Icon": "/static/icons/3PTransmissionLine.png"
-    },
-    {
-      "System": "Power",
-      "Subsystem": "Generation Subsystem",
-      "RiseVariableName": "gen3PTransformer",
-      "Description": "3PTransformer",
-      "OpenDssName": "null",
-      "Icon": "/static/icons/3PTransformer.png"
+      "Name": "Utility",
+      "System":"Power",
+      "Type": "UTILITY",
+      "Icon": "/static/icons/icon.png"
     }
   ]
 }
