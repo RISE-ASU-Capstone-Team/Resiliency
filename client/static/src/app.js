@@ -22,7 +22,7 @@ clientApp.controller('NodeListController',
             scope.nodeList = d;
         });
 
-        var poll = function() {
+        var pollList = function() {
             polling = true;
             timeout(function() {
                 http.get('http://localhost:8000/data/api/update'
@@ -39,13 +39,58 @@ clientApp.controller('NodeListController',
                 }, function errorCallback(response){
                     console.log("Error retrieving update");
                 })
-                poll();
+                pollList();
             }, 2000);
         };
-        if(!polling){
-            poll();
+
+        var pollMarkers = function() {
+          timeout(function() {
+              http.get('http://localhost:8000/data/api/update'
+                  + '/?format=json').then(function successCallback(response){
+                      http.get('http://localhost:8000/data/api/nodeMarker'
+                               + '/?format=json').success(function(d){
+                          refreshMarkers(d);
+                          route.reload();
+                      })
+              }, function errorCallback(response){
+                  console.log("Error retrieving update");
+              })
+              pollMarkers();
+          }, 2000);
         }
 
+        if(!polling){
+            pollList();
+            pollMarkers();
+        }
+
+        var refreshMarkers = function(d) {
+
+          for (var i = 0; i < d.length; i++) {
+            var marker = d[i];
+
+            // make sure this marker hasn't been added to the map already
+            if (!(marker.id in markers)) {
+
+              // DEBUG:  For now it just grabs a default component icon information
+              var component = defaultComponentsArr["genSynchronous"];
+              var latlng = L.latLng(marker.latitude, marker.longitude);
+
+              var newIcon = new compIcon({
+                  iconUrl: component.Icon,
+                  iconAnchor: [defaultIconSize.x/2.0, defaultIconSize.y/2.0]
+                });
+              var options = {
+        						icon: newIcon,
+        						clickable: true,
+        						draggable: true,
+                    keyboard: false
+                  };
+
+              addMarkerToMap(marker.id, component, latlng, options);
+            }
+          }
+        }
 
         scope.nodeListClicked = function(nodeID){
             var data;

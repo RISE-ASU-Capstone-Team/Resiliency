@@ -15,6 +15,8 @@ class Node(models.Model):
     name = models.CharField(max_length=100, default="UN")
     f_id = models.IntegerField(default=0)
     type = models.IntegerField(default=0)
+    latitude = models.FloatField(default=0)
+    longitude = models.FloatField(default=0)
 
 
 # ------------------------------------------------------------------ Connections
@@ -178,4 +180,3 @@ class PowerArc(models.Model):
 '''
 
 # ------------------------------------------------------------------ Water nodes
-

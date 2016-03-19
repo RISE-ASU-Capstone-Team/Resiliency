@@ -3,7 +3,7 @@ from django.db import connection, transaction
 from django.shortcuts import get_object_or_404
 from client.serialize import LoadSerializer, NodeListSerializer, \
     DBChangesSerializer, SyncGeneratorSerializer, BusSerializer, \
-    UtilitySerializer
+    UtilitySerializer, NodeMarkerSerializer
 from client.models import Load, DBChanges, Node, SyncGenerator, Utility, Bus
 from client.permissions import IsOwnerOrReadOnly
 from rest_framework import viewsets, response, status, settings, decorators
@@ -50,6 +50,26 @@ class NodeViewSet(viewsets.ModelViewSet):
         serializer = NodeListSerializer(data, many=True)
         return response.Response(serializer.data)
 
+class NodeMarkerViewSet(viewsets.ModelViewSet):
+    queryset = Node.objects.all()
+    serializer_class = NodeMarkerSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
+
+    def retrieve(self, request, pk=None, *args, **kwargs):
+        queryset = Node.objects.all()
+        node = get_object_or_404(queryset, pk=pk)
+        node_type = node.type
+        queryset = get_query_set(node_type)
+        node = get_object_or_404(queryset, pk=node.f_id)
+        serializer = get_serializer(node_type, node)
+        return response.Response(serializer.data)
+
+    def list(self, request, *args, **kwargs):
+        cursor = connection.cursor()
+        cursor.execute('select n.id, n.name, n.type, n.latitude, n.longitude FROM client_node n')
+        data = dictfetchall(cursor)
+        serializer = NodeMarkerSerializer(data, many=True)
+        return response.Response(serializer.data)
 
 class LoadViewSet(viewsets.ModelViewSet):
     queryset = Load.objects.all()

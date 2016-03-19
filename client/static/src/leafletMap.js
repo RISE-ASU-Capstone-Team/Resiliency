@@ -18,11 +18,11 @@ $.ajax({
 
 var defaultIconSize = new L.Point(64, 64);
 var markers = [];
-function addMarkerToMap(componentData, position, options) {
+function addMarkerToMap(key, componentData, position, options) {
     var newMarker = L.marker(position, options).addTo(map);
     newMarker.componentData = componentData;
     newMarker.on('click', handleMarkerClick);
-    markers.push(newMarker);
+    markers[key] = newMarker;
 }
 
 var compIcon = L.Icon.extend({
@@ -38,7 +38,7 @@ function handleMarkerClick(e) {
   var component = this.componentData;
   for (var i = 0; i < component.Variables.length; i++) {
     var variable = component.Variables[i];
-    
+
     var description = variable.Description;
     var value = variable.Value;
   }
@@ -55,8 +55,8 @@ function resizeMarkers() {
 
   var currentZoom = map.getZoom();
 
-  for (var i = 0; i < markers.length; i++) {
-    var marker = markers[i];
+  for (var key in markers) {
+    var marker = markers[key];
     var newIconSize = transformation.transform(defaultIconSize, sizeFactor(currentZoom));
 
     // adjust the icon anchor to the new size
