@@ -66,19 +66,9 @@ class NodeMarkerViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         cursor = connection.cursor()
-        cursor.execute('select n.id, foo.name, n.type, n.latitude, n.longitude FROM client_node n, '
-                       '(select name from client_load UNION select name from '
-                       'client_syncgenerator UNION select name from client_bus '
-                       'UNION select name from client_utility) as foo where '
-                       'foo.name = ((SELECT l.name from client_load l where '
-                       'n.type = 0 and n.f_id = l.id) UNION (SELECT sg.name '
-                       'FROM client_syncgenerator sg WHERE n.type = 1 and '
-                       'n.f_id = sg.id) UNION (SELECT b.name FROM client_bus b '
-                       'WHERE n.type = 2 and n.f_id = b.id) UNION '
-                       '(SELECT u.name FROM client_utility u WHERE n.type = 3 '
-                       'and n.f_id = u.id))')
+        cursor.execute('select n.id, n.name, n.type, n.latitude, n.longitude FROM client_node n')
         data = dictfetchall(cursor)
-        serializer = NodeListSerializer(data, many=True)
+        serializer = NodeMarkerSerializer(data, many=True)
         return response.Response(serializer.data)
 
 class LoadViewSet(viewsets.ModelViewSet):

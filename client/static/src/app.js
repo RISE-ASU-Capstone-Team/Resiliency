@@ -66,24 +66,29 @@ clientApp.controller('NodeListController',
 
         var refreshMarkers = function(d) {
 
-          var marker = {"id":4, "lat":32, "lng":-112, name:"Test Marker", "type":4, "RiseVariableName":"genSolarPVMod"};
+          for (var i = 0; i < d.length; i++) {
+            var marker = d[i];
 
-          if (!(marker.id in markers)) {
-            var component = defaultComponentsArr[marker.RiseVariableName];
-            var latlng = L.latLng(marker.lat, marker.lng);
+            // make sure this marker hasn't been added to the map already
+            if (!(marker.id in markers)) {
 
-            var newIcon = new compIcon({
-                iconUrl: component.Icon,
-                iconAnchor: [defaultIconSize.x/2.0, defaultIconSize.y/2.0]
-              });
-            var options = {
-      						icon: newIcon,
-      						clickable: true,
-      						draggable: true,
-                  keyboard: false
-                };
+              // DEBUG:  For now it just grabs a default component icon information
+              var component = defaultComponentsArr["genSynchronous"];
+              var latlng = L.latLng(marker.latitude, marker.longitude);
 
-            addMarkerToMap(marker.id, component, latlng, options);
+              var newIcon = new compIcon({
+                  iconUrl: component.Icon,
+                  iconAnchor: [defaultIconSize.x/2.0, defaultIconSize.y/2.0]
+                });
+              var options = {
+        						icon: newIcon,
+        						clickable: true,
+        						draggable: true,
+                    keyboard: false
+                  };
+
+              addMarkerToMap(marker.id, component, latlng, options);
+            }
           }
         }
 

@@ -104,6 +104,12 @@ $(document).ready(function() {
             };
 
         addMarkerToMap(markers.length+1+"", component, latlng, options);
+
+        $.post("http://localhost:8000/data/api/nodeMarker/", {name: "DroppedMarker_1", type: 1,
+          latitude: latlng.lat, longitude: latlng.lng, active: true}).
+          done(function(data){
+              // TODO : WHATEVER YOU WANT AFTER POST COMPLETED
+            });
       }
     });
   $('#map')
