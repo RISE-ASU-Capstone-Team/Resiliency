@@ -11,7 +11,7 @@
     {
       "System": "Power",
       "Subsystem": "Generation Subsystem",
-      "RiseVariableName": "genSolarPVMod",
+      "RiseVariableName": "solarPVMod",
       "Description": "Solar PV Module",
       "OpenDssName": "null",
       "Icon": "/static/icons/SolarPVModule.png"
@@ -19,7 +19,7 @@
     {
       "System": "Power",
       "Subsystem": "Generation Subsystem",
-      "RiseVariableName": "genSubstation",
+      "RiseVariableName": "substation",
       "Description": "Substation",
       "OpenDssName": "null",
       "Icon": "/static/icons/Substation.png"
@@ -27,7 +27,7 @@
     {
       "System": "Power",
       "Subsystem": "Generation Subsystem",
-      "RiseVariableName": "genRelay",
+      "RiseVariableName": "relay",
       "Description": "Relay",
       "OpenDssName": "null",
       "Icon": "/static/icons/Relay.png"
@@ -35,7 +35,7 @@
     {
       "System": "Power",
       "Subsystem": "Generation Subsystem",
-      "RiseVariableName": "genLoad",
+      "RiseVariableName": "load",
       "Description": "Load",
       "OpenDssName": "null",
       "Icon": "/static/icons/Load.png"
@@ -43,7 +43,7 @@
     {
       "System": "Power",
       "Subsystem": "Generation Subsystem",
-      "RiseVariableName": "genFuse",
+      "RiseVariableName": "fuse",
       "Description": "Fuse",
       "OpenDssName": "null",
       "Icon": "/static/icons/Fuse.png"
@@ -51,7 +51,7 @@
     {
       "System": "Power",
       "Subsystem": "Generation Subsystem",
-      "RiseVariableName": "gen3PTransmissionLine",
+      "RiseVariableName": "3PTransmissionLine",
       "Description": "3PTransmissionLine",
       "OpenDssName": "null",
       "Icon": "/static/icons/3PTransmissionLine.png"
@@ -59,10 +59,18 @@
     {
       "System": "Power",
       "Subsystem": "Generation Subsystem",
-      "RiseVariableName": "gen3PTransformer",
-      "Description": "3PTransformer",
+      "RiseVariableName": "bus",
+      "Description": "Bus",
       "OpenDssName": "null",
-      "Icon": "/static/icons/3PTransformer.png"
+      "Icon": "/static/icons/Load.png"
+    },
+    {
+      "System": "Power",
+      "Subsystem": "Generation Subsystem",
+      "RiseVariableName": "utility",
+      "Description": "Utility",
+      "OpenDssName": "null",
+      "Icon": "/static/icons/Load.png"
     }
   ]
 }
