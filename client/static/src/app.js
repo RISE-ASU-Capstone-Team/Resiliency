@@ -66,6 +66,10 @@ clientApp.controller('NodeListController',
         var refreshConnections = function(d) {
           for (var i = 0; i < d.length; i++) {
             var connection = d[i];
+            var from_marker = markers[connection.from_bus_id];
+            var to_marker = markers[connection.to_bus_id];
+            var polyLine = new L.Polyline([from_marker._latlng, to_marker._latlng], polylineOptions);
+            polyLine.addTo(map);
             console.log("Received connection:" + connection);
           }
         }
