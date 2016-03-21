@@ -37,6 +37,8 @@ function handleMarkerClick(e) {
   {
     var polyLine = new L.Polyline([this._latlng, initialConnection._latlng], polylineOptions);
     polyLine.addTo(map);
+    initialConnection = null;
+    connectionStarted = false;
   }
 }
 
