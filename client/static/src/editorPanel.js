@@ -105,7 +105,8 @@ $(document).ready(function() {
 
         addMarkerToMap(markers.length+1+"", component, latlng, options);
 
-        $.post("http://localhost:8000/data/api/nodeMarker/", {name: "DroppedMarker_1", type: 1,
+        $.post(Server.ADDRESS + "data/api/" + nodeType(component.Type)
+                + '/', {type: component.Type,
           latitude: latlng.lat, longitude: latlng.lng, active: true}).
           done(function(data){
               // TODO : WHATEVER YOU WANT AFTER POST COMPLETED
@@ -128,3 +129,24 @@ $(document).ready(function() {
        }
     });
 });
+
+function nodeType(type){
+    console.log("received type: " + type);
+    switch(type){
+        case Power.LOAD:{
+            return 'load';
+        }
+        case Power.SYNC_GENERATOR:{
+            return 'genSynchronous'
+        }
+        case Power.BUS:{
+            return  'bus'
+        }
+        case Power.UTILITY:{
+            return  'utility'
+        }
+        default: {
+            return 'load'
+        }
+    }
+}

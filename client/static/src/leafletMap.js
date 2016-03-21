@@ -8,14 +8,6 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     accessToken: 'pk.eyJ1IjoianNkMTcxMCIsImEiOiJjaWpuOGhlMGwwMGU1dmFseDllbWZ4ZTJtIn0.f_lRG59G0q9Or38C2cgz3Q' //JDobkins personal API AccessToken. TODO: Register RISE API Token.
 }).addTo(map);
 
-$.ajax({
-    url: "\\static\\testpoints.json",
-    success: function (data) {
-        var obj = JSON.parse(data);
-        console.log(obj);
-    }
-});
-
 var defaultIconSize = new L.Point(64, 64);
 var markers = [];
 function addMarkerToMap(key, componentData, position, options) {

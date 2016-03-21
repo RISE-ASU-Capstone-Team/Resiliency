@@ -3,26 +3,77 @@
     {
       "Name": "Synchronous Generator",
       "System":"Power",
-      "Type": "SYNC_GENERATOR",
+      "RiseVariableName": "genSynchronous",
+      "Description": "Synchronous Generator",
+      "Type": 1,
       "Icon": "/static/icons/SynchronousGenerator.png"
     },
     {
-      "Name": "Load",
-      "System":"Power",
-      "Type": "LOAD",
+      "System": "Power",
+      "Subsystem": "Generation Subsystem",
+      "RiseVariableName": "solarPVMod",
+      "Description": "Solar PV Module",
+      "OpenDssName": "null",
+      "Icon": "/static/icons/SolarPVModule.png"
+    },
+    {
+      "System": "Power",
+      "Subsystem": "Generation Subsystem",
+      "RiseVariableName": "substation",
+      "Description": "Substation",
+      "OpenDssName": "null",
+      "Icon": "/static/icons/Substation.png"
+    },
+    {
+      "System": "Power",
+      "Subsystem": "Generation Subsystem",
+      "RiseVariableName": "relay",
+      "Description": "Relay",
+      "OpenDssName": "null",
+      "Icon": "/static/icons/Relay.png"
+    },
+    {
+      "System": "Power",
+      "Subsystem": "Generation Subsystem",
+      "RiseVariableName": "load",
+      "Type": 0,
+      "Description": "Load",
+      "OpenDssName": "null",
       "Icon": "/static/icons/Load.png"
     },
     {
-      "Name": "Bus",
-      "System":"Power",
-      "Type": "BUS",
-      "Icon": "/static/icons/icon.png"
+      "System": "Power",
+      "Subsystem": "Generation Subsystem",
+      "RiseVariableName": "fuse",
+      "Description": "Fuse",
+      "OpenDssName": "null",
+      "Icon": "/static/icons/Fuse.png"
     },
     {
-      "Name": "Utility",
-      "System":"Power",
-      "Type": "UTILITY",
-      "Icon": "/static/icons/icon.png"
+      "System": "Power",
+      "Subsystem": "Generation Subsystem",
+      "RiseVariableName": "3PTransmissionLine",
+      "Description": "3PTransmissionLine",
+      "OpenDssName": "null",
+      "Icon": "/static/icons/3PTransmissionLine.png"
+    },
+    {
+      "System": "Power",
+      "Subsystem": "Generation Subsystem",
+      "RiseVariableName": "bus",
+      "Type": 2,
+      "Description": "Bus",
+      "OpenDssName": "null",
+      "Icon": "/static/icons/Load.png"
+    },
+    {
+      "System": "Power",
+      "Subsystem": "Generation Subsystem",
+      "RiseVariableName": "utility",
+      "Type": 3,
+      "Description": "Utility",
+      "OpenDssName": "null",
+      "Icon": "/static/icons/Load.png"
     }
   ]
 }
