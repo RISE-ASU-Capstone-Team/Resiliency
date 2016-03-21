@@ -26,6 +26,10 @@ clientApp.controller('NodeListController',
             scope.nodeList = d;
             refreshMarkers(d);
         });
+        http.get(Server.ADDRESS + 'data/api/connection'
+                 + '/?format=json').success(function(d){
+            refreshConnections(d);
+        });
 
         // Server poll for updates
         var pollList = function() {
@@ -39,7 +43,12 @@ clientApp.controller('NodeListController',
                             scope.nodeList = d;
                             refreshMarkers(d);
                             route.reload();
-                        })
+                          });
+                        http.get(Server.ADDRESS + 'data/api/connection'
+                                 + '/?format=json').success(function(d){
+                            refreshConnections(d);
+                            route.reload();
+                        });
                     }else{
 
                     }
@@ -52,6 +61,13 @@ clientApp.controller('NodeListController',
 
         if(!polling){
             pollList();
+        }
+
+        var refreshConnections = function(d) {
+          for (var i = 0; i < d.length; i++) {
+            var connection = d[i];
+            console.log("Received connection:" + connection);
+          }
         }
 
         var refreshMarkers = function(d) {
