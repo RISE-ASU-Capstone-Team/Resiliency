@@ -14,7 +14,9 @@ function addMarkerToMap(key, componentData, position, options) {
     var newMarker = L.marker(position, options).addTo(map);
     newMarker.componentData = componentData;
     newMarker.on('click', handleMarkerClick);
+    newMarker.id = key;
     markers[key] = newMarker;
+    resizeMarkers();
 }
 
 var compIcon = L.Icon.extend({

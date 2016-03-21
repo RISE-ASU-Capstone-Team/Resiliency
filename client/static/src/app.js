@@ -64,7 +64,7 @@ clientApp.controller('NodeListController',
 
               // DEBUG:  For now it just grabs a default component icon information
               var component = defaultComponentsArr[nodeType(marker.type)];
-              console.log(marker.type);
+              //console.log(marker.type);
               var latlng = L.latLng(marker.latitude, marker.longitude);
 
               var newIcon = new compIcon({
