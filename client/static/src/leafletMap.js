@@ -56,7 +56,7 @@ function resizeMarkers() {
     var newIconSize = transformation.transform(defaultIconSize, sizeFactor(currentZoom));
 
     // adjust the icon anchor to the new size
-    var newIconAnchor = new L.Point(Math.round(newIconSize.x / 2), Math.round(newIconSize.y / 2));
+    var newIconAnchor = new L.Point(Math.round(newIconSize.x / 2), Math.round(newIconSize.y / 1));
 
     // finally, declare a new icon and update the marker
     var newIcon = new compIcon({

@@ -69,7 +69,7 @@ clientApp.controller('NodeListController',
 
               var newIcon = new compIcon({
                   iconUrl: component.Icon,
-                  iconAnchor: [defaultIconSize.x/2.0, defaultIconSize.y/2.0]
+                  iconAnchor: [defaultIconSize.x/2.0, defaultIconSize.y/1.0]
                 });
               var options = {
         						icon: newIcon,
