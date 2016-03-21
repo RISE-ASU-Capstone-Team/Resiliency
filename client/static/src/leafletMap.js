@@ -28,11 +28,15 @@ map.on('zoomend', handleMapZoom);
 
 function handleMarkerClick(e) {
   var component = this.componentData;
-  for (var i = 0; i < component.Variables.length; i++) {
-    var variable = component.Variables[i];
-
-    var description = variable.Description;
-    var value = variable.Value;
+  if (event.altKey && !connectionStarted)
+  {
+    connectionStarted = true;
+    initialConnection = this;
+  }
+  else if (event.altKey && connectionStarted)
+  {
+    var polyLine = new L.Polyline([this._latlng, initialConnection._latlng], polylineOptions);
+    polyLine.addTo(map);
   }
 }
 

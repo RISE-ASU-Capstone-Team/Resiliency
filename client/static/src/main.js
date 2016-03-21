@@ -4,6 +4,11 @@ var loadEditableCount = 12;
 var syncGenEditableCount = 11;
 var busEditableCount = 5;
 
+
+//Connecting Nodes
+var connectionStarted = false;
+var initialConnection = null;
+
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
