@@ -104,7 +104,7 @@ class Bus(Node):
         return self.id
 
 
-class Utility(models.Model):
+class Utility(Node):
     # Total Editable = 13
     base_power = models.FloatField(max_length=100, default=0.0)
     LL_voltage = models.FloatField(max_length=100, default=0.0)
