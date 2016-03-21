@@ -38,7 +38,7 @@ class BusSerializer(serializers.HyperlinkedModelSerializer):
 class UtilitySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Utility
-        fields = ('id', 'operational_status', 'is_bus', 'name',
+        fields = ('id', 'operational_status', 'is_bus', 'type', 'name',
                   'latitude', 'longitude', 'base_power', 'LL_voltage',
                   'voltage_angle', 'short_circuit_3_phase', 'short_circuit_SLG',
                   'stiffness', 'r_1', 'x_1', 'r_0', 'x_0',
