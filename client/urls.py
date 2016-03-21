@@ -3,6 +3,7 @@ from . import views
 from rest_framework import routers
 
 router = routers.DefaultRouter()
+router.register(r'^connection', views.ConnectionViewSet)
 router.register(r'^node', views.NodeMarkerViewSet)
 router.register(r'^nodeMarker', views.NodeMarkerViewSet)
 router.register(r'update', views.DBChangeViewSet)

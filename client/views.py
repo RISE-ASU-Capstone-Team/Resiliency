@@ -3,8 +3,8 @@ from django.db import connection, transaction
 from django.shortcuts import get_object_or_404
 from client.serialize import LoadSerializer, DBChangesSerializer, \
     SyncGeneratorSerializer, BusSerializer, \
-    UtilitySerializer, NodeMarkerSerializer
-from client.models import Load, DBChanges, Node, SyncGenerator, Utility, Bus
+    UtilitySerializer, NodeMarkerSerializer, ConnectionListSerializer
+from client.models import Connection, Load, DBChanges, Node, SyncGenerator, Utility, Bus
 from client.permissions import IsOwnerOrReadOnly
 from rest_framework import viewsets, response, status, settings, decorators
 import time
@@ -41,6 +41,9 @@ class NodeMarkerViewSet(viewsets.ModelViewSet):
         serializer = NodeMarkerSerializer(data, many=True)
         return response.Response(serializer.data)
 
+class ConnectionViewSet(viewsets.ModelViewSet):
+    queryset = Connection.objects.all()
+    serializer_class = ConnectionListSerializer
 
 class LoadViewSet(viewsets.ModelViewSet):
     queryset = Load.objects.all()
