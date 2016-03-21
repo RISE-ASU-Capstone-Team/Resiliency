@@ -28,6 +28,10 @@ var compIcon = L.Icon.extend({
 
 map.on('zoomend', handleMapZoom);
 
+function handleConnectionClick(e) {
+  console.log("handleConnectionClick called");
+}
+
 function handleMarkerClick(e) {
   var component = this.componentData;
   if (event.altKey && !connectionStarted)
@@ -39,8 +43,8 @@ function handleMarkerClick(e) {
   {
     if (this.id != initialConnection.id)
       {
-        var polyLine = new L.Polyline([this._latlng, initialConnection._latlng], polylineOptions);
-        polyLine.addTo(map);
+        addConnectionToMap(this, initialConnection, polylineOptions);
+
         $.post(Server.ADDRESS + "data/api/connection/", {from_bus_id: initialConnection.id, to_bus_id: this.id}).
           done(function(data){
               // TODO : WHATEVER YOU WANT AFTER POST COMPLETED
@@ -50,12 +54,17 @@ function handleMarkerClick(e) {
     initialConnection = null;
     connectionStarted = false;
   }
+
   document.getElementById('deleteNodeButton').style.display = "block";
   document.getElementById('deleteNodeButton').onclick = function deleteNode(){
-
     document.getElementById('deleteNodeButton').style.display = "none";
   }
+}
 
+function addConnectionToMap(markerA, markerB, options) {
+  var polyLine = new L.Polyline([markerA._latlng, markerB._latlng], polylineOptions);
+  polyLine.addTo(map);
+  polyLine.on('click', handleConnectionClick);
 }
 
 function handleMapZoom(e) {

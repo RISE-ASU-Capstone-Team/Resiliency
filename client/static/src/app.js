@@ -68,9 +68,15 @@ clientApp.controller('NodeListController',
             var connection = d[i];
             var from_marker = markers[connection.from_bus_id];
             var to_marker = markers[connection.to_bus_id];
-            var polyLine = new L.Polyline([from_marker._latlng, to_marker._latlng], polylineOptions);
-            polyLine.addTo(map);
-            console.log("Received connection:" + connection);
+            if (from_marker != undefined && to_marker != undefined) {
+              addConnectionToMap(from_marker, to_marker, polylineOptions)
+            } else {
+              console.log("WARNING: Received A Connection, but couldn't find related markers!!");
+            }
+            //var polyLine = new L.Polyline([from_marker._latlng, to_marker._latlng], polylineOptions);
+            //polyLine.addTo(map);
+            //polyLine.on('click', handleConnectionClick);
+            //console.log("Received connection:" + connection);
           }
         }
 

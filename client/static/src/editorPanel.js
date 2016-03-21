@@ -131,7 +131,7 @@ $(document).ready(function() {
 });
 
 function nodeType(type){
-    console.log("received type: " + type);
+    //console.log("received type: " + type);
     switch(type){
         case Power.LOAD:{
             return 'load';
