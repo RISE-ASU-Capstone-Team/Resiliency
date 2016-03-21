@@ -17,7 +17,7 @@ class Node(models.Model):
     operational_status = models.BooleanField(default=True)
     is_bus = models.BooleanField(default=True)
 
-    # Non-editable = 3
+    # Non-editable = 7
     voltage_1_magnitude = models.FloatField(max_length=100, default=0.0)
     voltage_1_angle = models.FloatField(max_length=100, default=0.0)
     voltage_1_PU = models.FloatField(max_length=100, default=0.0)
@@ -32,9 +32,20 @@ class Node(models.Model):
 
 # ------------------------------------------------------------------ Connections
 class Connection(models.Model):
-    from_id = models.IntegerField(default=0)
-    to_id = models.IntegerField(default=0)
+    # Total editable = 2
+    name = models.CharField(max_length=100, default="Untitled Connection")
+    operational_status = models.BooleanField(default=True)
+
+    # Non-editable = 10
+    current_1_magnitude = models.FloatField(max_length=100, default=0.0)
+    current_1_angle = models.FloatField(max_length=100, default=0.0)
+    real_power_entering = models.FloatField(max_length=100, default=0.0)
+    reactive_power_entering = models.FloatField(max_length=100, default=0.0)
+    real_power_leaving = models.FloatField(max_length=100, default=0.0)
+    reactive_power_leaving = models.FloatField(max_length=100, default=0.0)
     type = models.IntegerField(default=0)
+    from_bus_id = models.IntegerField(default=-1)
+    to_bus_id = models.IntegerField(default=-1)
     created_date = models.BigIntegerField(default=time.time())
 
     def __str__(self):
@@ -64,7 +75,7 @@ class Load(Node):
 
 
 class SyncGenerator(Node):
-    # Total Editable = 11
+    # Total Editable = 9
     stiffness = models.BooleanField(default=True)
     power_rating = models.FloatField(max_length=100, default=0.0)
     RPM_rating = models.IntegerField(default=0.0)
@@ -72,7 +83,7 @@ class SyncGenerator(Node):
     power_factor_percent = models.FloatField(max_length=100, default=0.0)
     wiring = models.IntegerField(default=0)
 
-    # Non-editable
+    # Non-editable = 12
     nominal_LL_voltage = models.FloatField(max_length=100, default=0.0)
     current_1_magnitude = models.FloatField(max_length=100, default=0.0)
     current_1_angle = models.FloatField(max_length=100, default=0.0)
@@ -86,7 +97,7 @@ class SyncGenerator(Node):
 class Bus(Node):
     # Total Editable = 3
 
-    # Non-editable
+    # Non-editable = 8
     nominal_LL_voltage = models.FloatField(max_length=100, default=0.0)
 
     def __str__(self):
@@ -94,7 +105,7 @@ class Bus(Node):
 
 
 class Utility(models.Model):
-    # Total Editable = 5
+    # Total Editable = 13
     base_power = models.FloatField(max_length=100, default=0.0)
     LL_voltage = models.FloatField(max_length=100, default=0.0)
     voltage_angle = models.FloatField(max_length=100, default=0.0)
@@ -106,48 +117,90 @@ class Utility(models.Model):
     r_0 = models.FloatField(max_length=100, default=0.0)
     x_0 = models.FloatField(max_length=100, default=0.0)
 
-    # Non-editable
+    # Non-editable = 9
     current_1_magnitude = models.FloatField(max_length=100, default=0.0)
     current_1_angle = models.FloatField(max_length=100, default=0.0)
 
+    def __str__(self):
+        return self.id
 
-class TwoWindingTransformer(models.Model):
-    # Total Editable = 6
-    operational_status = models.BooleanField(default=True)
-    is_bus = models.BooleanField(default=True)
-    latitude = models.FloatField(max_length=50, default=0)
-    longitude = models.FloatField(max_length=50, default=0)
-    from_bus = models.IntegerField(default=0)
-    to_bus = models.IntegerField(default=0)
 
-    name = models.CharField(max_length=100, default="Untitled TWTransformer")
-    base_power = models.FloatField(max_length=100, default=0.0)
-
-    created_date = models.BigIntegerField(default=time.time())
+# ------------------------------------------------------------ Power Connections
+class TwoWindingTransformer(Connection):
+    # Total Editable = 10
+    from_bus_voltage_rating = models.FloatField(max_length=100, default=0.0)
+    to_bus_voltage_rating = models.FloatField(max_length=100, default=0.0)
+    from_bus_wiring = models.IntegerField(default=0)
+    to_bus_wiring = models.IntegerField(default=0)
+    power_rating = models.FloatField(max_length=100, default=0.0)
+    x_percent = models.FloatField(max_length=100, default=0.0)
+    r_percent = models.FloatField(max_length=100, default=0.0)
+    tap_percent = models.FloatField(max_length=100, default=0.0)
+    tap_side = models.BooleanField(default=True)
+    min_tap = models.FloatField(max_length=100, default=0.0)
+    max_tap = models.FloatField(max_length=100, default=0.0)
 
     def __str__(self):
         return self.name
 
-'''
+
+class DirectConnection(Connection):
+    # Total Editable = 2
+
+    # Non-Editable = 9
+    from_bus_voltage_rating = models.FloatField(max_length=100, default=0.0)
+    to_bus_voltage_rating = models.FloatField(max_length=100, default=0.0)
+
+    def __str__(self):
+        return self.name
+
+
+class Cable(Connection):
+    # Total Editable = 6
+    linecode_object_id = models.IntegerField(default=0)
+    voltage_rating = models.FloatField(max_length=100, default=0.0)
+    length = models.FloatField(max_length=100, default=0.0)
+    number_of_cables = models.IntegerField(default=0)
+
+    # Non-Editable = 7
+
+    def __str__(self):
+        return self.name
+
+
+class OverheadLine(Connection):
+    # Total Editable = 6
+    wiredata_object_id = models.IntegerField(default=0)
+    number_of_conductors = models.IntegerField(default=0)
+    length = models.FloatField(max_length=100, default=0.0)
+    soil_resistivity = models.FloatField(max_length=100, default=0.0)
+    kron_reduction = models.BooleanField(default=True)
+
+    # Non-Editable = 8
+    nominal_LL_voltage = models.FloatField(max_length=100, default=0.0)
+
+    def __str__(self):
+        return self.name
+
+
+# ------------------------------------------------------------------- Power Info
 class Power(models.Model):
-    operational_status = models.BooleanField(default=True)
-    is_bus = models.BooleanField(default=True)
-    latitude = models.FloatField(max_length=50, default=0)
-    longitude = models.FloatField(max_length=50, default=0)
-    created_date = models.BigIntegerField(default=time.time())
+    temperature_units = models.IntegerField(default=0)
+    ambient_temp_celsius = models.FloatField(max_length=100, default=0)
+    ambient_temp_fahrenheit = models.FloatField(max_length=100, default=0)
+    voltage_units = models.IntegerField(default=0)
+    current_units = models.IntegerField(default=0)
+    power_units = models.IntegerField(default=0)
+    base_frequency = models.IntegerField(default=0)
+    bus_count = models.IntegerField(default=0)
+    utility_count = models.IntegerField(default=0)
+    generator_count = models.IntegerField(default=0)
+    load_count = models.IntegerField(default=0)
+    transformer_count = models.IntegerField(default=0)
+    branch_count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.id
 
-
-class PowerArc(models.Model):
-    operational_status = models.BooleanField(default=True)
-    is_bus = models.BooleanField(default=True)
-    from_bus = models.IntegerField(default=0)
-    to_bus = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.id
-'''
 
 # ------------------------------------------------------------------ Water nodes

@@ -58,7 +58,7 @@ class LoadViewSet(viewsets.ModelViewSet):
 
 class SyncGenViewSet(viewsets.ModelViewSet):
     queryset = SyncGenerator.objects.all()
-    serializer_class = LoadSerializer
+    serializer_class = SyncGeneratorSerializer
     permission_classes = (IsOwnerOrReadOnly,)
 
     def perform_create(self, serializer):
@@ -72,7 +72,7 @@ class SyncGenViewSet(viewsets.ModelViewSet):
 
 class BusViewSet(viewsets.ModelViewSet):
     queryset = Bus.objects.all()
-    serializer_class = LoadSerializer
+    serializer_class = BusSerializer
     permission_classes = (IsOwnerOrReadOnly,)
 
     def perform_create(self, serializer):
@@ -86,7 +86,7 @@ class BusViewSet(viewsets.ModelViewSet):
 
 class UtilityViewSet(viewsets.ModelViewSet):
     queryset = Utility.objects.all()
-    serializer_class = LoadSerializer
+    serializer_class = UtilitySerializer
     permission_classes = (IsOwnerOrReadOnly,)
 
     def perform_create(self, serializer):

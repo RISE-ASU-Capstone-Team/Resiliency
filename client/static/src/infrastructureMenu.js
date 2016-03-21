@@ -26,9 +26,9 @@ var projectJSON = {
     "projectDescription":"Some power, water and road stuff going on here"
 }
 
-waterNetworkTable(networkWaterJSON);
+//waterNetworkTable(networkWaterJSON);
 projectDescriptionTable(projectJSON);
-jsontoTable(jsonObjectTest);
+//jsontoTable(jsonObjectTest);
 
 
 
@@ -51,14 +51,7 @@ function jsontoTable(jsonObject) {
     //   console.log("Error when reading from Local Storage\n" + e);
     // }
 
-	document.getElementById("name").innerHTML=jsonObject.name;
-	document.getElementById("type").innerHTML=jsonObject.type;
-	document.getElementById("format").innerHTML=jsonObject.format;
-	document.getElementById("transformerDelta").innerHTML=jsonObject.transformerDelta;
-	document.getElementById("units").innerHTML=jsonObject.units;
-	document.getElementById("frequency").innerHTML=jsonObject.frequency;
-	document.getElementById("temperature").innerHTML=jsonObject.temperature;
-	document.getElementById("description").innerHTML=jsonObject.description;
+
 
 }
 

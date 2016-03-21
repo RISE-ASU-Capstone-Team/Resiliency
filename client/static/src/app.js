@@ -17,12 +17,17 @@ clientApp.config(function($routeProvider) {
 
 clientApp.controller('NodeListController',
     ['$scope', '$http', '$timeout', '$route', function(scope, http, timeout, route){
+        // Initialize global info
+        initPowerNetwork();
+
+        // Initial node list GET
         http.get(Server.ADDRESS + 'data/api/node'
                  + '/?format=json').success(function(d){
             scope.nodeList = d;
             refreshMarkers(d);
         });
 
+        // Server poll for updates
         var pollList = function() {
             polling = true;
             timeout(function() {
@@ -58,7 +63,8 @@ clientApp.controller('NodeListController',
             if (!(marker.id in markers)) {
 
               // DEBUG:  For now it just grabs a default component icon information
-              var component = defaultComponentsArr[nodeType(d.type)];
+              var component = defaultComponentsArr[nodeType(marker.type)];
+              console.log(marker.type);
               var latlng = L.latLng(marker.latitude, marker.longitude);
 
               var newIcon = new compIcon({
@@ -77,6 +83,7 @@ clientApp.controller('NodeListController',
           }
         }
 
+        // Load component table
         scope.nodeListClicked = function(nodeID, type){
             var data;
             http.get(Server.ADDRESS + 'data/api/' + nodeType(type) + '/'
@@ -156,4 +163,19 @@ function createToggle(td, count, value){
     input.onclick = function(e){toggleClicked(td.id)};
     td.appendChild(input);
     td.appendChild(label);
+}
+
+function initPowerNetwork(){
+	document.getElementById("ambTempC").innerHTML=0;
+	document.getElementById("ambTempF").innerHTML=32;
+	document.getElementById("voltUnits").innerHTML='kV';
+	document.getElementById("curUnits").innerHTML='A';
+	document.getElementById("powUnits").innerHTML='kW';
+	document.getElementById("baseFreq").innerHTML='20 kHz';
+	document.getElementById("busCount").innerHTML=0;
+	document.getElementById("utilCount").innerHTML=0;
+	document.getElementById("genCount").innerHTML=0;
+	document.getElementById("loadCount").innerHTML=0;
+	document.getElementById("transCount").innerHTML=0;
+	document.getElementById("branchCount").innerHTML=0;
 }

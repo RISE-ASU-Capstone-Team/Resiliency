@@ -104,8 +104,6 @@ $(document).ready(function() {
             };
 
         addMarkerToMap(markers.length+1+"", component, latlng, options);
-        // TODO : REMOVE LINE ONCE TYPE SET IN components.json
-        component.Type = 0;
 
         $.post(Server.ADDRESS + "data/api/" + nodeType(component.Type)
                 + '/', {type: component.Type,

@@ -1,11 +1,11 @@
 {
   "Components" : [
     {
-      "System": "Power",
-      "Subsystem": "Generation Subsystem",
+      "Name": "Synchronous Generator",
+      "System":"Power",
       "RiseVariableName": "genSynchronous",
       "Description": "Synchronous Generator",
-      "OpenDssName": "null",
+      "Type": 1,
       "Icon": "/static/icons/SynchronousGenerator.png"
     },
     {
@@ -36,6 +36,7 @@
       "System": "Power",
       "Subsystem": "Generation Subsystem",
       "RiseVariableName": "load",
+      "Type": 0,
       "Description": "Load",
       "OpenDssName": "null",
       "Icon": "/static/icons/Load.png"
@@ -60,6 +61,7 @@
       "System": "Power",
       "Subsystem": "Generation Subsystem",
       "RiseVariableName": "bus",
+      "Type": 2,
       "Description": "Bus",
       "OpenDssName": "null",
       "Icon": "/static/icons/Load.png"
@@ -68,6 +70,7 @@
       "System": "Power",
       "Subsystem": "Generation Subsystem",
       "RiseVariableName": "utility",
+      "Type": 3,
       "Description": "Utility",
       "OpenDssName": "null",
       "Icon": "/static/icons/Load.png"
