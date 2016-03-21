@@ -107,6 +107,7 @@ var toggleClicked = function(type){
     });
 }
 
+
 // This is a code template for posting new node information to the server
 // It applies specifically to Power nodes but is easily adaptable to others
 /*
