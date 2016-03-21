@@ -64,7 +64,7 @@
       "Type": 2,
       "Description": "Bus",
       "OpenDssName": "null",
-      "Icon": "/static/icons/Load.png"
+      "Icon": "/static/icons/Bus.png"
     },
     {
       "System": "Power",
@@ -73,7 +73,7 @@
       "Type": 3,
       "Description": "Utility",
       "OpenDssName": "null",
-      "Icon": "/static/icons/Load.png"
+      "Icon": "/static/icons/Utility.png"
     }
   ]
 }
