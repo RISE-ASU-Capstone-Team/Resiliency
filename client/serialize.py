@@ -55,7 +55,7 @@ class NodeMarkerSerializer(serializers.HyperlinkedModelSerializer):
 class ConnectionListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Connection
-        fields = ('id', 'from_id', 'to_id', 'type')
+        fields = ('id', 'from_bus_id', 'to_bus_id', 'type')
 
 
 class DBChangesSerializer(serializers.HyperlinkedModelSerializer):

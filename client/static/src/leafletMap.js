@@ -37,9 +37,15 @@ function handleMarkerClick(e) {
   }
   else if (event.altKey && connectionStarted)
   {
-    var polyLine = new L.Polyline([this._latlng, initialConnection._latlng], polylineOptions);
-    polyLine.addTo(map);
-    console.log(this);
+    if (this.id != initialConnection.id)
+    {
+      var polyLine = new L.Polyline([this._latlng, initialConnection._latlng], polylineOptions);
+      polyLine.addTo(map);
+      $.post(Server.ADDRESS + "data/api/connection/", {from_bus_id: initialConnection.id, to_bus_id: this.id}).
+        done(function(data){
+            // TODO : WHATEVER YOU WANT AFTER POST COMPLETED
+          });
+    }
     initialConnection = null;
     connectionStarted = false;
   }

@@ -44,6 +44,7 @@ class NodeMarkerViewSet(viewsets.ModelViewSet):
 class ConnectionViewSet(viewsets.ModelViewSet):
     queryset = Connection.objects.all()
     serializer_class = ConnectionListSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
 
 class LoadViewSet(viewsets.ModelViewSet):
     queryset = Load.objects.all()
