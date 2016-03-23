@@ -19,6 +19,15 @@ function addMarkerToMap(key, componentData, position, options) {
     resizeMarkers();
 }
 
+function removeMarkerFromMap(key, componentData, position, options) {
+    var newMarker = L.marker(position, options).addTo(map);
+    newMarker.componentData = componentData;
+    newMarker.on('click', handleMarkerClick);
+    newMarker.id = key;
+    markers[key] = newMarker;
+    resizeMarkers();
+}
+
 var compIcon = L.Icon.extend({
       options: {
         iconSize: defaultIconSize,
@@ -69,7 +78,7 @@ function handleMarkerClick(e) {
             + id + "/" ,
         type: 'delete',
         success: function(result) {
-          location.reload();
+
         }
     });
 
@@ -82,6 +91,7 @@ function addConnectionToMap(markerA, markerB, options) {
   polyLine.addTo(map);
   polyLine.on('click', handleConnectionClick);
 }
+
 
 function handleMapZoom(e) {
   resizeMarkers();
