@@ -30,10 +30,17 @@ map.on('zoomend', handleMapZoom);
 
 function handleConnectionClick(e) {
   console.log("handleConnectionClick called");
+  document.getElementById('deleteNodeButton').style.display = "block";
+  document.getElementById('deleteNodeButton').onclick = function deleteNode(){
+    document.getElementById('deleteNodeButton').style.display = "none";
+  }
 }
 
 function handleMarkerClick(e) {
   var component = this.componentData;
+  var typeNumer = this.componentData.Type;
+  var id = this.id
+
   if (event.altKey && !connectionStarted)
   {
     connectionStarted = true;
@@ -57,6 +64,15 @@ function handleMarkerClick(e) {
 
   document.getElementById('deleteNodeButton').style.display = "block";
   document.getElementById('deleteNodeButton').onclick = function deleteNode(){
+    $.ajax({
+        url: Server.ADDRESS + "data/api/" + nodeType(typeNumer) + '/'
+            + id + "/" ,
+        type: 'delete',
+        success: function(result) {
+          location.reload();
+        }
+    });
+
     document.getElementById('deleteNodeButton').style.display = "none";
   }
 }
