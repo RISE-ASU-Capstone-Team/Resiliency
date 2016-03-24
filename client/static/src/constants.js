@@ -2,7 +2,14 @@ var Power = {
     LOAD : 0,
     SYNC_GENERATOR : 1,
     BUS : 2,
-    UTILITY : 3
+    UTILITY : 3,
+
+    Con : {
+        TRANSFORMER : 0,
+        DIRECT : 1,
+        CABLE : 2,
+        OVERHEAD : 3
+    }
 };
 
 var Server = {

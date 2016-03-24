@@ -3,8 +3,11 @@ from django.db import connection, transaction
 from django.shortcuts import get_object_or_404
 from client.serialize import LoadSerializer, DBChangesSerializer, \
     SyncGeneratorSerializer, BusSerializer, \
-    UtilitySerializer, NodeMarkerSerializer, ConnectionListSerializer
-from client.models import Connection, Load, DBChanges, Node, SyncGenerator, Utility, Bus
+    UtilitySerializer, NodeMarkerSerializer, ConnectionListSerializer, \
+    TwoWindingTransformerSerializer, DirectConnectionSerializer, \
+    CableSerializer, OverheadLineSerializer
+from client.models import Connection, Load, DBChanges, Node, SyncGenerator, \
+    Utility, Bus, TwoWindingTransformer, DirectConnection, Cable, OverheadLine
 from client.permissions import IsOwnerOrReadOnly
 from rest_framework import viewsets, response, status, settings, decorators
 import time
@@ -41,11 +44,14 @@ class NodeMarkerViewSet(viewsets.ModelViewSet):
         serializer = NodeMarkerSerializer(data, many=True)
         return response.Response(serializer.data)
 
+
 class ConnectionViewSet(viewsets.ModelViewSet):
     queryset = Connection.objects.all()
     serializer_class = ConnectionListSerializer
     permission_classes = (IsOwnerOrReadOnly,)
 
+
+# ------------------------------------------------------------------ Power Nodes
 class LoadViewSet(viewsets.ModelViewSet):
     queryset = Load.objects.all()
     serializer_class = LoadSerializer
@@ -58,6 +64,10 @@ class LoadViewSet(viewsets.ModelViewSet):
     def perform_update(self, serializer):
         update_made()
         serializer.save()
+
+    def perform_destroy(self, instance):
+        update_made()
+        instance.delete()
 
 
 class SyncGenViewSet(viewsets.ModelViewSet):
@@ -73,6 +83,10 @@ class SyncGenViewSet(viewsets.ModelViewSet):
         update_made()
         serializer.save()
 
+    def perform_destroy(self, instance):
+        update_made()
+        instance.delete()
+
 
 class BusViewSet(viewsets.ModelViewSet):
     queryset = Bus.objects.all()
@@ -87,6 +101,10 @@ class BusViewSet(viewsets.ModelViewSet):
         update_made()
         serializer.save()
 
+    def perform_destroy(self, instance):
+        update_made()
+        instance.delete()
+
 
 class UtilityViewSet(viewsets.ModelViewSet):
     queryset = Utility.objects.all()
@@ -100,6 +118,83 @@ class UtilityViewSet(viewsets.ModelViewSet):
     def perform_update(self, serializer):
         update_made()
         serializer.save()
+
+    def perform_destroy(self, instance):
+        update_made()
+        instance.delete()
+
+
+# ------------------------------------------------------------ Power Connections
+class TwoWindingTransformerViewSet(viewsets.ModelViewSet):
+    queryset = TwoWindingTransformer.objects.all()
+    serializer_class = TwoWindingTransformerSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
+
+    def perform_create(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_update(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        update_made()
+        instance.delete()
+
+
+class DirectConnectionViewSet(viewsets.ModelViewSet):
+    queryset = DirectConnection.objects.all()
+    serializer_class = DirectConnectionSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
+
+    def perform_create(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_update(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        update_made()
+        instance.delete()
+
+
+class CableViewSet(viewsets.ModelViewSet):
+    queryset = Cable.objects.all()
+    serializer_class = CableSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
+
+    def perform_create(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_update(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        update_made()
+        instance.delete()
+
+
+class OverheadLineViewSet(viewsets.ModelViewSet):
+    queryset = OverheadLine.objects.all()
+    serializer_class = OverheadLineSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
+
+    def perform_create(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_update(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        update_made()
+        instance.delete()
 
 
 class DBChangeViewSet(viewsets.ModelViewSet):

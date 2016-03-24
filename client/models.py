@@ -141,7 +141,7 @@ class TwoWindingTransformer(Connection):
     max_tap = models.FloatField(max_length=100, default=0.0)
 
     def __str__(self):
-        return self.name
+        return self.id
 
 
 class DirectConnection(Connection):
@@ -152,7 +152,7 @@ class DirectConnection(Connection):
     to_bus_voltage_rating = models.FloatField(max_length=100, default=0.0)
 
     def __str__(self):
-        return self.name
+        return self.id
 
 
 class Cable(Connection):
@@ -165,7 +165,7 @@ class Cable(Connection):
     # Non-Editable = 7
 
     def __str__(self):
-        return self.name
+        return self.id
 
 
 class OverheadLine(Connection):
@@ -175,12 +175,26 @@ class OverheadLine(Connection):
     length = models.FloatField(max_length=100, default=0.0)
     soil_resistivity = models.FloatField(max_length=100, default=0.0)
     kron_reduction = models.BooleanField(default=True)
+    x_1_coordinate = models.FloatField(max_length=100, default=0.0)
+    x_2_coordinate = models.FloatField(max_length=100, default=0.0)
+    x_3_coordinate = models.FloatField(max_length=100, default=0.0)
+    y_1_coordinate = models.FloatField(max_length=100, default=0.0)
+    y_2_coordinate = models.FloatField(max_length=100, default=0.0)
+    y_3_coordinate = models.FloatField(max_length=100, default=0.0)
+    h_1_coordinate = models.FloatField(max_length=100, default=0.0)
+    h_2_coordinate = models.FloatField(max_length=100, default=0.0)
+    h_3_coordinate = models.FloatField(max_length=100, default=0.0)
+
+    # Optional inputs = 3
+    x_4_coordinate = models.FloatField(max_length=100, default=0.0)
+    y_4_coordinate = models.FloatField(max_length=100, default=0.0)
+    h_4_coordinate = models.FloatField(max_length=100, default=0.0)
 
     # Non-Editable = 8
     nominal_LL_voltage = models.FloatField(max_length=100, default=0.0)
 
     def __str__(self):
-        return self.name
+        return self.id
 
 
 # ------------------------------------------------------------------- Power Info

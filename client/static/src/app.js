@@ -141,6 +141,10 @@ function loadComponent(data){
         tr = document.createElement('tr');
         td = document.createElement('td');
         td.className = "rowName";
+        if(keys[i] == 'type'){
+            var compTitle = document.getElementById('compTitle');
+            compTitle.innerHTML = nodeTypeDisplay(data[keys[i]]);
+        }
         if(keys[i] != 'id' && keys[i] != 'type'){
             td.innerHTML = formatTableName(keys[i]);
             tr.appendChild(td);

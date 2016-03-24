@@ -11,6 +11,10 @@ router.register(r'load', views.LoadViewSet)
 router.register(r'genSynchronous', views.SyncGenViewSet)
 router.register(r'bus', views.BusViewSet)
 router.register(r'utility', views.UtilityViewSet)
+router.register(r'transformer', views.TwoWindingTransformerViewSet)
+router.register(r'direct', views.DirectConnectionViewSet)
+router.register(r'cable', views.CableViewSet)
+router.register(r'overhead', views.OverheadLineViewSet)
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
