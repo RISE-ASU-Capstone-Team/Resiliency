@@ -69,7 +69,8 @@ clientApp.controller('NodeListController',
             var from_marker = markers[connection.from_bus_id];
             var to_marker = markers[connection.to_bus_id];
             if (from_marker != undefined && to_marker != undefined) {
-              addConnectionToMap(from_marker, to_marker, polylineOptions)
+              if(!(connection.id in connections))
+                addConnectionToMap(from_marker, to_marker, polylineOptions)
             } else {
               console.log("WARNING: Received A Connection, but couldn't find related markers!!");
             }

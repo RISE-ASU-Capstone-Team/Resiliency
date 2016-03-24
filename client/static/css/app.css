@@ -319,12 +319,8 @@ body {
     from {top: -300px; opacity: 0}
     to {top: 0; opacity: 1}
 }
-#conDone{
-    position: absolute;
-    bottom: 0;
-    right: 0;
+.dlgBtn{
     text-align:center;
-    margin:5px 40px 40px;
     padding:0.4em 3em;
     color:#FFF;
     background-color:#3b5998;
@@ -335,7 +331,26 @@ body {
     border-radius: 10px 10px 10px 10px;
 }
 
+#conDone{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin:5px 40px 40px;
+}
+
+#conCancel{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin:5px 0px 40px 40px;
+}
+
 #conDone:hover {
+    border:solid 1px #a0d5dc !important;
+    color:#000;
+    background:#f1fdfe;
+}
+#conCancel:hover {
     border:solid 1px #a0d5dc !important;
     color:#000;
     background:#f1fdfe;

@@ -30,9 +30,10 @@ class SyncGeneratorSerializer(serializers.HyperlinkedModelSerializer):
 class BusSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Bus
-        fields = ('id', 'operational_status', 'is_bus', 'latitude', 'longitude',
-                  'name', 'type', 'nominal_LL_voltage', 'voltage_1_magnitude',
-                  'voltage_1_angle', 'voltage_1_PU', 'created_date')
+        fields = ('id', 'operational_status', 'is_bus', 'name', 'latitude',
+                  'longitude', 'type', 'nominal_LL_voltage',
+                  'voltage_1_magnitude', 'voltage_1_angle', 'voltage_1_PU',
+                  'created_date')
 
 
 class UtilitySerializer(serializers.HyperlinkedModelSerializer):
