@@ -69,7 +69,8 @@ clientApp.controller('NodeListController',
             var from_marker = markers[connection.from_bus_id];
             var to_marker = markers[connection.to_bus_id];
             if (from_marker != undefined && to_marker != undefined) {
-              addConnectionToMap(from_marker, to_marker, polylineOptions)
+              if(!(connection.id in connections))
+                addConnectionToMap(connection.id, connection.type, from_marker, to_marker, polylineOptions)
             } else {
               console.log("WARNING: Received A Connection, but couldn't find related markers!!");
             }
@@ -114,7 +115,7 @@ clientApp.controller('NodeListController',
             var data;
             http.get(Server.ADDRESS + 'data/api/' + nodeType(type) + '/'
                 + nodeID + '/?format=json').success(function(d){
-                loadComponent(d);
+                loadComponent(d, true);
             })
         }
     }
@@ -129,7 +130,7 @@ clientApp.controller('PowerDetailController',
     }
 ]);
 
-function loadComponent(data){
+function loadComponent(data, isNode){
     selectedComponent = data;
     var componentTable = document.getElementById('componentTable');
     for(var i = componentTable.rows.length-1; i > 1; i--){
@@ -143,7 +144,11 @@ function loadComponent(data){
         td.className = "rowName";
         if(keys[i] == 'type'){
             var compTitle = document.getElementById('compTitle');
-            compTitle.innerHTML = nodeTypeDisplay(data[keys[i]]);
+            if(isNode){
+                compTitle.innerHTML = nodeTypeDisplay(data[keys[i]]);
+            }else{
+                compTitle.innerHTML = connectionTypeDisplay(data[keys[i]]);
+            }
         }
         if(keys[i] != 'id' && keys[i] != 'type'){
             td.innerHTML = formatTableName(keys[i]);

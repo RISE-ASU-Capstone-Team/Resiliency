@@ -108,16 +108,17 @@ var toggleClicked = function(type){
     });
 }
 
-function closeConnectionDialog(dialog){
-    var connection = addConnectionToMap(destinationConnection,
-                                        initialConnection, polylineOptions);
-
+function doneConnectionDialog(dialog){
     $.post(Server.ADDRESS + "data/api/"
            + connectionType(document.getElementById("powerConSelect").selectedIndex)
            + "/", {from_bus_id: initialConnection.id, to_bus_id: destinationConnection.id}).
          done(function(data){
-            connection.id = data.id;
-    });
+            addConnectionToMap(data.id, data.type, destinationConnection, initialConnection, polylineOptions);
+        });
+    dialog.style.display = 'none';
+}
+
+function closeConnectionDialog(dialog){
     dialog.style.display = 'none';
 }
 

@@ -10,6 +10,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 
 var defaultIconSize = new L.Point(64, 64);
 var markers = [];
+var connections = [];
 function addMarkerToMap(key, componentData, position, options) {
     var newMarker = L.marker(position, options).addTo(map);
     newMarker.componentData = componentData;
@@ -39,7 +40,10 @@ var compIcon = L.Icon.extend({
 map.on('zoomend', handleMapZoom);
 
 function handleConnectionClick(e) {
-  console.log("handleConnectionClick called");
+  $.get(Server.ADDRESS + 'data/api/' + connectionType(e.target.type) + '/'
+        + e.target.id + '/?format=json').success(function(d){
+       loadComponent(d, false);
+    });
   document.getElementById('deleteNodeButton').style.display = "block";
   document.getElementById('deleteNodeButton').onclick = function deleteNode(){
     document.getElementById('deleteNodeButton').style.display = "none";
@@ -69,7 +73,7 @@ function handleMarkerClick(e) {
   }else{
     $.get(Server.ADDRESS + 'data/api/' + nodeType(component.Type) + '/'
         + e.target.id + '/?format=json').success(function(d){
-       loadComponent(d);
+       loadComponent(d, true);
     });
   }
   document.getElementById('deleteNodeButton').style.display = "block";
@@ -87,11 +91,13 @@ function handleMarkerClick(e) {
   }
 }
 
-function addConnectionToMap(markerA, markerB, options) {
+function addConnectionToMap(key, type, markerA, markerB, options) {
   var polyLine = new L.Polyline([markerA._latlng, markerB._latlng], polylineOptions);
   polyLine.addTo(map);
   polyLine.on('click', handleConnectionClick);
-  return polyLine;
+  polyLine.id = key;
+  polyLine.type = type;
+  connections[key] = polyLine;
 }
 
 
