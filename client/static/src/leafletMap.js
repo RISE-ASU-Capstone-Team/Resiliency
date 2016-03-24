@@ -40,7 +40,10 @@ var compIcon = L.Icon.extend({
 map.on('zoomend', handleMapZoom);
 
 function handleConnectionClick(e) {
-  console.log(e);
+  $.get(Server.ADDRESS + 'data/api/' + connectionType(e.target.type) + '/'
+        + e.target.id + '/?format=json').success(function(d){
+       loadComponent(d, false);
+    });
   document.getElementById('deleteNodeButton').style.display = "block";
   document.getElementById('deleteNodeButton').onclick = function deleteNode(){
     document.getElementById('deleteNodeButton').style.display = "none";
@@ -70,7 +73,7 @@ function handleMarkerClick(e) {
   }else{
     $.get(Server.ADDRESS + 'data/api/' + nodeType(component.Type) + '/'
         + e.target.id + '/?format=json').success(function(d){
-       loadComponent(d);
+       loadComponent(d, true);
     });
   }
   document.getElementById('deleteNodeButton').style.display = "block";
@@ -88,11 +91,12 @@ function handleMarkerClick(e) {
   }
 }
 
-function addConnectionToMap(key, markerA, markerB, options) {
+function addConnectionToMap(key, type, markerA, markerB, options) {
   var polyLine = new L.Polyline([markerA._latlng, markerB._latlng], polylineOptions);
   polyLine.addTo(map);
   polyLine.on('click', handleConnectionClick);
   polyLine.id = key;
+  polyLine.type = type;
   connections[key] = polyLine;
 }
 

@@ -113,7 +113,7 @@ function doneConnectionDialog(dialog){
            + connectionType(document.getElementById("powerConSelect").selectedIndex)
            + "/", {from_bus_id: initialConnection.id, to_bus_id: destinationConnection.id}).
          done(function(data){
-            addConnectionToMap(data.id, destinationConnection, initialConnection, polylineOptions);
+            addConnectionToMap(data.id, data.type, destinationConnection, initialConnection, polylineOptions);
         });
     dialog.style.display = 'none';
 }

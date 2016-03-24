@@ -178,7 +178,7 @@ function connectionType(type){
         case Power.Con.DIRECT:{
             return 'direct'
         }
-        case Power.Con.Cable:{
+        case Power.Con.CABLE:{
             return  'cable'
         }
         case Power.Con.OVERHEAD:{
@@ -186,6 +186,26 @@ function connectionType(type){
         }
         default: {
             return 'connection'
+        }
+    }
+}
+
+function connectionTypeDisplay(type){
+    switch(type){
+        case Power.Con.TRANSFORMER:{
+            return 'Two Winding Transformer';
+        }
+        case Power.Con.DIRECT:{
+            return 'Direct Connection'
+        }
+        case Power.Con.CABLE:{
+            return  'Cable'
+        }
+        case Power.Con.OVERHEAD:{
+            return  'Overhead Line'
+        }
+        default: {
+            return 'Connection'
         }
     }
 }
