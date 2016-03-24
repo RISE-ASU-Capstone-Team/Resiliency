@@ -20,6 +20,15 @@ function addMarkerToMap(key, componentData, position, options) {
     return newMarker;
 }
 
+function removeMarkerFromMap(key, componentData, position, options) {
+    var newMarker = L.marker(position, options).addTo(map);
+    newMarker.componentData = componentData;
+    newMarker.on('click', handleMarkerClick);
+    newMarker.id = key;
+    markers[key] = newMarker;
+    resizeMarkers();
+}
+
 var compIcon = L.Icon.extend({
       options: {
         iconSize: defaultIconSize,
@@ -30,12 +39,19 @@ var compIcon = L.Icon.extend({
 map.on('zoomend', handleMapZoom);
 
 function handleConnectionClick(e) {
-  var component = this.componentData;
-  console.log(e);
+  console.log("handleConnectionClick called");
+  document.getElementById('deleteNodeButton').style.display = "block";
+  document.getElementById('deleteNodeButton').onclick = function deleteNode(){
+    document.getElementById('deleteNodeButton').style.display = "none";
+  }
+
 }
 
 function handleMarkerClick(e) {
   var component = this.componentData;
+  var typeNumer = this.componentData.Type;
+  var id = this.id
+
   if (event.altKey && !connectionStarted)
   {
     connectionStarted = true;
@@ -58,6 +74,15 @@ function handleMarkerClick(e) {
   }
   document.getElementById('deleteNodeButton').style.display = "block";
   document.getElementById('deleteNodeButton').onclick = function deleteNode(){
+    $.ajax({
+        url: Server.ADDRESS + "data/api/" + nodeType(typeNumer) + '/'
+            + id + "/" ,
+        type: 'delete',
+        success: function(result) {
+
+        }
+    });
+
     document.getElementById('deleteNodeButton').style.display = "none";
   }
 }
@@ -68,6 +93,7 @@ function addConnectionToMap(markerA, markerB, options) {
   polyLine.on('click', handleConnectionClick);
   return polyLine;
 }
+
 
 function handleMapZoom(e) {
   resizeMarkers();
