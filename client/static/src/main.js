@@ -8,6 +8,7 @@ var busEditableCount = 5;
 //Connecting Nodes
 var connectionStarted = false;
 var initialConnection = null;
+var destinationConnection = null;
 
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
@@ -106,6 +107,33 @@ var toggleClicked = function(type){
         }
     });
 }
+
+function closeConnectionDialog(dialog){
+    var connection = addConnectionToMap(destinationConnection,
+                                        initialConnection, polylineOptions);
+
+    $.post(Server.ADDRESS + "data/api/"
+           + connectionType(document.getElementById("powerConSelect").selectedIndex)
+           + "/", {from_bus_id: initialConnection.id, to_bus_id: destinationConnection.id}).
+         done(function(data){
+            connection.id = data.id;
+    });
+    dialog.style.display = 'none';
+}
+
+function powerConnectionClicked(){
+    var list = document.getElementById("powerConSelect");
+    list.style.display = 'block';
+}
+
+$(".toggle-btn:not('.noscript') input[type=radio]").addClass("visuallyhidden");
+$(".toggle-btn:not('.noscript') input[type=radio]").change(function() {
+    if( $(this).attr("name") ) {
+        $(this).parent().addClass("success").siblings().removeClass("success")
+    } else {
+        $(this).parent().toggleClass("success");
+    }
+});
 
 
 // This is a code template for posting new node information to the server

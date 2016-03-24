@@ -17,6 +17,7 @@ function addMarkerToMap(key, componentData, position, options) {
     newMarker.id = key;
     markers[key] = newMarker;
     resizeMarkers();
+    return newMarker;
 }
 
 function removeMarkerFromMap(key, componentData, position, options) {
@@ -43,6 +44,7 @@ function handleConnectionClick(e) {
   document.getElementById('deleteNodeButton').onclick = function deleteNode(){
     document.getElementById('deleteNodeButton').style.display = "none";
   }
+
 }
 
 function handleMarkerClick(e) {
@@ -59,18 +61,17 @@ function handleMarkerClick(e) {
   {
     if (this.id != initialConnection.id)
       {
-        addConnectionToMap(this, initialConnection, polylineOptions);
-
-        $.post(Server.ADDRESS + "data/api/connection/", {from_bus_id: initialConnection.id, to_bus_id: this.id}).
-          done(function(data){
-              // TODO : WHATEVER YOU WANT AFTER POST COMPLETED
-            });
+        destinationConnection = this;
+        var dialog = document.getElementById('dialogContainer');
+        dialog.style.display = "block";
       }
-
-    initialConnection = null;
     connectionStarted = false;
+  }else{
+    $.get(Server.ADDRESS + 'data/api/' + nodeType(component.Type) + '/'
+        + e.target.id + '/?format=json').success(function(d){
+       loadComponent(d);
+    });
   }
-
   document.getElementById('deleteNodeButton').style.display = "block";
   document.getElementById('deleteNodeButton').onclick = function deleteNode(){
     $.ajax({
@@ -90,6 +91,7 @@ function addConnectionToMap(markerA, markerB, options) {
   var polyLine = new L.Polyline([markerA._latlng, markerB._latlng], polylineOptions);
   polyLine.addTo(map);
   polyLine.on('click', handleConnectionClick);
+  return polyLine;
 }
 
 

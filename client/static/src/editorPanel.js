@@ -103,13 +103,13 @@ $(document).ready(function() {
               keyboard: false
             };
 
-        addMarkerToMap(markers.length+1+"", component, latlng, options);
+        var marker = addMarkerToMap(markers.length+1+"", component, latlng, options);
 
         $.post(Server.ADDRESS + "data/api/" + nodeType(component.Type)
                 + '/', {type: component.Type,
           latitude: latlng.lat, longitude: latlng.lng, active: true}).
           done(function(data){
-              // TODO : WHATEVER YOU WANT AFTER POST COMPLETED
+              marker.id = data.id;
             });
       }
     });
@@ -131,7 +131,6 @@ $(document).ready(function() {
 });
 
 function nodeType(type){
-    //console.log("received type: " + type);
     switch(type){
         case Power.LOAD:{
             return 'load';
@@ -147,6 +146,46 @@ function nodeType(type){
         }
         default: {
             return 'load'
+        }
+    }
+}
+
+function nodeTypeDisplay(type){
+    switch(type){
+        case Power.LOAD:{
+            return 'Load';
+        }
+        case Power.SYNC_GENERATOR:{
+            return 'Synchronous Generator'
+        }
+        case Power.BUS:{
+            return  'Bus'
+        }
+        case Power.UTILITY:{
+            return  'Utility'
+        }
+        default: {
+            return 'Node'
+        }
+    }
+}
+
+function connectionType(type){
+    switch(type){
+        case Power.Con.TRANSFORMER:{
+            return 'transformer';
+        }
+        case Power.Con.DIRECT:{
+            return 'direct'
+        }
+        case Power.Con.Cable:{
+            return  'cable'
+        }
+        case Power.Con.OVERHEAD:{
+            return  'overhead'
+        }
+        default: {
+            return 'connection'
         }
     }
 }
