@@ -4,6 +4,19 @@ from client.models import Load, DBChanges, Connection, Node, SyncGenerator, \
 from django.contrib.auth.models import User
 
 
+class NodeMarkerSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Node
+        fields = ('id', 'name', 'type', 'latitude', 'longitude')
+
+
+class ConnectionListSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Connection
+        fields = ('id', 'from_bus_id', 'to_bus_id', 'type')
+
+
+# ------------------------------------------------------------------- Power Node
 class LoadSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Load
@@ -47,18 +60,7 @@ class UtilitySerializer(serializers.HyperlinkedModelSerializer):
                   'current_1_magnitude', 'current_1_angle', 'created_date')
 
 
-class NodeMarkerSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Node
-        fields = ('id', 'name', 'type', 'latitude', 'longitude')
-
-
-class ConnectionListSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Connection
-        fields = ('id', 'from_bus_id', 'to_bus_id', 'type')
-
-
+# ------------------------------------------------------------- Power Connection
 class TwoWindingTransformerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = TwoWindingTransformer
@@ -87,8 +89,8 @@ class CableSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Cable
         fields = ('id', 'operational_status', 'name', 'linecode_object_id',
-                  'voltage_rating', 'length', 'soil_resistivity',
-                  'kron_reduction', 'from_bus_id', 'to_bus_id',
+                  'voltage_rating', 'length',
+                  'number_of_cables', 'from_bus_id', 'to_bus_id',
                   'type', 'current_1_magnitude', 'current_1_angle',
                   'real_power_entering', 'reactive_power_entering',
                   'real_power_leaving', 'reactive_power_leaving',
@@ -111,6 +113,7 @@ class OverheadLineSerializer(serializers.HyperlinkedModelSerializer):
                   'reactive_power_leaving', 'created_date')
 
 
+# -------------------------------------------------------------------- DB Change
 class DBChangesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = DBChanges
