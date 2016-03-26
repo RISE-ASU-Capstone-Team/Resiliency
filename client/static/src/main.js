@@ -52,49 +52,6 @@ var monthNames = [
   "November", "December"
 ];
 
-function formatTableName(name){
-    var split = name.split('_');
-    var ret = '';
-    for(var i = 0; i < split.length; i++){
-        ret+= split[i].charAt(0).toUpperCase() + split[i].slice(1) + ' ';
-    }
-    return ret.slice(0, -1);
-}
-
-var editComponent = function(cell){
-    var row = cell.parentNode;
-    var input = document.createElement("td");
-    input.id = cell.id;
-    input.innerHTML = "<input class='componentInput' value='" + cell.innerHTML
-        + "' onkeydown='postChange(this)'></input>";
-    row.removeChild(cell);
-    row.appendChild(input);
-}
-
-var postChange = function(input){
-    if(event.keyCode == 13){
-        var cell = input.parentNode;
-        var row = cell.parentNode;
-        row.removeChild(cell);
-        cell.innerHTML = input.value;
-        selectedComponent[cell.id] = input.value;
-        cell.className = "rowData";
-        cell.onclick = function(e){editComponent(this)};
-        cell.id = input.id;
-
-        row.appendChild(cell);
-        $.ajax({
-            url: Server.ADDRESS + "data/api/" + nodeType(selectedComponent.type) + '/'
-                + selectedComponent.id + "/" ,
-            type: 'PUT',
-            data: selectedComponent,
-            success: function(result) {
-                // Do something with the result
-            }
-        });
-    }
-}
-
 var toggleClicked = function(type){
     selectedComponent[type] = selectedComponent[type]? false : true;
     $.ajax({
@@ -106,20 +63,6 @@ var toggleClicked = function(type){
             // Do something with the result
         }
     });
-}
-
-function doneConnectionDialog(dialog){
-    $.post(Server.ADDRESS + "data/api/"
-           + connectionType(document.getElementById("powerConSelect").selectedIndex)
-           + "/", {from_bus_id: initialConnection.id, to_bus_id: destinationConnection.id}).
-         done(function(data){
-            addConnectionToMap(data.id, data.type, destinationConnection, initialConnection, polylineOptions);
-        });
-    dialog.style.display = 'none';
-}
-
-function closeConnectionDialog(dialog){
-    dialog.style.display = 'none';
 }
 
 function powerConnectionClicked(){

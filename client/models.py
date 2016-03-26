@@ -217,4 +217,25 @@ class Power(models.Model):
         return self.id
 
 
+class WireData(models.Model):
+    # Editable: 8
+    name = models.CharField(max_length=100, default="Untitled Wire")
+    type = models.CharField(max_length=100, default="Unknown Type")
+    wire_type = models.IntegerField(default=0)
+    resistance_50_C = models.FloatField(max_length=100, default=0)
+    GMR = models.FloatField(max_length=100, default=0)
+    continuous_ampacity = models.FloatField(max_length=100, default=0)
+    emergency_ampacity = models.FloatField(max_length=100, default=0)
+    diameter = models.FloatField(max_length=100, default=0)
+
+
+class LineCode(models.Model):
+    name = models.CharField(max_length=100, default="Untitled Line")
+    r_1 = models.FloatField(max_length=100, default=0)
+    x_1 = models.FloatField(max_length=100, default=0)
+    r_0 = models.FloatField(max_length=100, default=0)
+    x_0 = models.FloatField(max_length=100, default=0)
+    continuous_ampacity = models.FloatField(max_length=100, default=0)
+    emergency_ampacity = models.FloatField(max_length=100, default=0)
+
 # ------------------------------------------------------------------ Water nodes

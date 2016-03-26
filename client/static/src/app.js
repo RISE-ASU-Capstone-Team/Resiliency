@@ -177,7 +177,11 @@ function loadComponent(data, isNode){
                 var year = date.getFullYear();
                 td.innerHTML = monthNames[monthIndex] + ' ' + day + ', ' + year;
             }else{
-                td.onclick = function(e){editComponent(this)};
+                if(isNode){
+                    td.onclick = function(e){editNodeComponent(this)};
+                }else{
+                    td.onclick = function(e){editConnectionComponent(this)};
+                }
                 td.innerHTML = data[keys[i]];
             }
         }
@@ -185,6 +189,77 @@ function loadComponent(data, isNode){
         componentTable.tBodies[0].appendChild(tr);
     }
     td.style = "padding-bottom: 15px";
+}
+
+function formatTableName(name){
+    var split = name.split('_');
+    var ret = '';
+    for(var i = 0; i < split.length; i++){
+        ret+= split[i].charAt(0).toUpperCase() + split[i].slice(1) + ' ';
+    }
+    return ret.slice(0, -1);
+}
+
+var editNodeComponent = function(cell){
+    var row = cell.parentNode;
+    var input = document.createElement("td");
+    input.id = cell.id;
+    input.innerHTML = "<input class='componentInput' value='" + cell.innerHTML
+        + "' onkeydown='postChangeNode(this)'></input>";
+    row.removeChild(cell);
+    row.appendChild(input);
+}
+
+var editConnectionComponent = function(cell){
+    var row = cell.parentNode;
+    var input = document.createElement("td");
+    input.id = cell.id;
+    input.innerHTML = "<input class='componentInput' value='" + cell.innerHTML
+        + "' onkeydown='postChangeConnection(this)'></input>";
+    row.removeChild(cell);
+    row.appendChild(input);
+}
+
+var postChangeNode = function(input){
+    if(event.keyCode == 13){
+        resetCell(input);
+        $.ajax({
+            url: Server.ADDRESS + "data/api/" + nodeType(selectedComponent.type) + '/'
+                + selectedComponent.id + "/" ,
+            type: 'PUT',
+            data: selectedComponent,
+            success: function(result) {
+                // Do something with the result
+            }
+        });
+    }
+}
+
+var postChangeConnection = function(input){
+    if(event.keyCode == 13){
+        resetCell(input);
+        $.ajax({
+            url: Server.ADDRESS + "data/api/" + connectionType(selectedComponent.type) + '/'
+                + selectedComponent.id + "/" ,
+            type: 'PUT',
+            data: selectedComponent,
+            success: function(result) {
+                // Do something with the result
+            }
+        });
+    }
+}
+
+function resetCell(input){
+    var cell = input.parentNode;
+    var row = cell.parentNode;
+    row.removeChild(cell);
+    cell.innerHTML = input.value;
+    selectedComponent[cell.id] = input.value;
+    cell.className = "rowData";
+    cell.onclick = function(e){editComponent(this)};
+    cell.id = input.id;
+    row.appendChild(cell);
 }
 
 function createToggle(td, count, value){
