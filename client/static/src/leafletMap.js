@@ -21,14 +21,6 @@ function addMarkerToMap(key, componentData, position, options) {
     return newMarker;
 }
 
-function removeMarkerFromMap(key, componentData, position, options) {
-    var newMarker = L.marker(position, options).addTo(map);
-    newMarker.componentData = componentData;
-    newMarker.on('click', handleMarkerClick);
-    newMarker.id = key;
-    markers[key] = newMarker;
-    resizeMarkers();
-}
 
 var compIcon = L.Icon.extend({
       options: {
@@ -44,6 +36,8 @@ function handleConnectionClick(e) {
         + e.target.id + '/?format=json').success(function(d){
        loadComponent(d, false);
     });
+
+
   document.getElementById('deleteNodeButton').style.display = "block";
   document.getElementById('deleteNodeButton').onclick = function deleteNode(){
     document.getElementById('deleteNodeButton').style.display = "none";
@@ -76,6 +70,8 @@ function handleMarkerClick(e) {
        loadComponent(d, true);
     });
   }
+
+
   document.getElementById('deleteNodeButton').style.display = "block";
   document.getElementById('deleteNodeButton').onclick = function deleteNode(){
     $.ajax({
@@ -83,7 +79,7 @@ function handleMarkerClick(e) {
             + id + "/" ,
         type: 'delete',
         success: function(result) {
-
+            map.removeLayer(markers[id]);
         }
     });
 
