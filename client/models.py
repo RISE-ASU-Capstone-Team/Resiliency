@@ -17,7 +17,9 @@ class Node(models.Model):
     operational_status = models.BooleanField(default=True)
     is_bus = models.BooleanField(default=True)
 
-    # Non-editable = 7
+    # Non-editable = 9
+    nominal_voltage = models.FloatField(max_length=100, default=0.0)
+    LL_voltage = models.FloatField(max_length=100, default=0.0)
     voltage_1_magnitude = models.FloatField(max_length=100, default=0.0)
     voltage_1_angle = models.FloatField(max_length=100, default=0.0)
     voltage_1_PU = models.FloatField(max_length=100, default=0.0)
@@ -62,9 +64,8 @@ class Load(Node):
     wiring = models.IntegerField(default=0)
     load_model = models.IntegerField(default=0)
 
-    # Non-editable = 13
+    # Non-editable = 14
     current_rating = models.FloatField(max_length=100, default=0.0)
-    nominal_LL_voltage = models.FloatField(max_length=100, default=0.0)
     current_1_magnitude = models.FloatField(max_length=100, default=0.0)
     current_1_angle = models.FloatField(max_length=100, default=0.0)
     real_power = models.FloatField(max_length=100, default=0.0)
@@ -83,8 +84,7 @@ class SyncGenerator(Node):
     power_factor_percent = models.FloatField(max_length=100, default=0.0)
     wiring = models.IntegerField(default=0)
 
-    # Non-editable = 12
-    nominal_LL_voltage = models.FloatField(max_length=100, default=0.0)
+    # Non-editable = 13
     current_1_magnitude = models.FloatField(max_length=100, default=0.0)
     current_1_angle = models.FloatField(max_length=100, default=0.0)
     real_power = models.FloatField(max_length=100, default=0.0)
@@ -97,8 +97,7 @@ class SyncGenerator(Node):
 class Bus(Node):
     # Total Editable = 3
 
-    # Non-editable = 8
-    nominal_LL_voltage = models.FloatField(max_length=100, default=0.0)
+    # Non-editable = 9
 
     def __str__(self):
         return self.id
@@ -107,7 +106,6 @@ class Bus(Node):
 class Utility(Node):
     # Total Editable = 13
     base_power = models.FloatField(max_length=100, default=0.0)
-    LL_voltage = models.FloatField(max_length=100, default=0.0)
     voltage_angle = models.FloatField(max_length=100, default=0.0)
     short_circuit_3_phase = models.FloatField(max_length=100, default=0.0)
     short_circuit_SLG = models.FloatField(max_length=100, default=0.0)
@@ -117,7 +115,7 @@ class Utility(Node):
     r_0 = models.FloatField(max_length=100, default=0.0)
     x_0 = models.FloatField(max_length=100, default=0.0)
 
-    # Non-editable = 9
+    # Non-editable = 11
     current_1_magnitude = models.FloatField(max_length=100, default=0.0)
     current_1_angle = models.FloatField(max_length=100, default=0.0)
 
@@ -170,7 +168,7 @@ class Cable(Connection):
 
 class OverheadLine(Connection):
     # Total Editable = 6
-    wiredata_object_id = models.IntegerField(default=0)
+    wiredata_object_id = models.IntegerField(default=1)
     number_of_conductors = models.IntegerField(default=0)
     length = models.FloatField(max_length=100, default=0.0)
     soil_resistivity = models.FloatField(max_length=100, default=0.0)
