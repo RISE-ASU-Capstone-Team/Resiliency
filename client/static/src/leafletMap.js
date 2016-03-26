@@ -71,15 +71,16 @@ function handleMarkerClick(e) {
     });
   }
 
-
   document.getElementById('deleteNodeButton').style.display = "block";
+
   document.getElementById('deleteNodeButton').onclick = function deleteNode(){
+    map.removeLayer(markers[id]);
     $.ajax({
         url: Server.ADDRESS + "data/api/" + nodeType(typeNumer) + '/'
             + id + "/" ,
         type: 'delete',
         success: function(result) {
-            map.removeLayer(markers[id]);
+
         }
     });
 
