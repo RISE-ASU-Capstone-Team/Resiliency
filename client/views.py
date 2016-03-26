@@ -5,9 +5,11 @@ from client.serialize import LoadSerializer, DBChangesSerializer, \
     SyncGeneratorSerializer, BusSerializer, \
     UtilitySerializer, NodeMarkerSerializer, ConnectionListSerializer, \
     TwoWindingTransformerSerializer, DirectConnectionSerializer, \
-    CableSerializer, OverheadLineSerializer
+    CableSerializer, OverheadLineSerializer, PowerSerializer, \
+    WireDataSerializer, LineCodeSerializer
 from client.models import Connection, Load, DBChanges, Node, SyncGenerator, \
-    Utility, Bus, TwoWindingTransformer, DirectConnection, Cable, OverheadLine
+    Utility, Bus, TwoWindingTransformer, DirectConnection, Cable, OverheadLine, \
+    Power, WireData, LineCode
 from client.permissions import IsOwnerOrReadOnly
 from rest_framework import viewsets, response, status, settings, decorators
 import time
@@ -197,6 +199,26 @@ class OverheadLineViewSet(viewsets.ModelViewSet):
         instance.delete()
 
 
+# ----------------------------------------------------------- Power
+class PowerViewSet(viewsets.ModelViewSet):
+    queryset = Power.objects.all()
+    serializer_class = PowerSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
+
+
+class WireDataViewSet(viewsets.ModelViewSet):
+    queryset = WireData.objects.all()
+    serializer_class = WireDataSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
+
+
+class LineDataViewSet(viewsets.ModelViewSet):
+    queryset = LineCode.objects.all()
+    serializer_class = LineCodeSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
+
+
+# -------------------------------------------------------------------- DB Update
 class DBChangeViewSet(viewsets.ModelViewSet):
     queryset = DBChanges.objects.all()
     serializer_class = DBChangesSerializer

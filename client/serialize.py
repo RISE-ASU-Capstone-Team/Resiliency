@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from client.models import Load, DBChanges, Connection, Node, SyncGenerator, \
-    Bus, Utility, TwoWindingTransformer, DirectConnection, Cable, OverheadLine
+    Bus, Utility, TwoWindingTransformer, DirectConnection, Cable, OverheadLine,\
+    Power, WireData, LineCode
 from django.contrib.auth.models import User
 
 
@@ -111,6 +112,33 @@ class OverheadLineSerializer(serializers.HyperlinkedModelSerializer):
                   'current_1_angle', 'real_power_entering',
                   'reactive_power_entering', 'real_power_leaving',
                   'reactive_power_leaving', 'created_date')
+
+
+# ------------------------------------------------------------------- Power Info
+class PowerSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Power
+        fields = ('temperature_units', 'ambient_temp_celsius',
+                  'ambient_temp_fahrenheit', 'voltage_units', 'current_units',
+                  'power_units', 'base_frequency', 'bus_count', 'utility_count',
+                  'generator_count', 'load_count', 'transformer_count',
+                  'branch_count')
+
+
+class WireDataSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = WireData
+        fields = ('name', 'type',
+                  'wire_type', 'resistance_50_C', 'GMR',
+                  'continuous_ampacity', 'emergency_ampacity', 'diameter')
+
+
+class LineCodeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = WireData
+        fields = ('name', 'r_1',
+                  'x_1', 'r_0', 'x_0',
+                  'continuous_ampacity', 'emergency_ampacity')
 
 
 # -------------------------------------------------------------------- DB Change

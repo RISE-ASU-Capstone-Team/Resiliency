@@ -91,6 +91,21 @@ function handleMarkerClick(e) {
   }
 }
 
+function doneConnectionDialog(dialog){
+    var con_type = document.getElementById("powerConSelect").selectedIndex;
+    $.post(Server.ADDRESS + "data/api/"
+           + connectionType(con_type)
+           + "/", {from_bus_id: initialConnection.id, to_bus_id: destinationConnection.id, type: con_type}).
+         done(function(data){
+            addConnectionToMap(data.id, data.type, destinationConnection, initialConnection, polylineOptions);
+        });
+    dialog.style.display = 'none';
+}
+
+function closeConnectionDialog(dialog){
+    dialog.style.display = 'none';
+}
+
 function addConnectionToMap(key, type, markerA, markerB, options) {
   var polyLine = new L.Polyline([markerA._latlng, markerB._latlng], polylineOptions);
   polyLine.addTo(map);
