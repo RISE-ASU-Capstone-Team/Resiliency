@@ -126,7 +126,6 @@ class Utility(Node):
 # ------------------------------------------------------------ Power Connections
 class TwoWindingTransformer(Connection):
     # Total Editable = 10
-    from_bus_voltage_rating = models.FloatField(max_length=100, default=0.0)
     to_bus_voltage_rating = models.FloatField(max_length=100, default=0.0)
     from_bus_wiring = models.IntegerField(default=0)
     to_bus_wiring = models.IntegerField(default=0)
@@ -137,6 +136,9 @@ class TwoWindingTransformer(Connection):
     tap_side = models.BooleanField(default=True)
     min_tap = models.FloatField(max_length=100, default=0.0)
     max_tap = models.FloatField(max_length=100, default=0.0)
+
+    # Non-editable
+    from_bus_voltage_rating = models.FloatField(max_length=100, default=0.0)
 
     def __str__(self):
         return self.id
