@@ -161,6 +161,14 @@ function addConnectionToMap(key, type, markerA, markerB, options) {
   connections[key] = polyLine;
 }
 
+function repositionConnectionMarker(marker) {
+  var markerA = marker.parentConnection.markerA;
+  var markerB = marker.parentConnection.markerB;
+  var newLatLng = L.latLng((markerA._latlng.lat + markerB._latlng.lat) / 2.0,
+                          (markerA._latlng.lng + markerB._latlng.lng) / 2.0);
+  marker.setLatLng(newLatLng);
+}
+
 function handleMapZoom(e) {
   resizeMarkers();
 }
