@@ -41,6 +41,8 @@ var connectionIcon = L.Icon.extend({
 map.on('zoomend', handleMapZoom);
 
 function handleConnectionClick(e) {
+  var id = e.target.id;
+  var type = e.target.type;
   $.get(Server.ADDRESS + 'data/api/' + connectionType(e.target.type) + '/'
         + e.target.id + '/?format=json').success(function(d){
        loadComponent(d, false);
@@ -48,10 +50,11 @@ function handleConnectionClick(e) {
 
 
   document.getElementById('deleteConnectionButton').style.display = "block";
+  document.getElementById('deleteNodeButton').style.display = "none";
   document.getElementById('deleteConnectionButton').onclick = function deleteNode(){
     map.removeLayer(connections[id]);
     $.ajax({
-        url: Server.ADDRESS + "data/api/" + nodeType(typeNumer) + '/'
+        url: Server.ADDRESS + "data/api/" + connectionType(type) + '/'
             + id + "/" ,
         type: 'delete',
         success: function(result) {
@@ -90,6 +93,7 @@ function handleMarkerClick(e) {
   }
 
   document.getElementById('deleteNodeButton').style.display = "block";
+  document.getElementById('deleteConnectionButton').style.display = "none";
 
   document.getElementById('deleteNodeButton').onclick = function deleteNode(){
     map.removeLayer(markers[id]);
@@ -105,6 +109,7 @@ function handleMarkerClick(e) {
     document.getElementById('deleteNodeButton').style.display = "none";
   }
 }
+
 
 function doneConnectionDialog(dialog){
     var con_type = document.getElementById("powerConSelect").selectedIndex;
