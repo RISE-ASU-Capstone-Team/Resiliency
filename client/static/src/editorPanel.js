@@ -91,7 +91,7 @@ $(document).ready(function() {
         var y = dragMousePositionY - rect.top;
         var latlng = map.containerPointToLatLng([x, y]);
 
-        var newIcon = new compIcon({
+        var newIcon = new nodeIcon({
             iconUrl: component.Icon,
             iconAnchor: [defaultIconSize.x/2.0, defaultIconSize.y/1.0]
           });

@@ -9,8 +9,12 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 }).addTo(map);
 
 var defaultIconSize = new L.Point(64, 64);
+var defaultConnectionIconSize = new L.Point(30, 30);
+
 var markers = [];
 var connections = [];
+var connectionMarkers = [];
+
 function addMarkerToMap(key, componentData, position, options) {
     var newMarker = L.marker(position, options).addTo(map);
     newMarker.componentData = componentData;
@@ -21,11 +25,16 @@ function addMarkerToMap(key, componentData, position, options) {
     return newMarker;
 }
 
-
-var compIcon = L.Icon.extend({
+var nodeIcon = L.Icon.extend({
       options: {
         iconSize: defaultIconSize,
-        iconAnchor: [0, 0]
+        iconAnchor: [defaultIconSize.x / 2.0, defaultIconSize.y]
+      }
+    });
+var connectionIcon = L.Icon.extend({
+      options: {
+        iconSize: defaultConnectionIconSize,
+        iconAnchor: [defaultConnectionIconSize.x / 2.0, defaultConnectionIconSize.y / 2.0]
       }
     });
 
@@ -109,9 +118,30 @@ function addConnectionToMap(key, type, markerA, markerB, options) {
   polyLine.on('click', handleConnectionClick);
   polyLine.id = key;
   polyLine.type = type;
+  polyLine.markerA = markerA;
+  polyLine.markerB = markerB;
+
+  if (type == Power.Con.TRANSFORMER) {
+
+    var newIcon = new connectionIcon({
+        iconUrl: "/static/icons/Transformer.png"
+      });
+
+    var options = {
+          icon: newIcon,
+          clickable: true,
+          draggable: false,
+          keyboard: false
+        };
+      var position = L.latLng((markerA._latlng.lat + markerB._latlng.lat) / 2.0,
+                              (markerA._latlng.lng + markerB._latlng.lng) / 2.0);
+      polyLine.middleMarker = L.marker(position, options).addTo(map);
+      polyLine.middleMarker.parentConnection = polyLine;
+      connectionMarkers[key] = polyLine.middleMarker;
+  }
+
   connections[key] = polyLine;
 }
-
 
 function handleMapZoom(e) {
   resizeMarkers();
@@ -124,21 +154,37 @@ function resizeMarkers() {
 
   var currentZoom = map.getZoom();
 
+  // Resize Normal Node Map Markers
   for (var key in markers) {
     var marker = markers[key];
-    var newIconSize = transformation.transform(defaultIconSize, sizeFactor(currentZoom));
-
-    // adjust the icon anchor to the new size
-    var newIconAnchor = new L.Point(Math.round(newIconSize.x / 2), Math.round(newIconSize.y / 1));
-
-    // finally, declare a new icon and update the marker
-    var newIcon = new compIcon({
-        iconUrl: marker._icon.src,
-        iconSize: newIconSize,
-        iconAnchor: newIconAnchor
-      });
-    marker.setIcon(newIcon);
+    resizeMarker(marker, defaultIconSize, 0.5, 1.0);
   }
+
+  // Resize Connection Markers
+  for (var key in connectionMarkers) {
+    var marker = connectionMarkers[key];
+    resizeMarker(marker, defaultConnectionIconSize, 0.5, 0.5);
+  }
+}
+
+function resizeMarker(marker, iconSize, xPercentage, yPercentage) {
+
+  var transformation = new L.Transformation(1, 0, 1, 0);
+  var currentZoom = map.getZoom();
+
+  var newIconSize = transformation.transform(iconSize, sizeFactor(currentZoom));
+
+  // adjust the icon anchor to the new size
+  var newIconAnchor = new L.Point(Math.round(newIconSize.x * xPercentage),
+                                  Math.round(newIconSize.y * yPercentage));
+
+  // finally, declare a new icon and update the marker
+  var newIcon = new L.Icon({
+      iconUrl: marker._icon.src,
+      iconSize: newIconSize,
+      iconAnchor: newIconAnchor
+    });
+  marker.setIcon(newIcon);
 }
 
 function sizeFactor(zoom) {

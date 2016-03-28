@@ -94,9 +94,8 @@ clientApp.controller('NodeListController',
               //console.log(marker.type);
               var latlng = L.latLng(marker.latitude, marker.longitude);
 
-              var newIcon = new compIcon({
-                  iconUrl: component.Icon,
-                  iconAnchor: [defaultIconSize.x/2.0, defaultIconSize.y/1.0]
+              var newIcon = new nodeIcon({
+                  iconUrl: component.Icon
                 });
               var options = {
         						icon: newIcon,
