@@ -19,7 +19,7 @@ var Server = {
 }
 
 var polylineOptions = {
-  color: 'blue',
+  color: '#E27A3F',
   weight: 6,
   opacity: 0.9
 };
