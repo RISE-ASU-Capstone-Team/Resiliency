@@ -47,9 +47,18 @@ function handleConnectionClick(e) {
     });
 
 
-  document.getElementById('deleteNodeButton').style.display = "block";
-  document.getElementById('deleteNodeButton').onclick = function deleteNode(){
-    document.getElementById('deleteNodeButton').style.display = "none";
+  document.getElementById('deleteConnectionButton').style.display = "block";
+  document.getElementById('deleteConnectionButton').onclick = function deleteNode(){
+    map.removeLayer(connections[id]);
+    $.ajax({
+        url: Server.ADDRESS + "data/api/" + nodeType(typeNumer) + '/'
+            + id + "/" ,
+        type: 'delete',
+        success: function(result) {
+
+        }
+    });
+document.getElementById('deleteConnectionButton').style.display = "none";
   }
 
 }
