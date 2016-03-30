@@ -1,13 +1,11 @@
 Element, Terminal, P(kW), Q(kvar),  P_Normal, Q_Normal, P_Emergency, Q_Emergency
-"Line.OVERHEADLINE1"    ,   1,       -85.7,        -6.6,         0.0,         0.0,         0.0,         0.0
-"Line.OVERHEADLINE1"    ,   2,        85.8,         6.5
-"Line.CABLE1"           ,   1,        -0.0,        -0.0,         0.0,         0.0,         0.0,         0.0
-"Line.CABLE1"           ,   2,         0.0,        -0.0
-"Line.DIRECTCONNECT1"   ,   1,       100.0,        62.0,         0.0,         0.0,         0.0,         0.0
-"Line.DIRECTCONNECT1"   ,   2,      -100.0,       -62.0
-"Transformer.TWTRANS1"  ,   1,       -12.4,       -54.6,         0.0,         0.0,         0.0,         0.0
-"Transformer.TWTRANS1"  ,   2,        12.4,        54.6
-"Transformer.TWTRANS2"  ,   1,         1.8,         0.9,         0.0,         0.0,         0.0,         0.0
-"Transformer.TWTRANS2"  ,   2,        -1.8,        -0.9
-"Generator.SYNCGEN1"    ,   1,      -100.0,       -62.0
-"Load.LOAD1"            ,   1,         1.8,         0.9
+"Line.9_2_CABLE 1"      ,   1,       -98.0,       -73.0,         0.0,         0.0,         0.0,         0.0
+"Line.9_2_CABLE 1"      ,   2,        98.2,        61.1
+"Line.10_1_DIRECT CON"  ,   1,       100.0,        62.0,         0.0,         0.0,         0.0,         0.0
+"Line.10_1_DIRECT CON"  ,   2,      -100.0,       -62.0
+"Transformer.11_0_TRANSFORMER 2",   1,         1.8,         0.9,         0.0,         0.0,         0.0,         0.0
+"Transformer.11_0_TRANSFORMER 2",   2,        -1.8,        -0.9
+"Transformer.12_0_TRANSFORMER 1",   1,        -0.0,        -0.0,         0.0,         0.0,         0.0,         0.0
+"Transformer.12_0_TRANSFORMER 1",   2,        -0.0,         0.0
+"Generator.9_1_SYNC GEN 1",   1,      -100.0,       -62.0
+"Load.10_0_LOAD 1"      ,   1,         1.8,         0.9

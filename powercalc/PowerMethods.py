@@ -135,9 +135,10 @@ def p_write_sync_generator(fileout, node):
                 str(node['id']) + '_' + str(node['type']) + '_' +
                 str(node['name']), p_convert_wiring_to_num(node['wiring']),
                 DEFAULTPHASES, str(node['nominal_voltage']),
-                str(node['power_rating']), str(node['pf_percent'] * 0.01),
+                str(node['power_rating']), str(node['power_factor_percent'] * 0.01),
                 '1', p_convert_wiring_to_str(node['wiring'])))
-    except:
+    except ValueError as e:
+        print(e.__traceback__)
         print('Error writing sync gen ' + str(node['id']))
         pass
 
@@ -160,13 +161,14 @@ def p_write_load(fileout, node):
                     str(node['name']),
                     str(node['id']) + '_' + str(node['type']) + '_' +
                     str(node['name']), p_convert_wiring_to_num(node['wiring']),
-                    DEFAULTPHASES, str(node['nominal_LL_voltage']),
-                    str(node['pf_percent'] * 0.01 * node['pf_type']),
+                    DEFAULTPHASES, str(node['nominal_voltage']),
+                    str(node['power_factor_percent'] * 0.01 * node['power_factor_type']),
                     str(node['load_model']),
                     p_convert_wiring_to_str(node['wiring']), '0',
                     '0', str(node['min_pu_voltage']),
-                    str(node['power_rating)'])))
-        except:
+                    str(node['power_rating'])))
+        except ValueError as e:
+            print(e.__traceback__)
             print('Error writing load ' + str(node['id']))
             pass
 
@@ -217,7 +219,7 @@ def p_write_line(fileout, con, wire, bus1, bus2):
                   '{!s}\' Units=\'{!s}\'\n'.format(
                     str(wire['id']) + '_' + str(wire['wire_type']) +
                     '_' + str(wire['name']),
-                    con['x_1'], elem.h_1_coordinate, 'ft')
+                    con['x_1'], con['h_1'], 'ft')
         p_temp += '~ Cond=2 Wire=\'WD_phase_{!s}\' X=\'{!s}\' H=\'' \
                   '{!s}\' Units=\'{!s}\'\n'.format(
                     str(wire['id']) + '_' + str(wire['wire_type']) +
@@ -234,7 +236,7 @@ def p_write_line(fileout, con, wire, bus1, bus2):
                       '{!s}\'\n'.format(
                         str(wire['id']) + '_' + str(wire['wire_type']) +
                         '_' + str(wire['name']),
-                        con['x_3'], con['h_3'], 'ft')
+                        con['x_4'], con['h_4'], 'ft', 'y')
         p_temp += 'New \'Line.{!s}\' Bus1=\'{!s}.1.2.3\' Bus2=\'' \
                   '{!s}.1.2.3\' Length=\'{!s}\' Phases=\'{!s}\' ' \
                   'BaseFreq=\'{!s}\' Rho=\'{!s}\' Geometry=\'LG_' \
@@ -245,12 +247,13 @@ def p_write_line(fileout, con, wire, bus1, bus2):
                     str(bus1['name']),
                     str(bus2['id']) + '_' + str(bus2['type']) + '_' +
                     str(bus2['name']),
-                    con['length'], DEFAULTPHASES, con['base_frequency'],
+                    con['length'], DEFAULTPHASES, base_frequency,
                     con['soil_resistivity'],
                     str(con['id']) + '_' + str(con['type']) +
                     '_' + str(con['name']), 'ft')
         fileout.write(p_temp)
-    except:
+    except ValueError as e:
+        print(e.__traceback__)
         print('Error writing line ' + str(con['id']))
         pass
 

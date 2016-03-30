@@ -4,6 +4,8 @@ from os import environ
 import subprocess
 import powercalc.Psycopg as Psycopg
 from powercalc.Constants import *
+import csv
+import psycopg2
 
 # Simulation process
 # 1. Begin Simulation (Loop with start/pause functionality)
@@ -126,7 +128,6 @@ def main():
         fileout.write('// RPM is unused\n')
         for key in nodes:
             if nodes[key]['type'] == Power.UTILITY:
-                print(nodes[key])
                 if not circuit_found:
                     p_write_circuit(fileout, nodes[key])
                     PowerNode.swing_component_ID_number = key
@@ -156,21 +157,21 @@ def main():
             if connections[key]['type'] == Power.OVERHEAD_LINE:
                 p_write_line(fileout, connections[key],
                              wire_data[connections[key]['wiredata_object_id']],
-                             nodes[connections[key]['from_bus_id']],
-                             nodes[connections[key]['to_bus_id']])
+                             nodes[connections[key]['from_bus']],
+                             nodes[connections[key]['to_bus']])
             elif connections[key]['type'] == Power.CABLE:
                 p_write_cable(fileout, connections[key],
                              line_codes[connections[key]['linecode_object_id']],
-                             nodes[connections[key]['from_bus_id']],
-                             nodes[connections[key]['to_bus_id']])
+                             nodes[connections[key]['from_bus']],
+                             nodes[connections[key]['to_bus']])
             elif connections[key]['type'] == Power.DIRECT_CONNECTION:
                 p_write_direct_connection(fileout, connections[key],
-                             nodes[connections[key]['from_bus_id']],
-                             nodes[connections[key]['to_bus_id']])
+                             nodes[connections[key]['from_bus']],
+                             nodes[connections[key]['to_bus']])
             elif connections[key]['type'] == Power.TWO_WINDING_TRANSFORMER:
                 p_write_transformer(fileout, connections[key],
-                             nodes[connections[key]['from_bus_id']],
-                             nodes[connections[key]['to_bus_id']])
+                             nodes[connections[key]['from_bus']],
+                             nodes[connections[key]['to_bus']])
                 p_temp.append(str(connections[key]['from_bus_voltage_rating']))
                 p_temp.append(str(connections[key]['to_bus_voltage_rating']))
 
@@ -195,6 +196,62 @@ def main():
     else:
         environ['PATH'] += ';e:\\Program Files\\OpenDSS\\x64'
         subprocess.run('OpenDSS riseout.dss -nogui', shell=True)
+        read_currents(nodes, connections)
+        # read_powers()
+        # read_voltages()
+        update_database(nodes, connections)
+
+
+def read_currents(nodes, connections):
+    with open('currents.csv', 'r') as file_in:
+        reader = csv.reader(file_in, delimiter=',')
+        for row in reader:
+            cat = row[0].split('.')[0]
+            if cat != OpenDSS.ELEMENT and len(row) > 5:
+                com_info = row[0].split('.')[1].split('_')
+                if com_info[0] != OpenDSS.SOURCE and len(com_info[0]) > 3:
+                    if cat == OpenDSS.VSOURCE or OpenDSS.LOAD or OpenDSS.GENERATOR:
+                        node_id = int(com_info[0])
+                        nodes[node_id]['current_1_magnitude'] = \
+                            float(row[OpenDSS.CURRENT_1_MAGNITUDE])
+                        nodes[node_id]['current_1_angle'] = \
+                            float(row[OpenDSS.CURRENT_1_ANGLE])
+                    else:
+                        con_id = int(com_info[0])
+                        connections[con_id]['current_1_magnitude'] = \
+                            float(row[OpenDSS.CURRENT_1_MAGNITUDE])
+                        connections[con_id]['current_1_angle'] = \
+                            float(row[OpenDSS.CURRENT_1_ANGLE])
+
+
+def update_database(nodes, connections):
+    try:
+        conn = psycopg2.connect("dbname='rise' user='admin' host='localhost' "
+                                "port='3306' password='capstone'")
+    except:
+        print("I am unable to connect to the database")
+
+    cur = conn.cursor()
+
+    for key in nodes:
+        node = nodes[key]
+        cols = node.keys()
+        vals = [node[x] for x in cols]
+        vals_str_list = ["%s"] * len(vals)
+        vals_str = ", ".join(vals_str_list)
+        cur.execute('update ' + comp_type_eval(node['type']) + ' set ' +
+                    node + ' where id = ' + node['id'])
+
+    for key in connections:
+        con = connections[key]
+        cols = con.keys()
+        vals = [con[x] for x in cols]
+        vals_str_list = ["%s"] * len(vals)
+        vals_str = ", ".join(vals_str_list)
+        cur.execute('update ' + comp_type_eval(con['type']) + ' ({cols}) VALUES ({vals_str}) where id = ({id})'.format(
+               cols = cols, vals_str = vals_str), vals) con['id'])
+
+    conn.close()
 
 
 if __name__ == '__main__':

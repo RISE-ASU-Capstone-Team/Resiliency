@@ -26,8 +26,11 @@ def populate_components():
     wire_data = dict()
     populate_wire_data(cur, wire_data)
 
+    line_codes = dict()
+    populate_line_code(cur, line_codes)
+
     conn.close()
-    return nodes, connections, wire_data, dict()
+    return nodes, connections, wire_data, line_codes
 
 
 def populate_load(cur, nodes):
@@ -58,7 +61,8 @@ def populate_load(cur, nodes):
              'wiring': row[Load.WIRING],
              'load_model': row[Load.LOAD_MODEL],
              'current_rating': row[Load.CURRENT_RATING],
-             'nominal_LL_voltage': row[Load.NOMINAL_LL_VOLTAGE],
+             'LL_voltage': row[Bus.LL_VOLTAGE],
+             'nominal_voltage': row[Bus.NOMINAL_VOLTAGE],
              'current_1_magnitude': row[Load.CURRENT_1_MAGNITUDE],
              'current_1_angle': row[Load.CURRENT_1_ANGLE],
              'real_power': row[Load.REAL_POWER],
@@ -93,7 +97,8 @@ def populate_sync_gen(cur, nodes):
              'number_of_poles': row[SynchronousGenerator.NUMBER_OF_POLES],
              'power_factor_percent': row[SynchronousGenerator.POWER_FACTOR_PERCENT],
              'wiring': row[SynchronousGenerator.WIRING],
-             'nominal_LL_voltage': row[SynchronousGenerator.NOMINAL_LL_VOLTAGE],
+             'LL_voltage': row[Bus.LL_VOLTAGE],
+             'nominal_voltage': row[Bus.NOMINAL_VOLTAGE],
              'current_1_magnitude': row[SynchronousGenerator.CURRENT_1_MAGNITUDE],
              'current_1_angle': row[SynchronousGenerator.CURRENT_1_ANGLE],
              'real_power': row[SynchronousGenerator.REAL_POWER],
@@ -122,7 +127,8 @@ def populate_bus(cur, nodes):
              'type': row[Bus.TYPE],
              'latitude': row[Bus.LATITUDE],
              'longitude': row[Bus.LONGITUDE],
-             'nominal_LL_voltage': row[Bus.NOMINAL_LL_VOLTAGE]}
+             'LL_voltage': row[Bus.LL_VOLTAGE],
+             'nominal_voltage': row[Bus.NOMINAL_VOLTAGE]}
 
 
 def populate_utility(cur, nodes):
@@ -150,7 +156,7 @@ def populate_utility(cur, nodes):
              'stiffness': row[Utility.STIFFNESS],
              'base_power': row[Utility.BASE_POWER],
              'LL_voltage': row[Utility.LL_VOLTAGE],
-             'nominal_voltage': row[Utility.NOMINAL_VOLTAGE],
+             'nominal_voltage': row[Bus.NOMINAL_VOLTAGE],
              'voltage_angle': row[Utility.VOLTAGE_ANGLE],
              'short_circuit_3_phase': row[Utility.SHORT_CIRCUIT_3_PHASE],
              'short_circuit_SLG': row[Utility.SHORT_CIRCUIT_SLG],
@@ -210,7 +216,7 @@ def populate_direct(cur, connections):
     rows = cur.fetchall()
 
     for row in rows:
-        connections[row[TwoWindingTransformer.ID]] = \
+        connections[row[DirectConnection.ID]] = \
             {'id': row[DirectConnection.ID],
              'name': row[DirectConnection.NAME],
              'operational_status': row[DirectConnection.OPERATIONAL_STATUS],
@@ -238,7 +244,7 @@ def populate_cables(cur, connections):
     rows = cur.fetchall()
 
     for row in rows:
-        connections[row[TwoWindingTransformer.ID]] = \
+        connections[row[Cable.ID]] = \
             {'id': row[Cable.ID],
              'name': row[Cable.NAME],
              'operational_status': row[Cable.OPERATIONAL_STATUS],
@@ -268,7 +274,7 @@ def populate_overhead(cur, connections):
     rows = cur.fetchall()
 
     for row in rows:
-        connections[row[TwoWindingTransformer.ID]] = \
+        connections[row[OverheadLine.ID]] = \
             {'id': row[OverheadLine.ID],
              'name': row[OverheadLine.NAME],
              'operational_status': row[OverheadLine.OPERATIONAL_STATUS],
@@ -309,7 +315,7 @@ def populate_wire_data(cur, wire_data):
     rows = cur.fetchall()
 
     for row in rows:
-        wire_data[row[TwoWindingTransformer.ID]] = \
+        wire_data[row[WireData.ID]] = \
             {'id': row[WireData.ID],
              'name': row[WireData.NAME],
              'resistance_50_C': row[WireData.RESISTANCE_50_C],
@@ -319,3 +325,23 @@ def populate_wire_data(cur, wire_data):
              'GMR': row[WireData.GMR],
              'type': row[WireData.TYPE],
              'wire_type': row[WireData.WIRE_TYPE]}
+
+
+def populate_line_code(cur, line_code):
+    try:
+        cur.execute("""SELECT * FROM public.client_linecode""")
+    except:
+        print("I can't SELECT from linecode")
+
+    rows = cur.fetchall()
+
+    for row in rows:
+        line_code[row[LineCode.ID]] = \
+            {'id': row[LineCode.ID],
+             'name': row[LineCode.NAME],
+             'r_1': row[LineCode.R_1],
+             'x_1': row[LineCode.X_1],
+             'r_0': row[LineCode.R_0],
+             'x_0': row[LineCode.X_0],
+             'continuous_ampacity': row[LineCode.CONTINUOUS_AMPACITY],
+             'emergency_ampacity': row[LineCode.EMERGENCY_AMPACITY]}

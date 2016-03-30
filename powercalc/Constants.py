@@ -1,3 +1,9 @@
+class Simulation:
+    POWER = 0
+    WATER = 1
+    ROAD = 2
+
+
 class Power:
     LOAD = 0
     SYNCHRONOUS_GENERATOR = 1
@@ -24,18 +30,19 @@ class Load:
     TYPE = 7
     LATITUDE = 8
     LONGITUDE = 9
-    POWER_RATING = 12
-    POWER_FACTOR_PERCENT = 13
-    POWER_FACTOR_TYPE = 14
-    MIN_PU_VOLTAGE = 15
-    WIRING = 16
-    LOAD_MODEL = 17
-    CURRENT_RATING = 18
-    NOMINAL_LL_VOLTAGE = 19
-    CURRENT_1_MAGNITUDE = 20
-    CURRENT_1_ANGLE = 21
-    REAL_POWER = 22
-    REACTIVE_POWER = 23
+    LL_VOLTAGE = 11
+    NOMINAL_VOLTAGE = 12
+    POWER_RATING = 14
+    POWER_FACTOR_PERCENT = 15
+    POWER_FACTOR_TYPE = 16
+    MIN_PU_VOLTAGE = 17
+    WIRING = 18
+    LOAD_MODEL = 19
+    CURRENT_RATING = 20
+    CURRENT_1_MAGNITUDE = 21
+    CURRENT_1_ANGLE = 22
+    REAL_POWER = 23
+    REACTIVE_POWER = 24
 
 
 class SynchronousGenerator:
@@ -49,17 +56,18 @@ class SynchronousGenerator:
     TYPE = 7
     LATITUDE = 8
     LONGITUDE = 9
-    STIFFNESS = 12
-    POWER_RATING = 13
-    RPM_RATING = 14
-    NUMBER_OF_POLES = 15
-    POWER_FACTOR_PERCENT = 16
-    WIRING = 17
-    NOMINAL_LL_VOLTAGE = 18
-    CURRENT_1_MAGNITUDE = 19
-    CURRENT_1_ANGLE = 20
-    REAL_POWER = 21
-    REACTIVE_POWER = 22
+    LL_VOLTAGE = 11
+    NOMINAL_VOLTAGE = 12
+    STIFFNESS = 14
+    POWER_RATING = 15
+    RPM_RATING = 16
+    NUMBER_OF_POLES = 17
+    POWER_FACTOR_PERCENT = 18
+    WIRING = 19
+    CURRENT_1_MAGNITUDE = 20
+    CURRENT_1_ANGLE = 21
+    REAL_POWER = 22
+    REACTIVE_POWER = 23
 
 
 class Bus:
@@ -73,7 +81,8 @@ class Bus:
     TYPE = 7
     LATITUDE = 8
     LONGITUDE = 9
-    NOMINAL_LL_VOLTAGE = 12
+    LL_VOLTAGE = 11
+    NOMINAL_VOLTAGE = 12
 
 
 class Utility:
@@ -87,18 +96,19 @@ class Utility:
     TYPE = 7
     LATITUDE = 8
     LONGITUDE = 9
-    BASE_POWER = 12
-    LL_VOLTAGE = 13
-    VOLTAGE_ANGLE = 14
-    SHORT_CIRCUIT_3_PHASE = 15
-    SHORT_CIRCUIT_SLG = 16
-    STIFFNESS = 17
-    R_1 = 18
-    X_1 = 19
-    R_0 = 20
-    X_0 = 21
-    CURRENT_1_MAGNITUDE = 22
-    CURRENT_1_ANGLE = 23
+    BASE_POWER = 14
+    LL_VOLTAGE = 11
+    NOMINAL_VOLTAGE = 12
+    VOLTAGE_ANGLE = 15
+    SHORT_CIRCUIT_3_PHASE = 16
+    SHORT_CIRCUIT_SLG = 17
+    STIFFNESS = 18
+    R_1 = 19
+    X_1 = 20
+    R_0 = 21
+    X_0 = 22
+    CURRENT_1_MAGNITUDE = 23
+    CURRENT_1_ANGLE = 24
 
 
 class TwoWindingTransformer:
@@ -207,6 +217,66 @@ class WireData:
     WIRE_TYPE = 8
 
 
+class LineCode:
+    ID = 0
+    NAME = 1
+    R_1 = 2
+    X_1 = 3
+    R_0 = 4
+    X_0 = 5
+    CONTINUOUS_AMPACITY = 6
+    EMERGENCY_AMPACITY = 7
+
+
 class WireType:
     PHASE = 0
     NEUTRAL = 1
+
+
+class OpenDSS:
+    ELEMENT = 'Element'
+    VSOURCE = 'Vsource'
+    SOURCE = 'SOURCE'
+    LINE = 'Line'
+    TRANSFORMER = 'Transformer'
+    GENERATOR = 'Generator'
+    LOAD = 'load'
+
+    CURRENT_1_MAGNITUDE = 1
+    CURRENT_1_ANGLE = 2
+
+
+class Tables:
+    NODE = 'client_node'
+    CONNECTION = 'client_connection'
+    BUS = 'client_bus'
+    CABLE = 'client_cable'
+    DB_CHANGE = 'client_dbchanges'
+    DIRECT = 'client_directconnection'
+    LINE_CODE = 'client_linecode'
+    LOAD = 'client_load'
+    OVERHEAD = 'client_overheadline'
+    POWER = 'client_power'
+    SYNC_GEN = 'client_syncgenerator'
+    TRANSFORMER = 'client_twowindingtransformer'
+    UTILITY = 'client_utility'
+    WIRE_DATA = 'client_wiredata'
+
+
+def comp_type_eval(comp_type):
+        if comp_type == Power.LOAD:
+            return Tables.LOAD
+        elif comp_type == Power.BUS:
+            return Tables.BUS
+        elif comp_type == Power.CABLE:
+            return Tables.CABLE
+        elif comp_type == Power.DIRECT_CONNECTION:
+            return Tables.DIRECT
+        elif comp_type == Power.OVERHEAD_LINE:
+            return Tables.OVERHEAD
+        elif comp_type == Power.SYNCHRONOUS_GENERATOR:
+            return Tables.SYNC_GEN
+        elif comp_type == Power.TWO_WINDING_TRANSFORMER:
+            return Tables.TRANSFORMER
+        elif comp_type == Power.UTILITY:
+            return Tables.UTILITY

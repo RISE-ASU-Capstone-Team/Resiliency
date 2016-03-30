@@ -7,3 +7,48 @@ Set DefaultBaseFrequency=60
 
 // Generators (synchronous, solar, wind)
 // RPM is unused
+New 'Circuit.8_3_Utility 2' basekv='13.8' pu='1.0' Angle='0.0' Phases='3' Mvasc3='100.0' Mvasc1='100.0' R1='1.5' X1='5.5' R0='2.0' X0='6.5'
+New 'Generator.9_1_Sync Gen 1' bus1='9_1_Sync Gen 1.1.2.3.0' Phases='3' Kv='13.8' Kw ='100.0' Pf='0.85' Model='1' Conn='wye'
+New 'Load.10_0_Load 1' bus1='10_0_Load 1.1.2.3.0' Phases='3' Kv='1.2' PF='0.9' Model='1' Conn='wye' Rneut='0' Xneut='0' Vminpu='0.9' kVA='2.0'
+New 'Vsource.7_3_Utility 1' bus1='7_3_Utility 1.1.2.3.0' basekv='13.8' pu='1.0' Angle='0.0' Phases='3' Mvasc3='100.0' Mvasc1='100.0' R1='1.5' X1='5.5' R0='2.0' X0='6.5'
+
+// Wire Data
+New 'WireData.WD_phase_1_0_0.721' Rac='530.0' Runits='kft' GMRac='0.0244' GMRunits='ft' Radunits='in' Normamps='795.0' Emergamps='0.306' Diam='336,400 CM'
+New 'WireData.WD_neut_2_1_0.563' Rac='340.0' Runits='kft' GMRac='0.00814' GMRunits='ft' Radunits='in' Normamps='510.0' Emergamps='0.592' Diam='#4/0'
+
+// Overhead Lines
+
+// Line Codes
+
+// Cables, ATS and Connections
+
+// Transformers
+
+// Voltage bases
+New 'LineGeometry.LG_8_3_Overhead Line 1' Nconds='4' Nphases='3'
+~ Cond=1 Wire='WD_phase_1_0_0.721' X='True' H='0.0' Units='ft'
+~ Cond=2 Wire='WD_phase_1_0_0.721' X='-1.0' H='10.0' Units='ft'
+~ Cond=3 Wire='WD_phase_1_0_0.721' X='2.0' H='10.0' Units='ft'
+~ Cond=4 Wire='WD_neut_1_0_0.721' X='2.0' H='0.0' Units='ft' reduce='y'
+New 'Line.8_3_Overhead Line 1' Bus1='8_3_Utility 2.1.2.3' Bus2='11_2_Bus 1.1.2.3' Length='100.0' Phases='3' BaseFreq='60' Rho='100.0' Geometry='LG_8_3_Overhead Line 1' Units='ft'
+New 'Line.9_2_Cable 1' Bus1='7_3_Utility 1.1.2.3' Bus2='11_2_Bus 1.1.2.3' LineCode='LC_1_2.0' Length='50.0' Units='ft'
+New 'Line.10_1_Direct Con' Bus1='9_1_Sync Gen 1.1.2.3' Bus2='11_2_Bus 1.1.2.3' Phases='3' Switch='True'
+New 'Transformer.11_0_Transformer 2' Phases='3' Windings='2' XHL='0.07' %LoadLoss='0.022000000000000002'
+~ wdg=1 Bus='11_2_Bus 1.1.2.3.0' kV='13.8' kVA='90.0' Conn='wye'
+~ wdg=2 Bus='10_0_Load 1.1.2.3.0' kV='1.2' kVA='90.0' Conn='wye'
+New 'Transformer.12_0_Transformer 1' Phases='3' Windings='2' XHL='0.068' %LoadLoss='0.021'
+~ wdg=1 Bus='8_3_Utility 2.1.2.3.0' kV='13.8' kVA='100.0' Conn='wye'
+~ wdg=2 Bus='11_2_Bus 1.1.2.3.0' kV='13.8' kVA='100.0' Conn='wye'
+Set VoltageBases=[ 13.8 1.2]
+CalcVoltageBases
+New 'Linecode.LC_1_2.0' nphases='3' R1='5.0' X1='2.5' R0='6.0' X0='500.0' Units='kft' Normamps='700.0' Emergamps='Linecode1'
+
+// Solve study
+Solve BaseFrequency=60 MaxIter=300
+
+// Export results
+Export Summary (summary.csv)
+Export Voltages (voltages.csv)
+Export Currents (currents.csv)
+Export Overloads (overloads.csv)
+Export Powers KVA (powers.csv)
