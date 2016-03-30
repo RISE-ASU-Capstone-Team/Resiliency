@@ -21,9 +21,9 @@ var networkWaterJSON = {
 }
 
 var projectJSON = {
-    "projectName":"My Awesome Project",
-    "projectCreation":"2/1/16",
-    "projectDescription":"Some power, water and road stuff going on here"
+    "projectName":"Project 1",
+    "projectCreation":"3/31/16",
+    "projectDescription":"Rise Project: Test 1"
 }
 
 //waterNetworkTable(networkWaterJSON);
