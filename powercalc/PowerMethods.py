@@ -1,4 +1,5 @@
 from powercalc.PowerClasses import *
+from powercalc.Constants import *
 import math
 
 p_templist = []
@@ -90,7 +91,7 @@ def p_write_circuit(fileout, node):
             '{!s}\' R0=\'{!s}\' X0=\'{!s}\'\n'.format(
                 str(node['id']) + '_' + str(node['type']) + '_' +
                 str(node['name']),
-                str(node['nominal_LL_voltage']), DEFAULTPU,
+                str(node['nominal_voltage']), DEFAULTPU,
                 str(node['voltage_angle']), DEFAULTPHASES,
                 str(node['short_circuit_3_phase']),
                 str(node['short_circuit_SLG']),
@@ -110,7 +111,9 @@ def p_write_v_source(fileout, node):
             '{!s}\' R0=\'{!s}\' X0=\'{!s}\'\n'.format(
                 str(node['id']) + '_' + str(node['type']) + '_' +
                 str(node['name']),
-                str(node['nominal_LL_voltage']), DEFAULTPU,
+                str(node['id']) + '_' + str(node['type']) + '_' +
+                str(node['name']),
+                str(node['nominal_voltage']), DEFAULTPU,
                 str(node['voltage_angle']), DEFAULTPHASES,
                 str(node['short_circuit_3_phase']),
                 str(node['short_circuit_SLG']),
@@ -123,20 +126,17 @@ def p_write_v_source(fileout, node):
 
 def p_write_sync_generator(fileout, node):
     try:
-        if elem.COMPONENT_ID_NUMBER is PowerNode.swing_component_ID_number \
-                and elem.object_ID_number \
-                is PowerNode.swing_object_ID_number:
-            pass
-        else:
-            fileout.write(
-                'New \'Generator.{!s}\' bus1=\'{!s}.{!s}\' Phases=\''
-                '{!s}\' Kv=\'{!s}\' Kw =\'{!s}\' Pf=\'{!s}\' Model=\''
-                '{!s}\' Conn=\'{!s}\'\n'.format(
-                    elem.object_name,
-                    elem.object_name, p_convert_wiring_to_num(elem.wiring),
-                    DEFAULTPHASES, elem.nominal_LL_voltage,
-                    elem.power_rating, elem.pf_percent * 0.01, '1',
-                    p_convert_wiring_to_str(elem.wiring)))
+        fileout.write(
+            'New \'Generator.{!s}\' bus1=\'{!s}.{!s}\' Phases=\''
+            '{!s}\' Kv=\'{!s}\' Kw =\'{!s}\' Pf=\'{!s}\' Model=\''
+            '{!s}\' Conn=\'{!s}\'\n'.format(
+                str(node['id']) + '_' + str(node['type']) + '_' +
+                str(node['name']),
+                str(node['id']) + '_' + str(node['type']) + '_' +
+                str(node['name']), p_convert_wiring_to_num(node['wiring']),
+                DEFAULTPHASES, str(node['nominal_voltage']),
+                str(node['power_rating']), str(node['pf_percent'] * 0.01),
+                '1', p_convert_wiring_to_str(node['wiring'])))
     except:
         print('Error writing sync gen ' + str(node['id']))
         pass
@@ -151,213 +151,196 @@ def p_write_wind(fileout, list):
 
 
 def p_write_load(fileout, node):
-    for elem in list:
         try:
             fileout.write(
                 'New \'Load.{!s}\' bus1=\'{!s}.{!s}\' Phases=\'{!s}\' Kv=\''
                 '{!s}\' PF=\'{!s}\' Model=\'{!s}\' Conn=\'{!s}\' Rneut=\''
                 '{!s}\' Xneut=\'{!s}\' Vminpu=\'{!s}\' kVA=\'{!s}\'\n'.format(
-                    elem.object_name,
-                    elem.object_name, p_convert_wiring_to_num(elem.wiring),
-                    DEFAULTPHASES, elem.nominal_LL_voltage,
-                    0.01 * elem.pf_percent * elem.pf_type, elem.load_model,
-                    p_convert_wiring_to_str(elem.wiring), 0,
-                    0, elem.min_pu_voltage, elem.power_rating))
+                    str(node['id']) + '_' + str(node['type']) + '_' +
+                    str(node['name']),
+                    str(node['id']) + '_' + str(node['type']) + '_' +
+                    str(node['name']), p_convert_wiring_to_num(node['wiring']),
+                    DEFAULTPHASES, str(node['nominal_LL_voltage']),
+                    str(node['pf_percent'] * 0.01 * node['pf_type']),
+                    str(node['load_model']),
+                    p_convert_wiring_to_str(node['wiring']), '0',
+                    '0', str(node['min_pu_voltage']),
+                    str(node['power_rating)'])))
         except:
             print('Error writing load ' + str(node['id']))
             pass
 
 
 def p_write_wire_data(fileout, data):
-    for elem in list:
-        try:
+    try:
+        if data['wire_type'] == Power.PHASE:
             p_temp = 'New \'WireData.WD_phase_{!s}\' Rac=\'{!s}\' ' \
-                           'Runits=\'{!s}\' GMRac=\'{!s}\' GMRunits=\'{!s}\' ' \
-                           'Radunits=\'{!s}\' Normamps=\'{!s}\' Emergamps=\'' \
-                           '{!s}\' Diam=\'{!s}\'\n'.format(
-                            elem.object_name,
-                            elem.phase_resistance_50_C,
-                            'kft', elem.phase_GMR, 'ft',
-                            'in', elem.phase_continuous_ampacity,
-                            elem.phase_emergency_ampacity, elem.phase_diameter)
-            if elem.neutral_resistance_50_C and elem.neutral_diameter:
-                p_temp += 'New \'WireData.WD_neut_{!s}\' ' \
-                                'Rac=\'{!s}\' Runits=\'{!s}\' ' \
-                                'GMRac=\'{!s}\' GMRunits=\'' \
-                                '{!s}\' Radunits=\'{!s}\' ' \
-                                'Normamps=\'{!s}\' Emergamps=\'' \
-                                '{!s}\' Diam=\'{!s}\'\n'.format(
-                                    elem.object_name,
-                                    elem.neutral_resistance_50_C,
-                                    'kft', elem.neutral_GMR, 'ft',
-                                    'in', elem.neutral_continuous_ampacity,
-                                    elem.neutral_emergency_ampacity,
-                                    elem.neutral_diameter)
-            fileout.write(p_temp)
-        except:
-            print('Error writing wire_data ' + str(data['id']))
-            pass
-
-
-def p_write_line(fileout, line):
-    for elem in list:
-        p_temp = None
-        try:
-            wire_name = p_list_return_object(WIREDATA_ID,
-                                           elem.wiredata_object_ID).object_name
-            p_temp = 'New \'LineGeometry.LG_{!s}\' Nconds=\'' \
-                     '{!s}\' Nphases=\'{!s}\'\n'.format(
-                            elem.object_name,
-                            elem.number_of_conductors, DEFAULTPHASES)
-            p_temp += '~ Cond=1 Wire=\'WD_phase_{!s}\' X=\'{!s}\' H=\'' \
-                      '{!s}\' Units=\'{!s}\'\n'.format(
-                                wire_name,
-                                elem.x_1_coordinate, elem.h_1_coordinate, 'ft')
-            p_temp += '~ Cond=2 Wire=\'WD_phase_{!s}\' X=\'{!s}\' H=\'' \
-                      '{!s}\' Units=\'{!s}\'\n'.format(
-                                wire_name,
-                                elem.x_2_coordinate, elem.h_2_coordinate, 'ft')
-            p_temp += '~ Cond=3 Wire=\'WD_phase_{!s}\' X=\'{!s}\' ' \
-                      'H=\'{!s}\' Units=\'{!s}\'\n'.format(
-                                wire_name,
-                                elem.x_3_coordinate, elem.h_3_coordinate, 'ft')
-            if elem.number_of_conductors == 4:
-                p_temp += '~ Cond=4 Wire=\'WD_neut_{!s}\' X=\'{!s}\' ' \
-                          'H=\'{!s}\' Units=\'{!s}\' reduce=\'' \
-                          '{!s}\'\n'.format(
-                                wire_name,
-                                elem.x_4_coordinate, elem.h_4_coordinate,
-                                'ft', 'y')
-            p_temp += 'New \'Line.{!s}\' Bus1=\'{!s}.1.2.3\' Bus2=\'' \
-                      '{!s}.1.2.3\' Length=\'{!s}\' Phases=\'{!s}\' ' \
-                      'BaseFreq=\'{!s}\' Rho=\'{!s}\' Geometry=\'LG_' \
-                      '{!s}\' Units=\'{!s}\'\n'.format(
-                                elem.object_name,
-                                p_list_return_object(elem.from_bus_component_ID,
-                                                     elem.from_bus_object_ID).
-                                object_name,
-                                p_list_return_object(elem.to_bus_component_ID,
-                                                     elem.to_bus_object_ID).
-                                object_name,
-                                elem.length, DEFAULTPHASES, base_frequency,
-                                elem.soil_resistivity,
-                                elem.object_name, 'ft')
-            fileout.write(p_temp)
-        except:
-            print('Error writing line ' + str(line['id']))
-            pass
-
-
-def p_write_line_code(fileout, list):
-    for elem in list:
-        try:
-            fileout.write(
-                'New \'Linecode.LC_{!s}\' nphases=\'{!s}\' R1=\'{!s}\' X1=\''
-                '{!s}\' R0=\'{!s}\' X0=\'{!s}\' Units=\'{!s}\' Normamps=\''
-                '{!s}\' Emergamps=\'{!s}\'\n'.format(
-                    elem.object_name,
-                    DEFAULTPHASES, elem.r_1, elem.x_1, elem.r_0,
-                    elem.x_0, 'kft', elem.continuous_ampacity,
-                    elem.emergency_ampacity))
-        except:
-            print('Error writing line code ' + str(line['id']))
-            pass
-
-
-def p_write_cable(fileout, list):
-    for elem in list:
-        try:
-            fileout.write(
-                'New \'Line.{!s}\' Bus1=\'{!s}.1.2.3\' Bus2=\'{!s}.1.2.3\' '
-                'LineCode=\'LC_{!s}\' Length=\'{!s}\' Units=\'{!s}\'\n'.format(
-                    elem.object_name,
-                    p_list_return_object(elem.from_bus_component_ID,
-                                         elem.from_bus_object_ID).
-                    object_name,
-                    p_list_return_object(elem.to_bus_component_ID,
-                                       elem.to_bus_object_ID).object_name,
-                    p_list_return_object(LINECODE_ID,
-                                         elem.linecode_object_ID).object_name,
-                    elem.length, 'ft'))
-        except:
-            print('Error writing cable ' + str(line['id']))
-            pass
-
-
-def p_write_direct_connection(fileout, list):
-    for elem in list:
-        try:
-            fileout.write(
-                'New \'Line.{!s}\' Bus1=\'{!s}.1.2.3\' Bus2=\'{!s}.1.2.3\' '
-                'Phases=\'{!s}\' Switch=\'{!s}\'\n'.format(
-                    elem.object_name,
-                    p_list_return_object(elem.from_bus_component_ID,
-                                       elem.from_bus_object_ID).object_name,
-                    p_list_return_object(elem.to_bus_component_ID,
-                                       elem.to_bus_object_ID).object_name,
-                    DEFAULTPHASES, 'True'))
-        except:
-            print('Error writing direct con ' + str(line['id']))
-            pass
-
-
-def p_write_transformer(fileout, trans_list):
-    for elem in trans_list:
-        p_temp = None
-        try:
-            p_temp = 'New \'Transformer.{!s}\' Phases=\'{!s}\' ' \
-                           'Windings=\'{!s}\' XHL=\'{!s}\' %LoadLoss=\'' \
-                           '{!s}\'\n'.format(
-                            elem.object_name,
-                            DEFAULTPHASES, DEFAULTWINDINGS,
-                            elem.x_percent * 0.01,
-                            elem.r_percent * 0.01)
-            try:
-                p_temp += '~ wdg=1 Bus=\'{!s}.{!s}\' kV=\'{!s}\' ' \
-                          'kVA=\'{!s}\' Conn=\'{!s}\'\n'.format(
-                            p_list_return_object(elem.from_bus_component_ID,
-                                                 elem.from_bus_object_ID).
-                            object_name,
-                            p_convert_wiring_to_num(elem.from_bus_wiring),
-                            elem.from_bus_voltage_rating, elem.power_rating,
-                            p_convert_wiring_to_str(elem.from_bus_wiring))
-                p_temp += '~ wdg=2 Bus=\'{!s}.{!s}\' kV=\'{!s}\' kVA=\'' \
-                          '{!s}\' Conn=\'{!s}\'\n'.format(
-                            p_list_return_object(elem.to_bus_component_ID,
-                                                 elem.to_bus_object_ID).
-                            object_name,
-                            p_convert_wiring_to_num(elem.to_bus_wiring),
-                            elem.to_bus_voltage_rating, elem.power_rating,
-                            p_convert_wiring_to_str(elem.to_bus_wiring))
-            except:
-                print(
-                    'ERROR: Cannot find from_bus or to_bus for '
-                    'transformer {!s} node'.format(
-                        elem.object_name))
-            fileout.write(p_temp)
-        except:
-            print('Error writing transformer ' + str(line['id']))
-            pass
-
-
-def p_write_voltage_bases(fileout, list1, list2):
-    p_temp = []
-
-    try:
-        for elem in list1:
-            p_temp.append(str(elem.from_bus_voltage_rating))
-            p_temp.append(str(elem.to_bus_voltage_rating))
+                     'Runits=\'{!s}\' GMRac=\'{!s}\' GMRunits=\'{!s}\' ' \
+                     'Radunits=\'{!s}\' Normamps=\'{!s}\' Emergamps=\'' \
+                     '{!s}\' Diam=\'{!s}\'\n'.format(
+                        str(data['id']) + '_' + str(data['wire_type']) +
+                        '_' + str(data['name']),
+                        str(data['resistance_50_C']),
+                        'kft', str(data['GMR']), 'ft',
+                        'in', str(data['continuous_ampacity']),
+                        str(data['emergency_ampacity']),
+                        str(data['diameter']))
+        else:
+            p_temp = 'New \'WireData.WD_neut_{!s}\' ' \
+                      'Rac=\'{!s}\' Runits=\'{!s}\' ' \
+                      'GMRac=\'{!s}\' GMRunits=\'' \
+                      '{!s}\' Radunits=\'{!s}\' ' \
+                      'Normamps=\'{!s}\' Emergamps=\'' \
+                      '{!s}\' Diam=\'{!s}\'\n'.format(
+                          str(data['id']) + '_' + str(data['wire_type']) +
+                          '_' + str(data['name']),
+                          str(data['resistance_50_C']),
+                          'kft', str(data['GMR']), 'ft',
+                          'in', str(data['continuous_ampacity']),
+                          str(data['emergency_ampacity']),
+                          str(data['diameter']))
+        fileout.write(p_temp)
     except:
+        print('Error writing wire_data ' + str(data['id']))
         pass
 
+
+def p_write_line(fileout, con, wire, bus1, bus2):
     try:
-        for elem in list2:
-            p_temp.append(str(elem.nominal_LL_voltage))
+
+        p_temp = 'New \'LineGeometry.LG_{!s}\' Nconds=\'' \
+                 '{!s}\' Nphases=\'{!s}\'\n'.format(
+                    str(con['id']) + '_' + str(con['type']) +
+                    '_' + str(con['name']),
+                    con['number_of_conductors'], DEFAULTPHASES)
+        p_temp += '~ Cond=1 Wire=\'WD_phase_{!s}\' X=\'{!s}\' H=\'' \
+                  '{!s}\' Units=\'{!s}\'\n'.format(
+                    str(wire['id']) + '_' + str(wire['wire_type']) +
+                    '_' + str(wire['name']),
+                    con['x_1'], elem.h_1_coordinate, 'ft')
+        p_temp += '~ Cond=2 Wire=\'WD_phase_{!s}\' X=\'{!s}\' H=\'' \
+                  '{!s}\' Units=\'{!s}\'\n'.format(
+                    str(wire['id']) + '_' + str(wire['wire_type']) +
+                    '_' + str(wire['name']),
+                    con['x_2'], con['h_2'], 'ft')
+        p_temp += '~ Cond=3 Wire=\'WD_phase_{!s}\' X=\'{!s}\' ' \
+                  'H=\'{!s}\' Units=\'{!s}\'\n'.format(
+                    str(wire['id']) + '_' + str(wire['wire_type']) +
+                    '_' + str(wire['name']),
+                    con['x_3'], con['h_3'], 'ft')
+        if con['number_of_conductors'] == 4:
+            p_temp += '~ Cond=4 Wire=\'WD_neut_{!s}\' X=\'{!s}\' ' \
+                      'H=\'{!s}\' Units=\'{!s}\' reduce=\'' \
+                      '{!s}\'\n'.format(
+                        str(wire['id']) + '_' + str(wire['wire_type']) +
+                        '_' + str(wire['name']),
+                        con['x_3'], con['h_3'], 'ft')
+        p_temp += 'New \'Line.{!s}\' Bus1=\'{!s}.1.2.3\' Bus2=\'' \
+                  '{!s}.1.2.3\' Length=\'{!s}\' Phases=\'{!s}\' ' \
+                  'BaseFreq=\'{!s}\' Rho=\'{!s}\' Geometry=\'LG_' \
+                  '{!s}\' Units=\'{!s}\'\n'.format(
+                    str(con['id']) + '_' + str(con['type']) +
+                    '_' + str(con['name']),
+                    str(bus1['id']) + '_' + str(bus1['type']) + '_' +
+                    str(bus1['name']),
+                    str(bus2['id']) + '_' + str(bus2['type']) + '_' +
+                    str(bus2['name']),
+                    con['length'], DEFAULTPHASES, con['base_frequency'],
+                    con['soil_resistivity'],
+                    str(con['id']) + '_' + str(con['type']) +
+                    '_' + str(con['name']), 'ft')
+        fileout.write(p_temp)
     except:
+        print('Error writing line ' + str(con['id']))
         pass
 
+
+def p_write_line_code(fileout, line):
+    try:
+        fileout.write(
+            'New \'Linecode.LC_{!s}\' nphases=\'{!s}\' R1=\'{!s}\' X1=\''
+            '{!s}\' R0=\'{!s}\' X0=\'{!s}\' Units=\'{!s}\' Normamps=\''
+            '{!s}\' Emergamps=\'{!s}\'\n'.format(
+                str(line['id']) +
+                '_' + str(line['name']),
+                DEFAULTPHASES, str(line['r_1']), str(line['x_1']),
+                str(line['r_0']), str(line['x_0']), 'kft',
+                str(line['continuous_ampacity']),
+                str(line['emergency_ampacity'])))
+    except:
+        print('Error writing line code ' + str(line['id']))
+        pass
+
+
+def p_write_cable(fileout, con, line, bus1, bus2):
+    try:
+        fileout.write(
+            'New \'Line.{!s}\' Bus1=\'{!s}.1.2.3\' Bus2=\'{!s}.1.2.3\' '
+            'LineCode=\'LC_{!s}\' Length=\'{!s}\' Units=\'{!s}\'\n'.format(
+                str(con['id']) + '_' + str(con['type']) +
+                '_' + str(con['name']),
+                str(bus1['id']) + '_' + str(bus1['type']) +
+                '_' + str(bus1['name']),
+                str(bus2['id']) + '_' + str(bus2['type']) +
+                '_' + str(bus2['name']),
+                str(line['id']) +
+                '_' + str(line['name']),
+                con['length'], 'ft'))
+    except:
+        print('Error writing cable ' + str(con['id']))
+        pass
+
+
+def p_write_direct_connection(fileout, con, bus1, bus2):
+    try:
+        fileout.write(
+            'New \'Line.{!s}\' Bus1=\'{!s}.1.2.3\' Bus2=\'{!s}.1.2.3\' '
+            'Phases=\'{!s}\' Switch=\'{!s}\'\n'.format(
+                str(con['id']) + '_' + str(con['type']) +
+                '_' + str(con['name']),
+                str(bus1['id']) + '_' + str(bus1['type']) +
+                '_' + str(bus1['name']),
+                str(bus2['id']) + '_' + str(bus2['type']) +
+                '_' + str(bus2['name']),
+                DEFAULTPHASES, 'True'))
+    except:
+        print('Error writing direct con ' + str(con['id']))
+        pass
+
+
+def p_write_transformer(fileout, con, bus1, bus2):
+    try:
+        p_temp = 'New \'Transformer.{!s}\' Phases=\'{!s}\' ' \
+                 'Windings=\'{!s}\' XHL=\'{!s}\' %LoadLoss=\'' \
+                 '{!s}\'\n'.format(
+                   str(con['id']) + '_' + str(con['type']) +
+                   '_' + str(con['name']),
+                   DEFAULTPHASES, DEFAULTWINDINGS,
+                   str(con['x_percent'] * 0.01),
+                   str(con['r_percent'] * 0.01))
+        p_temp += '~ wdg=1 Bus=\'{!s}.{!s}\' kV=\'{!s}\' ' \
+                  'kVA=\'{!s}\' Conn=\'{!s}\'\n'.format(
+                    str(bus1['id']) + '_' + str(bus1['type']) +
+                    '_' + str(bus1['name']),
+                    p_convert_wiring_to_num(con['from_bus_wiring']),
+                    con['from_bus_voltage_rating'], con['power_rating'],
+                    p_convert_wiring_to_str(con['from_bus_wiring']))
+        p_temp += '~ wdg=2 Bus=\'{!s}.{!s}\' kV=\'{!s}\' kVA=\'' \
+                  '{!s}\' Conn=\'{!s}\'\n'.format(
+                    str(bus2['id']) + '_' + str(bus2['type']) +
+                    '_' + str(bus2['name']),
+                    p_convert_wiring_to_num(con['to_bus_wiring']),
+                    con['to_bus_voltage_rating'], con['power_rating'],
+                    p_convert_wiring_to_str(con['to_bus_wiring']))
+
+        fileout.write(p_temp)
+    except:
+        print('Error writing transformer ' + str(con['id']))
+        pass
+
+
+def p_write_voltage_bases(fileout, p_temp):
     temp_v_bases = set(p_temp)
-    p_temp = []
 
     fileout.write('Set VoltageBases=[')
 

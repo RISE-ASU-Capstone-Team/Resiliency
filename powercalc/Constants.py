@@ -9,6 +9,9 @@ class Power:
     CABLE = 2
     OVERHEAD_LINE = 3
 
+    PHASE = 0
+    NEUTRAL = 1
+
 
 class Load:
     ID = 0

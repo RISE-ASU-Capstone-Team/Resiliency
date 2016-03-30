@@ -1,11 +1,11 @@
 import psycopg2
-from Constants import *
+from powercalc.Constants import *
 
 
 def populate_components():
     try:
-        conn = psycopg2.connect("dbname='rise' user='rise' host='localhost' "
-                                "port='3304' password='capstone'")
+        conn = psycopg2.connect("dbname='rise' user='admin' host='localhost' "
+                                "port='3306' password='capstone'")
     except:
         print("I am unable to connect to the database")
 
@@ -27,7 +27,7 @@ def populate_components():
     populate_wire_data(cur, wire_data)
 
     conn.close()
-    return nodes, connections, wire_data
+    return nodes, connections, wire_data, dict()
 
 
 def populate_load(cur, nodes):
@@ -150,6 +150,7 @@ def populate_utility(cur, nodes):
              'stiffness': row[Utility.STIFFNESS],
              'base_power': row[Utility.BASE_POWER],
              'LL_voltage': row[Utility.LL_VOLTAGE],
+             'nominal_voltage': row[Utility.NOMINAL_VOLTAGE],
              'voltage_angle': row[Utility.VOLTAGE_ANGLE],
              'short_circuit_3_phase': row[Utility.SHORT_CIRCUIT_3_PHASE],
              'short_circuit_SLG': row[Utility.SHORT_CIRCUIT_SLG],

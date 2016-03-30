@@ -114,23 +114,27 @@ def main():
     # TwoWindingTransformer.helpclass()
     '''
 
-    nodes, connections, wire_data = Psycopg.populate_components()
+    nodes, connections, wire_data, line_codes = Psycopg.populate_components()
     circuit_found = False
+    p_temp = []
 
     with open('riseout.dss', 'w') as fileout:
-        fileout.write('\n// Source bus\n')
         fileout.write('Clear\nSet DefaultBaseFrequency=60\n')
+        fileout.write('\n// Source bus\n')
         fileout.write('\n// Voltage sources\n')
         fileout.write('\n// Generators (synchronous, solar, wind)\n')
         fileout.write('// RPM is unused\n')
         for key in nodes:
             if nodes[key]['type'] == Power.UTILITY:
+                print(nodes[key])
                 if not circuit_found:
                     p_write_circuit(fileout, nodes[key])
                     PowerNode.swing_component_ID_number = key
                     circuit_found = True
+                    p_temp.append(str(nodes[key]['nominal_voltage']))
                 else:
                     p_write_v_source(fileout, nodes[key])
+                    p_temp.append(str(nodes[key]['nominal_voltage']))
             elif nodes[key]['type'] == Power.SYNCHRONOUS_GENERATOR:
                 p_write_sync_generator(fileout, nodes[key])
             elif nodes[key]['type'] == Power.LOAD:
@@ -150,16 +154,30 @@ def main():
         fileout.write('\n// Voltage bases\n')
         for key in connections:
             if connections[key]['type'] == Power.OVERHEAD_LINE:
-                p_write_line(fileout, connections[key])
+                p_write_line(fileout, connections[key],
+                             wire_data[connections[key]['wiredata_object_id']],
+                             nodes[connections[key]['from_bus_id']],
+                             nodes[connections[key]['to_bus_id']])
             elif connections[key]['type'] == Power.CABLE:
-                p_write_cable(fileout, connections[key])
+                p_write_cable(fileout, connections[key],
+                             line_codes[connections[key]['linecode_object_id']],
+                             nodes[connections[key]['from_bus_id']],
+                             nodes[connections[key]['to_bus_id']])
             elif connections[key]['type'] == Power.DIRECT_CONNECTION:
-                p_write_direct_connection(fileout, connections[key])
+                p_write_direct_connection(fileout, connections[key],
+                             nodes[connections[key]['from_bus_id']],
+                             nodes[connections[key]['to_bus_id']])
             elif connections[key]['type'] == Power.TWO_WINDING_TRANSFORMER:
-                p_write_transformer(fileout, connections[key])
-                p_write_voltage_bases(fileout, connections[key], p_list_utility)
+                p_write_transformer(fileout, connections[key],
+                             nodes[connections[key]['from_bus_id']],
+                             nodes[connections[key]['to_bus_id']])
+                p_temp.append(str(connections[key]['from_bus_voltage_rating']))
+                p_temp.append(str(connections[key]['to_bus_voltage_rating']))
 
-        p_write_line_code(fileout, p_list_linecode)
+        p_write_voltage_bases(fileout, p_temp)
+
+        for key in line_codes:
+            p_write_line_code(fileout, line_codes[key])
 
         fileout.write(
             '\n// Solve study\nSolve BaseFrequency={!s} MaxIter={!s}\n'
@@ -170,7 +188,6 @@ def main():
             'Export Voltages (voltages.csv)\nExport Currents (currents.csv)\n'
             'Export Overloads (overloads.csv)\n'
             'Export Powers KVA (powers.csv)\n')
-
         fileout.close()
 
     if not circuit_found:
