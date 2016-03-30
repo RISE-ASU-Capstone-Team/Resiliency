@@ -13,6 +13,13 @@ html *
    font-family: helvetica !important;
 }
 
+th.colName{
+	font-weight: bold;
+	color: rgb(59, 89, 152);
+	padding-left: 10px;
+	font-size:18px;
+}
+
 td.rowName{
 	font-weight: bold;
 	color: rgb(59, 89, 152);
@@ -24,6 +31,7 @@ td.rowData{
 	color: rgb(102,102,102);
 	font-size:16px;
 	margin-left: 10px;
+	padding-left: 10px;
 }
 td.topRow{
 	padding-top: 12px;
