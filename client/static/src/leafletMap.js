@@ -194,6 +194,10 @@ function repositionConnectionsFromMarker(marker)
     var markerA = connections[id].markerA;
     var markerB = connections[id].markerB;
     var options = connections[id].options;
+    if (connections[id].middleMarker)
+    {
+      map.removeLayer(connections[id].middleMarker);
+    }
     map.removeLayer(connections[id]);
     delete connections[id];
     addConnectionToMap(id, type, markerA, markerB, options);
