@@ -143,6 +143,9 @@ function nodeType(type){
         case Power.UTILITY:{
             return  'utility'
         }
+        case Water.RESERVOIR:{
+            return  'reservoir'
+        }
         default: {
             return 'load'
         }
@@ -162,6 +165,9 @@ function nodeTypeDisplay(type){
         }
         case Power.UTILITY:{
             return  'Utility'
+        }
+        case Water.RESERVOIR:{
+            return  'Reservoir'
         }
         default: {
             return 'Node'

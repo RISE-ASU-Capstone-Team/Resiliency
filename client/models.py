@@ -237,3 +237,11 @@ class LineCode(models.Model):
     emergency_ampacity = models.FloatField(max_length=100, default=0)
 
 # ------------------------------------------------------------------ Water nodes
+class Reservoir(Node):
+    # Total editable = 3
+    elevation = models.FloatField(max_length=100, default=0.0)
+    net_inflow = models.FloatField(max_length=100, default=0.0)
+    water_age = models.FloatField(max_length=100, default=0)
+
+    def __str__(self):
+        return self.id

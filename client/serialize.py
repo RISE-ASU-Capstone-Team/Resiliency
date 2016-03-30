@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from client.models import Load, DBChanges, Connection, Node, SyncGenerator, \
     Bus, Utility, TwoWindingTransformer, DirectConnection, Cable, OverheadLine,\
-    Power, WireData, LineCode
+    Power, WireData, LineCode, Reservoir
 from django.contrib.auth.models import User
 
 
@@ -140,6 +140,13 @@ class LineCodeSerializer(serializers.HyperlinkedModelSerializer):
                   'x_1', 'r_0', 'x_0',
                   'continuous_ampacity', 'emergency_ampacity')
 
+# -------------------------------------------------------------------- Water Nodes
+class ReservoirSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Reservoir
+        fields = ('id', 'operational_status', 'name', 'latitude',
+                  'longitude', 'type', 'created_date', 'elevation',
+                  'net_inflow', 'water_age')
 
 # -------------------------------------------------------------------- DB Change
 class DBChangesSerializer(serializers.HyperlinkedModelSerializer):

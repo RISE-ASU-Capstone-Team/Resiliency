@@ -12,6 +12,10 @@ var Power = {
     }
 };
 
+var Water = {
+    RESERVOIR: 4
+}
+
 var Server = {
     HOSTNAME : 'localhost',
     PORT : '8000',
