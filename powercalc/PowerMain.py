@@ -236,20 +236,20 @@ def update_database(nodes, connections):
     for key in nodes:
         node = nodes[key]
         cols = node.keys()
-        vals = [node[x] for x in cols]
-        vals_str_list = ["%s"] * len(vals)
-        vals_str = ", ".join(vals_str_list)
-        cur.execute('update ' + comp_type_eval(node['type']) + ' set ' +
-                    node + ' where id = ' + node['id'])
+        vals_str = "=".join(["%({0})s".format(x) for x in cols])
+        node_id = node['id']
+        cur.execute('update ' + comp_type_eval(node['type']) +
+                    ' ({cols}) VALUES ({vals_str}) where id = ({id})'.format(
+                        cols=cols, vals_str=vals_str, id=node_id), node)
 
     for key in connections:
         con = connections[key]
         cols = con.keys()
-        vals = [con[x] for x in cols]
-        vals_str_list = ["%s"] * len(vals)
-        vals_str = ", ".join(vals_str_list)
-        cur.execute('update ' + comp_type_eval(con['type']) + ' ({cols}) VALUES ({vals_str}) where id = ({id})'.format(
-               cols = cols, vals_str = vals_str), vals) con['id'])
+        vals_str = ", ".join(["%({0})s".format(x) for x in cols])
+        con_id = con['id']
+        cur.execute('update ' + comp_type_eval(con['type']) +
+                    ' set ({cols})=({vals_str}) where id = ({id})'.format(
+                        cols=cols, vals_str=vals_str, id=con_id), con)
 
     conn.close()
 

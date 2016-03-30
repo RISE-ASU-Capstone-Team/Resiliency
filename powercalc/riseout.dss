@@ -39,7 +39,7 @@ New 'Transformer.11_0_Transformer 2' Phases='3' Windings='2' XHL='0.07' %LoadLos
 New 'Transformer.12_0_Transformer 1' Phases='3' Windings='2' XHL='0.068' %LoadLoss='0.021'
 ~ wdg=1 Bus='8_3_Utility 2.1.2.3.0' kV='13.8' kVA='100.0' Conn='wye'
 ~ wdg=2 Bus='11_2_Bus 1.1.2.3.0' kV='13.8' kVA='100.0' Conn='wye'
-Set VoltageBases=[ 13.8 1.2]
+Set VoltageBases=[ 1.2 13.8]
 CalcVoltageBases
 New 'Linecode.LC_1_2.0' nphases='3' R1='5.0' X1='2.5' R0='6.0' X0='500.0' Units='kft' Normamps='700.0' Emergamps='Linecode1'
 
