@@ -19,9 +19,13 @@ function addMarkerToMap(key, componentData, position, options) {
     var newMarker = L.marker(position, options).addTo(map);
     newMarker.componentData = componentData;
     newMarker.on('click', handleMarkerClick);
+    newMarker.on('dragend', function(){
+      repositionConnectionsFromMarker(newMarker);
+    });
     newMarker.id = key;
     markers[key] = newMarker;
     resizeMarkers();
+    Alert.log("Node: '" + newMarker.id + "' created at " + newMarker._latlng);
     return newMarker;
 }
 
@@ -157,16 +161,46 @@ function addConnectionToMap(key, type, markerA, markerB, options) {
       polyLine.middleMarker.parentConnection = polyLine;
       connectionMarkers[key] = polyLine.middleMarker;
   }
+  if(!markerA.connections)
+  {
+    markerA.connections = new Array();
+  }
+  if (markerA.connections.indexOf(polyLine.id) == -1)
+  {
+    markerA.connections.push(polyLine.id);
+  }
 
+  if(!markerB.connections)
+  {
+    markerB.connections = new Array();
+  }
+  if (markerB.connections.indexOf(polyLine.id) == -1)
+  {
+    markerB.connections.push(polyLine.id);
+  }
+
+  Alert.log("Connection: '" + polyLine.id + "' created from Node '" + markerA.id + "' to '" + markerB.id + "'");
   connections[key] = polyLine;
 }
 
-function repositionConnectionMarker(marker) {
-  var markerA = marker.parentConnection.markerA;
-  var markerB = marker.parentConnection.markerB;
-  var newLatLng = L.latLng((markerA._latlng.lat + markerB._latlng.lat) / 2.0,
-                          (markerA._latlng.lng + markerB._latlng.lng) / 2.0);
-  marker.setLatLng(newLatLng);
+function repositionConnectionsFromMarker(marker)
+{
+  if (!marker.connections)
+  {
+    return;
+  }
+  marker.connections.forEach(function(id){
+    var type = connections[id].type;
+    var markerA = connections[id].markerA;
+    var markerB = connections[id].markerB;
+    var options = connections[id].options;
+    map.removeLayer(connections[id]);
+    delete connections[id];
+    addConnectionToMap(id, type, markerA, markerB, options);
+  });
+  {
+
+  }
 }
 
 function handleMapZoom(e) {
