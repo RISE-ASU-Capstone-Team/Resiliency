@@ -22,10 +22,10 @@ function addMarkerToMap(key, componentData, position, options) {
     newMarker.on('dragend', function(){
       repositionConnectionsFromMarker(newMarker);
       $.ajax({
-            url: Server.ADDRESS + "data/api/" + nodeType(newMarker.type) + '/'
+            url: Server.ADDRESS + "data/api/" + nodeType(newMarker.componentData.Type) + '/'
                 + newMarker.id + "/" ,
             type: 'PUT',
-            data: {"id": newMarker.id, "type": newMarker.type,
+            data: {"id": newMarker.id, "type": newMarker.componentData.Type,
       "latitude": newMarker._latlng.lat, "longitude": newMarker._latlng.lng, active: true},
             success: function(result) {
                 // Do something with the result
