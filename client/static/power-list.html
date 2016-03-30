@@ -1,3 +1,41 @@
-<div ng-repeat="p in nodeList track by $index">
+<!--<div ng-repeat="p in nodeList track by $index">
     <button class="nodeList" ng-bind="p.name" ng-click="nodeListClicked(p.id,p.type)"></button> <br/>
-</div>
+</div>-->
+
+
+
+
+     Loads:
+
+      <div ng-repeat="p in nodeList track by $index">
+         <div ng-if="isLoad(p.type)">
+       <button class="nodeList" ng-bind="p.name" ng-click="nodeListClicked(p.id,p.type)"></button> <br/>
+          </div>
+     </div>
+   </div>
+
+
+
+     Synchronous Generators:
+     <div ng-repeat="p in nodeList track by $index" >
+       <div ng-if="isSyncGen(p.type)">
+      <button class="nodeList" ng-bind="p.name" ng-click="nodeListClicked(p.id,p.type)"></button> <br/>
+      </div>
+   </div>
+
+
+     Buses:
+     <div ng-repeat="p in nodeList track by $index" >
+       <div ng-if="isBus(p.type)">
+      <button class="nodeList" ng-bind="p.name" ng-click="nodeListClicked(p.id,p.type)"></button> <br/>
+      </div>
+   </div>
+
+
+
+     Utilities:
+     <div ng-repeat="p in nodeList track by $index" >
+       <div ng-if="isUtility(p.type)">
+      <button class="nodeList" ng-bind="p.name" ng-click="nodeListClicked(p.id,p.type)"></button> <br/>
+      </div>
+   </div>

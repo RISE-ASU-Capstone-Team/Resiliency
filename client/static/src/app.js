@@ -115,6 +115,47 @@ clientApp.controller('NodeListController',
                 loadComponent(d, true);
             })
         }
+
+        scope.isLoad = function(type) {
+          if (type == '0'){
+            console.log("LOAD");
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+
+        scope.isSyncGen = function(type) {
+          if (type == '1'){
+            console.log("Sync");
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+
+        scope.isBus = function(type) {
+          if (type == '2'){
+            console.log("Bus");
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+
+        scope.isUtility = function(type) {
+          if (type == '3'){
+            console.log("Utility");
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+
     }
 ]);
 
