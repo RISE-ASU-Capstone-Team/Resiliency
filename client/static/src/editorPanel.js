@@ -92,8 +92,7 @@ $(document).ready(function() {
         var latlng = map.containerPointToLatLng([x, y]);
 
         var newIcon = new nodeIcon({
-            iconUrl: component.Icon,
-            iconAnchor: [defaultIconSize.x/2.0, defaultIconSize.y/1.0]
+            iconUrl: component.Icon
           });
 
         var options = {
