@@ -245,3 +245,16 @@ class Reservoir(Node):
 
     def __str__(self):
         return self.id
+
+# ------------------------------------------------------------------ Water Connections
+class Pipe(Connection):
+    # Total Editable = 4
+    diameter = models.FloatField(max_length=100, default=0.0)
+    flow = models.FloatField(max_length=100, default=0.0)
+    velocity = models.FloatField(max_length=100, default=0.0)
+    quality = models.FloatField(max_length=100, default=0.0)
+
+    # Non-Editable = 0
+
+    def __str__(self):
+        return self.id

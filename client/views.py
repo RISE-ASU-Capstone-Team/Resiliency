@@ -6,10 +6,11 @@ from client.serialize import LoadSerializer, DBChangesSerializer, \
     UtilitySerializer, NodeMarkerSerializer, ConnectionListSerializer, \
     TwoWindingTransformerSerializer, DirectConnectionSerializer, \
     CableSerializer, OverheadLineSerializer, PowerSerializer, \
-    WireDataSerializer, LineCodeSerializer, ReservoirSerializer
+    WireDataSerializer, LineCodeSerializer, ReservoirSerializer, \
+    PipeSerializer
 from client.models import Connection, Load, DBChanges, Node, SyncGenerator, \
     Utility, Bus, TwoWindingTransformer, DirectConnection, Cable, OverheadLine, \
-    Power, WireData, LineCode, Reservoir
+    Power, WireData, LineCode, Reservoir, Pipe
 from client.permissions import IsOwnerOrReadOnly
 from rest_framework import viewsets, response, status, settings, decorators
 import time
@@ -222,6 +223,24 @@ class LineDataViewSet(viewsets.ModelViewSet):
 class ReservoirViewSet(viewsets.ModelViewSet):
     queryset = Reservoir.objects.all()
     serializer_class = ReservoirSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
+
+    def perform_create(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_update(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        update_made()
+        instance.delete()
+
+# ------------------------------------------------------------------ Water Connections
+class PipeViewSet(viewsets.ModelViewSet):
+    queryset = Pipe.objects.all()
+    serializer_class = PipeSerializer
     permission_classes = (IsOwnerOrReadOnly,)
 
     def perform_create(self, serializer):

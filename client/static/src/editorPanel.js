@@ -189,6 +189,9 @@ function connectionType(type){
         case Power.Con.OVERHEAD:{
             return  'overhead'
         }
+        case Water.Con.PIPE:{
+            return  'pipe'
+        }
         default: {
             return 'connection'
         }
@@ -208,6 +211,9 @@ function connectionTypeDisplay(type){
         }
         case Power.Con.OVERHEAD:{
             return  'Overhead Line'
+        }
+        case Water.Con.PIPE:{
+            return  'Pipe'
         }
         default: {
             return 'Connection'

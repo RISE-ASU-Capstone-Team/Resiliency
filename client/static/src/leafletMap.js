@@ -131,7 +131,8 @@ function handleMarkerClick(e) {
 
 
 function doneConnectionDialog(dialog){
-    var con_type = document.getElementById("powerConSelect").selectedIndex;
+    var select = document.getElementById("conSelect");
+    var con_type = select.options[select.selectedIndex].value;
     $.post(Server.ADDRESS + "data/api/"
            + connectionType(con_type)
            + "/", {from_bus_id: initialConnection.id, to_bus_id: destinationConnection.id, type: con_type}).
@@ -146,7 +147,12 @@ function closeConnectionDialog(dialog){
 }
 
 function addConnectionToMap(key, type, markerA, markerB, options) {
-  var polyLine = new L.Polyline([markerA._latlng, markerB._latlng], polylineOptions);
+  if (isPowerConnection(type)) {
+    options.color = Power.Con.LINE_COLOR;
+  } else if (isWaterConnection(type)) {
+    options.color = Water.Con.LINE_COLOR;
+  }
+  var polyLine = new L.Polyline([markerA._latlng, markerB._latlng], options);
   polyLine.addTo(map);
   polyLine.on('click', handleConnectionClick);
   polyLine.id = key;
