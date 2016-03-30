@@ -154,3 +154,17 @@ margin-top: 15px;
 margin-bottom: 10px;
 
 }
+
+.nodeConnectionButtons:hover{
+  display:none;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-style: solid;
+  border-color: rgb(59, 89, 152);
+  color: rgb(59, 89, 152);
+  background-color: rgb(255, 255, 255);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
