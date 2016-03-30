@@ -74,6 +74,54 @@
       "Description": "Utility",
       "OpenDssName": "null",
       "Icon": "/static/icons/Utility.png"
+    },
+    {
+      "System": "Water",
+      "Subsystem": "Water",
+      "RiseVariableName": "junction",
+      "Description": "Junction",
+      "OpenDssName": "null",
+      "Icon": "/static/icons/Junction.png"
+    },
+    {
+      "System": "Water",
+      "Subsystem": "Water",
+      "RiseVariableName": "pipe",
+      "Description": "Pipe",
+      "OpenDssName": "null",
+      "Icon": "/static/icons/Pipe.png"
+    },
+    {
+      "System": "Water",
+      "Subsystem": "Water",
+      "RiseVariableName": "pumpingUnit",
+      "Description": "PumpingUnit",
+      "OpenDssName": "null",
+      "Icon": "/static/icons/PumpingUnit.png"
+    },
+    {
+      "System": "Water",
+      "Subsystem": "Water",
+      "RiseVariableName": "reservoir",
+      "Description": "Reservoir",
+      "OpenDssName": "null",
+      "Icon": "/static/icons/Reservoir.png"
+    },
+    {
+      "System": "Water",
+      "Subsystem": "Water",
+      "RiseVariableName": "tank",
+      "Description": "Tank",
+      "OpenDssName": "null",
+      "Icon": "/static/icons/Tank.png"
+    },
+    {
+      "System": "Water",
+      "Subsystem": "Water",
+      "RiseVariableName": "valve",
+      "Description": "Valve",
+      "OpenDssName": "null",
+      "Icon": "/static/icons/Valve.png"
     }
   ]
 }

@@ -20,11 +20,11 @@ function loadPanelObjects(jsonobj) {
     defaultComponentsArr[component.RiseVariableName] = component;
 
     var src = null;
-    if (component.System = "Power") {
+    if (component.System == "Power") {
       src = document.getElementById("editor_power");
-    } else if (component.System = "Water") {
+    } else if (component.System == "Water") {
       src = document.getElementById("editor_water");
-    } else if (component.System = "Road") {
+    } else if (component.System == "Road") {
       src = document.getElementById("editor_road");
     }
     src.appendChild(img);
