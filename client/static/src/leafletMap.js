@@ -19,9 +19,24 @@ function addMarkerToMap(key, componentData, position, options) {
     var newMarker = L.marker(position, options).addTo(map);
     newMarker.componentData = componentData;
     newMarker.on('click', handleMarkerClick);
+    newMarker.on('dragend', function(){
+      repositionConnectionsFromMarker(newMarker);
+      $.ajax({
+            url: Server.ADDRESS + "data/api/" + nodeType(newMarker.componentData.Type) + '/'
+                + newMarker.id + "/" ,
+            type: 'PUT',
+            data: {"id": newMarker.id, "type": newMarker.componentData.Type,
+      "latitude": newMarker._latlng.lat, "longitude": newMarker._latlng.lng, active: true},
+            success: function(result) {
+                // Do something with the result
+            }
+        });
+
+    });
     newMarker.id = key;
     markers[key] = newMarker;
     resizeMarkers();
+    Alert.log("Node: '" + newMarker.id + "' created at " + newMarker._latlng);
     return newMarker;
 }
 
@@ -116,7 +131,8 @@ function handleMarkerClick(e) {
 
 
 function doneConnectionDialog(dialog){
-    var con_type = document.getElementById("powerConSelect").selectedIndex;
+    var select = document.getElementById("conSelect");
+    var con_type = select.options[select.selectedIndex].value;
     $.post(Server.ADDRESS + "data/api/"
            + connectionType(con_type)
            + "/", {from_bus_id: initialConnection.id, to_bus_id: destinationConnection.id, type: con_type}).
@@ -131,7 +147,12 @@ function closeConnectionDialog(dialog){
 }
 
 function addConnectionToMap(key, type, markerA, markerB, options) {
-  var polyLine = new L.Polyline([markerA._latlng, markerB._latlng], polylineOptions);
+  if (isPowerConnection(type)) {
+    options.color = Power.Con.LINE_COLOR;
+  } else if (isWaterConnection(type)) {
+    options.color = Water.Con.LINE_COLOR;
+  }
+  var polyLine = new L.Polyline([markerA._latlng, markerB._latlng], options);
   polyLine.addTo(map);
   polyLine.on('click', handleConnectionClick);
   polyLine.id = key;
@@ -157,16 +178,50 @@ function addConnectionToMap(key, type, markerA, markerB, options) {
       polyLine.middleMarker.parentConnection = polyLine;
       connectionMarkers[key] = polyLine.middleMarker;
   }
+  if(!markerA.connections)
+  {
+    markerA.connections = new Array();
+  }
+  if (markerA.connections.indexOf(polyLine.id) == -1)
+  {
+    markerA.connections.push(polyLine.id);
+  }
 
+  if(!markerB.connections)
+  {
+    markerB.connections = new Array();
+  }
+  if (markerB.connections.indexOf(polyLine.id) == -1)
+  {
+    markerB.connections.push(polyLine.id);
+  }
+
+  Alert.log("Connection: '" + polyLine.id + "' created from Node '" + markerA.id + "' to '" + markerB.id + "'");
   connections[key] = polyLine;
 }
 
-function repositionConnectionMarker(marker) {
-  var markerA = marker.parentConnection.markerA;
-  var markerB = marker.parentConnection.markerB;
-  var newLatLng = L.latLng((markerA._latlng.lat + markerB._latlng.lat) / 2.0,
-                          (markerA._latlng.lng + markerB._latlng.lng) / 2.0);
-  marker.setLatLng(newLatLng);
+function repositionConnectionsFromMarker(marker)
+{
+  if (!marker.connections)
+  {
+    return;
+  }
+  marker.connections.forEach(function(id){
+    var type = connections[id].type;
+    var markerA = connections[id].markerA;
+    var markerB = connections[id].markerB;
+    var options = connections[id].options;
+    if (connections[id].middleMarker)
+    {
+      map.removeLayer(connections[id].middleMarker);
+    }
+    map.removeLayer(connections[id]);
+    delete connections[id];
+    addConnectionToMap(id, type, markerA, markerB, options);
+  });
+  {
+
+  }
 }
 
 function handleMapZoom(e) {

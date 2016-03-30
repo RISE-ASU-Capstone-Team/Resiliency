@@ -6,10 +6,11 @@ from client.serialize import LoadSerializer, DBChangesSerializer, \
     UtilitySerializer, NodeMarkerSerializer, ConnectionListSerializer, \
     TwoWindingTransformerSerializer, DirectConnectionSerializer, \
     CableSerializer, OverheadLineSerializer, PowerSerializer, \
-    WireDataSerializer, LineCodeSerializer
+    WireDataSerializer, LineCodeSerializer, ReservoirSerializer, \
+    PipeSerializer
 from client.models import Connection, Load, DBChanges, Node, SyncGenerator, \
     Utility, Bus, TwoWindingTransformer, DirectConnection, Cable, OverheadLine, \
-    Power, WireData, LineCode
+    Power, WireData, LineCode, Reservoir, Pipe
 from client.permissions import IsOwnerOrReadOnly
 from rest_framework import viewsets, response, status, settings, decorators
 import time
@@ -218,6 +219,42 @@ class LineDataViewSet(viewsets.ModelViewSet):
     permission_classes = (IsOwnerOrReadOnly,)
 
 
+# ------------------------------------------------------------------ Water Nodes
+class ReservoirViewSet(viewsets.ModelViewSet):
+    queryset = Reservoir.objects.all()
+    serializer_class = ReservoirSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
+
+    def perform_create(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_update(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        update_made()
+        instance.delete()
+
+# ------------------------------------------------------------------ Water Connections
+class PipeViewSet(viewsets.ModelViewSet):
+    queryset = Pipe.objects.all()
+    serializer_class = PipeSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
+
+    def perform_create(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_update(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        update_made()
+        instance.delete()
+
 # -------------------------------------------------------------------- DB Update
 class DBChangeViewSet(viewsets.ModelViewSet):
     queryset = DBChanges.objects.all()
@@ -242,6 +279,8 @@ def get_query_set(node_type):
         return Bus.objects.all()
     elif node_type == const.UTILITY:
         return Utility.objects.all()
+    elif node_type == const.RESERVOIR:
+        return Reservoir.objects.all()
 
 
 def get_serializer(node_type, node):
@@ -253,6 +292,8 @@ def get_serializer(node_type, node):
         return BusSerializer(node)
     elif node_type == const.UTILITY:
         return UtilitySerializer(node)
+    elif node_type == const.RESERVOIR:
+        return ReservoirSerializer(node)
 
 
 def update_made():

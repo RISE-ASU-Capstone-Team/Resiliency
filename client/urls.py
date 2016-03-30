@@ -17,6 +17,8 @@ router.register(r'cable', views.CableViewSet)
 router.register(r'overhead', views.OverheadLineViewSet)
 router.register(r'wiredata', views.OverheadLineViewSet)
 router.register(r'linecode', views.OverheadLineViewSet)
+router.register(r'reservoir', views.ReservoirViewSet)
+router.register(r'pipe', views.PipeViewSet)
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
