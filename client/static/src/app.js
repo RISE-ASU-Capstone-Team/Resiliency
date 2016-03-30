@@ -89,9 +89,7 @@ clientApp.controller('NodeListController',
             // make sure this marker hasn't been added to the map already
             if (!(marker.id in markers)) {
 
-              // DEBUG:  For now it just grabs a default component icon information
               var component = defaultComponentsArr[nodeType(marker.type)];
-              //console.log(marker.type);
               var latlng = L.latLng(marker.latitude, marker.longitude);
 
               var newIcon = new nodeIcon({
@@ -137,6 +135,12 @@ function loadComponent(data, isNode){
     }
     var tr, td;
     var keys = Object.keys(data);
+
+    var coordinateInformation = new Array(2);
+    coordinateInformation[0] = new Array(4);
+    coordinateInformation[1] = new Array(4);
+    var hasCoordinateInformation = false;
+
     for(var i = 0; i < keys.length; i++){
         tr = document.createElement('tr');
         td = document.createElement('td');
@@ -156,9 +160,14 @@ function loadComponent(data, isNode){
         if(i+1 == keys.length){
             td.style = "padding-bottom: 15px";
         }
-        td = document.createElement('td');
-        td.id = keys[i];
-        td.className = "rowData";
+
+        if (keys[i].indexOf("_coordinate") > -1) {
+          td = undefined;
+        } else {
+          td = document.createElement('td');
+          td.id = keys[i];
+          td.className = "rowData";
+        }
         if(keys[i] != 'id' && keys[i] != 'type'){
             if(keys[i] == 'operational_status'){
                 createToggle(td, "1", data[keys[i]]);
@@ -175,6 +184,30 @@ function loadComponent(data, isNode){
                 var monthIndex = date.getMonth();
                 var year = date.getFullYear();
                 td.innerHTML = monthNames[monthIndex] + ' ' + day + ', ' + year;
+            }else if(keys[i] == 'x_1_coordinate') {
+                coordinateInformation[0][0] = data[keys[i]];
+                hasCoordinateInformation = true;
+            }else if(keys[i] == 'x_2_coordinate') {
+                coordinateInformation[0][1] = data[keys[i]];
+                hasCoordinateInformation = true;
+            }else if(keys[i] == 'x_3_coordinate') {
+                coordinateInformation[0][2] = data[keys[i]];
+                hasCoordinateInformation = true;
+            }else if(keys[i] == 'x_4_coordinate') {
+                coordinateInformation[0][3] = data[keys[i]];
+                hasCoordinateInformation = true;
+            }else if(keys[i] == 'h_1_coordinate') {
+                coordinateInformation[1][0] = data[keys[i]];
+                hasCoordinateInformation = true;
+            }else if(keys[i] == 'h_2_coordinate') {
+                coordinateInformation[1][1] = data[keys[i]];
+                hasCoordinateInformation = true;
+            }else if(keys[i] == 'h_3_coordinate') {
+                coordinateInformation[1][2] = data[keys[i]];
+                hasCoordinateInformation = true;
+            }else if(keys[i] == 'h_4_coordinate') {
+                coordinateInformation[1][3] = data[keys[i]];
+                hasCoordinateInformation = true;
             }else{
                 if(isNode){
                     td.onclick = function(e){editNodeComponent(this)};
@@ -184,9 +217,30 @@ function loadComponent(data, isNode){
                 td.innerHTML = data[keys[i]];
             }
         }
-        tr.appendChild(td);
-        componentTable.tBodies[0].appendChild(tr);
+        if (td != undefined) {
+          tr.appendChild(td);
+          componentTable.tBodies[0].appendChild(tr);
+        }
     }
+
+    if (hasCoordinateInformation) {
+      tr = document.createElement('tr');
+      td = document.createElement('td');
+
+      for (var row = 0; row < 4; row++) {
+        tr = document.createElement('tr');
+        for (var col = 0; col < 2; col++) {
+          td = document.createElement('td');
+          td.id = keys[i];
+          td.className = "rowData";
+          td.onclick = function(e){editConnectionComponent(this)};
+          td.innerHTML = coordinateInformation[col][row];
+          tr.appendChild(td);
+        }
+        componentTable.tBodies[0].appendChild(tr);
+      }
+    }
+
     td.style = "padding-bottom: 15px";
 }
 
@@ -205,8 +259,9 @@ var editNodeComponent = function(cell){
     input.id = cell.id;
     input.innerHTML = "<input class='componentInput' value='" + cell.innerHTML
         + "' onkeydown='postChangeNode(this)'></input>";
-    row.removeChild(cell);
-    row.appendChild(input);
+    //row.removeChild(cell);
+    //row.appendChild(input);
+    row.replaceChild(input, cell);
 }
 
 var editConnectionComponent = function(cell){
@@ -215,8 +270,9 @@ var editConnectionComponent = function(cell){
     input.id = cell.id;
     input.innerHTML = "<input class='componentInput' value='" + cell.innerHTML
         + "' onkeydown='postChangeConnection(this)'></input>";
-    row.removeChild(cell);
-    row.appendChild(input);
+    //row.removeChild(cell);
+    //row.appendChild(input);
+    row.replaceChild(input, cell);
 }
 
 var postChangeNode = function(input){
@@ -252,13 +308,14 @@ var postChangeConnection = function(input){
 function resetCell(input){
     var cell = input.parentNode;
     var row = cell.parentNode;
-    row.removeChild(cell);
+    //row.removeChild(cell);
     cell.innerHTML = input.value;
     selectedComponent[cell.id] = input.value;
     cell.className = "rowData";
     cell.onclick = function(e){editComponent(this)};
     cell.id = input.id;
-    row.appendChild(cell);
+    //row.appendChild(cell);
+    //row.replaceChild(cell, input.parentNode);
 }
 
 function createToggle(td, count, value){
