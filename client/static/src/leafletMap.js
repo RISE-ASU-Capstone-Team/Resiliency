@@ -21,6 +21,17 @@ function addMarkerToMap(key, componentData, position, options) {
     newMarker.on('click', handleMarkerClick);
     newMarker.on('dragend', function(){
       repositionConnectionsFromMarker(newMarker);
+      $.ajax({
+            url: Server.ADDRESS + "data/api/" + nodeType(newMarker.type) + '/'
+                + newMarker.id + "/" ,
+            type: 'PUT',
+            data: {"id": newMarker.id, "type": newMarker.type,
+      "latitude": newMarker._latlng.lat, "longitude": newMarker._latlng.lng, active: true},
+            success: function(result) {
+                // Do something with the result
+            }
+        });
+
     });
     newMarker.id = key;
     markers[key] = newMarker;
