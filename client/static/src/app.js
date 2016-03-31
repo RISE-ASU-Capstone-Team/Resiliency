@@ -156,6 +156,30 @@ clientApp.controller('NodeListController',
           }
         }
 
+        jQuery(document).ready(function(){
+          jQuery('#hideshowLoads').on('click', function(event) {
+               jQuery('#loadListContent').toggle('show');
+          });
+        });
+
+        jQuery(document).ready(function(){
+          jQuery('#hideshowSynch').on('click', function(event) {
+               jQuery('#synchListContent').toggle('show');
+          });
+        });
+
+        jQuery(document).ready(function(){
+          jQuery('#hideshowBus').on('click', function(event) {
+               jQuery('#busListContent').toggle('show');
+          });
+        });
+
+        jQuery(document).ready(function(){
+          jQuery('#hideshowUtility').on('click', function(event) {
+               jQuery('#utilityListContent').toggle('show');
+          });
+        });
+
     }
 ]);
 

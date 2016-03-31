@@ -2,98 +2,39 @@
 <button class="nodeList" ng-bind="p.name" ng-click="nodeListClicked(p.id,p.type)"></button> <br/>
 </div>-->
 
-<!-- Loads:
-<div ng-repeat="p in nodeList track by $index">
-  <div ng-if="isLoad(p.type)">
-    <button class="nodeList" ng-bind="p.name" ng-click="nodeListClicked(p.id,p.type)"></button> <br/>
+<input type='button' class="hierarchyListButton" id='hideshowLoads' value='Loads'> <br/>
+
+<div id='loadListContent' style="display:none;">
+  <div ng-repeat="p in nodeList track by $index">
+    <div ng-if="isLoad(p.type)">
+      <button class="nodeList" ng-bind="p.name" ng-click="nodeListClicked(p.id,p.type)"></button> <br/>
+    </div>
   </div>
 </div>
-</div>
-Synchronous Generators:
+
+<input type='button' class="hierarchyListButton" id='hideshowSynch' value='Synchronous Generators'> <br/>
+<div id='synchListContent' style="display:none;">
 <div ng-repeat="p in nodeList track by $index" >
   <div ng-if="isSyncGen(p.type)">
     <button class="nodeList" ng-bind="p.name" ng-click="nodeListClicked(p.id,p.type)"></button> <br/>
   </div>
 </div>
+</div>
 
-Buses:
+<input type='button'  class="hierarchyListButton" id='hideshowBus' value='Buses'> <br/>
+<div id='busListContent' style="display:none;">
 <div ng-repeat="p in nodeList track by $index" >
   <div ng-if="isBus(p.type)">
     <button class="nodeList" ng-bind="p.name" ng-click="nodeListClicked(p.id,p.type)"></button> <br/>
   </div>
 </div>
+</div>
 
-Utilities:
+<input type='button' class="hierarchyListButton" id='hideshowUtility' value='Utilities'> <br/>
+<div id='utilityListContent' style="display:none;">
 <div ng-repeat="p in nodeList track by $index" >
   <div ng-if="isUtility(p.type)">
     <button class="nodeList" ng-bind="p.name" ng-click="nodeListClicked(p.id,p.type)"></button> <br/>
   </div>
-</div> -->
-
-
-  <div class="panel-group" id="accordion">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Load Components</a>
-        </h4>
-      </div>
-      <div id="collapse1" class="panel-collapse collapse in">
-        <div class="panel-body">
-          <div ng-repeat="p in nodeList track by $index">
-            <div ng-if="isLoad(p.type)">
-              <button class="nodeList" ng-bind="p.name" ng-click="nodeListClicked(p.id,p.type)"></button> <br/>
-            </div>
-          </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Synchronous Generator Components</a>
-        </h4>
-      </div>
-      <div id="collapse2" class="panel-collapse collapse">
-        <div class="panel-body"><div ng-repeat="p in nodeList track by $index" >
-          <div ng-if="isSyncGen(p.type)">
-            <button class="nodeList" ng-bind="p.name" ng-click="nodeListClicked(p.id,p.type)"></button> <br/>
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Bus Components</a>
-        </h4>
-      </div>
-      <div id="collapse3" class="panel-collapse collapse">
-        <div class="panel-body">
-          <div ng-repeat="p in nodeList track by $index" >
-            <div ng-if="isBus(p.type)">
-              <button class="nodeList" ng-bind="p.name" ng-click="nodeListClicked(p.id,p.type)"></button> <br/>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Utility Components</a>
-        </h4>
-      </div>
-      <div id="collapse4" class="panel-collapse collapse">
-        <div class="panel-body">
-          <div ng-repeat="p in nodeList track by $index" >
-            <div ng-if="isUtility(p.type)">
-              <button class="nodeList" ng-bind="p.name" ng-click="nodeListClicked(p.id,p.type)"></button> <br/>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+</div>
+</div>
