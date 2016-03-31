@@ -25,7 +25,6 @@ var Alert = (function ()
       let output = log_text;
       log_ticker_element.innerHTML = output;
       log_element.innerHTML = output + "</br>" + log_element.innerHTML;
-      console.log(log_text);
     }
 
     Alert.warning = function(log_text) //Method for reporting warnings.
@@ -33,7 +32,6 @@ var Alert = (function ()
       let output = "Warning: " + log_text;
       log_ticker_element.innerHTML = output;
       log_element.innerHTML = output + "</br>" + log_element.innerHTML;
-      console.log(output);
     }
 
     Alert.error = function(log_text) //Method for reporting errors.
@@ -41,7 +39,6 @@ var Alert = (function ()
       let output = "Error: " + log_text;
       log_ticker_element.innerHTML = output;
       log_element.innerHTML = output + "</br>" + log_element.innerHTML;
-      console.log(output);
     }
 
     return Alert;
