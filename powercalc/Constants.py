@@ -104,9 +104,9 @@ class Utility:
     TYPE = 7
     LATITUDE = 8
     LONGITUDE = 9
-    BASE_POWER = 14
     LL_VOLTAGE = 11
     NOMINAL_VOLTAGE = 12
+    BASE_POWER = 14
     VOLTAGE_ANGLE = 15
     SHORT_CIRCUIT_3_PHASE = 16
     SHORT_CIRCUIT_SLG = 17
@@ -198,19 +198,20 @@ class OverheadLine:
     NUMBER_OF_CONDUCTORS = 15
     LENGTH = 16
     SOIL_RESISTIVITY = 17
-    X_1 = 18
-    X_2 = 19
-    X_3 = 20
-    Y_1 = 21
-    Y_2 = 22
-    Y_3 = 23
-    H_1 = 24
-    H_2 = 25
-    H_3 = 26
-    X_4 = 27
-    Y_4 = 28
-    H_4 = 29
-    NOMINAL_LL_VOLTAGE = 30
+    KRON_REDUCTION = 18
+    X_1 = 19
+    X_2 = 20
+    X_3 = 21
+    Y_1 = 22
+    Y_2 = 23
+    Y_3 = 24
+    H_1 = 25
+    H_2 = 26
+    H_3 = 27
+    X_4 = 28
+    Y_4 = 29
+    H_4 = 30
+    NOMINAL_LL_VOLTAGE = 31
 
 
 class WireData:

@@ -207,7 +207,7 @@ def p_write_wire_data(fileout, data):
         pass
 
 
-def p_write_line(fileout, con, wire, bus1, bus2):
+def p_write_line(fileout, con, wire, wire2, bus1, bus2):
     try:
 
         p_temp = 'New \'LineGeometry.LG_{!s}\' Nconds=\'' \
@@ -234,8 +234,8 @@ def p_write_line(fileout, con, wire, bus1, bus2):
             p_temp += '~ Cond=4 Wire=\'WD_neut_{!s}\' X=\'{!s}\' ' \
                       'H=\'{!s}\' Units=\'{!s}\' reduce=\'' \
                       '{!s}\'\n'.format(
-                        str(wire['id']) + '_' + str(wire['wire_type']) +
-                        '_' + str(wire['name']),
+                        str(wire2['id']) + '_' + str(wire2['wire_type']) +
+                        '_' + str(wire2['name']),
                         con['x_4'], con['h_4'], 'ft', 'y')
         p_temp += 'New \'Line.{!s}\' Bus1=\'{!s}.1.2.3\' Bus2=\'' \
                   '{!s}.1.2.3\' Length=\'{!s}\' Phases=\'{!s}\' ' \

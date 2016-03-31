@@ -1,3 +1,2 @@
 DateTime, CaseName, Status, Mode, Number, LoadMult, NumDevices, NumBuses, NumNodes, Iterations, ControlMode, ControlIterations, MostIterationsDone, Year, Hour, MaxPuVoltage, MinPuVoltage, TotalMW, TotalMvar, MWLosses, pctLosses, MvarLosses, Frequency
-"3/29/2016 11:08:03 PM", 8_3_Utility 2, SOLVED, Snap, 100,    1.000, 7, 6, 18, 2, STATIC, 1, 2, 0, 0, 1.0066, 1, -0.09978, -0.0738376, 0.000220192, -0.2207, -0.011863, 60
-"3/29/2016 11:09:21 PM", 8_3_Utility 2, SOLVED, Snap, 100,    1.000, 8, 6, 18, 2, STATIC, 1, 2, 0, 0, 1.0065, 1, -0.0979871, -0.0729789, 0.000213102, -0.2175, -0.0118761, 60
+"3/31/2016 2:10:43 AM", 8_3_Utility 2, SOLVED, Snap, 100,    1.000, 9, 6, 18, 2, STATIC, 1, 2, 0, 0, 1.0027, 1, -0.0981929, -0.0611205, 7.07078E-006, -0.007201, -1.78099E-005, 60

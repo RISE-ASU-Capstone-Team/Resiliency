@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'scripts.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'calc',
+        'NAME': 'rise',
         'USER': 'rise',
         'PASSWORD': 'capstone',
         'HOST': '8.26.94.3',   # Or an IP Address that your DB is hosted on

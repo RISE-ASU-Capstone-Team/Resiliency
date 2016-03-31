@@ -149,6 +149,9 @@ def main():
         for key in wire_data:
             p_write_wire_data(fileout, wire_data[key])
 
+        for key in line_codes:
+            p_write_line_code(fileout, line_codes[key])
+
         fileout.write('\n// Overhead Lines\n')
         fileout.write('\n// Line Codes\n')
         fileout.write('\n// Cables, ATS and Connections\n')
@@ -158,6 +161,8 @@ def main():
             if connections[key]['type'] == Power.OVERHEAD_LINE:
                 p_write_line(fileout, connections[key],
                              wire_data[connections[key]['wiredata_object_id']],
+                             # ----------- TODO: CHANGE THIS -----------------------------------
+                             wire_data[2],
                              nodes[connections[key]['from_bus']],
                              nodes[connections[key]['to_bus']])
             elif connections[key]['type'] == Power.CABLE:
@@ -178,9 +183,6 @@ def main():
 
         p_write_voltage_bases(fileout, p_temp)
 
-        for key in line_codes:
-            p_write_line_code(fileout, line_codes[key])
-
         fileout.write(
             '\n// Solve study\nSolve BaseFrequency={!s} MaxIter={!s}\n'
             ''.format(base_frequency, opendss_iter))
@@ -197,10 +199,24 @@ def main():
     else:
         environ['PATH'] += ';e:\\Program Files\\OpenDSS\\x64'
         subprocess.run('OpenDSS riseout.dss -nogui', shell=True)
-        read_currents(nodes, connections)
-        read_powers(nodes, connections)
-        read_voltages(nodes)
-        update_database(nodes, connections)
+        done = False
+        start = time.time()
+        step = time.time()
+        while not done:
+            try:
+                with open('currents.csv', 'r') as file_in:
+                    done = True
+                    file_in.close()
+                read_currents(nodes, connections)
+                read_powers(nodes, connections)
+                read_voltages(nodes)
+                update_database(nodes, connections)
+            except:
+                if time.time() - start > 5:
+                    done = True
+                if time.time() - step > 1:
+                    print('calculating...')
+                    step = time.time()
 
 
 def read_currents(nodes, connections):
