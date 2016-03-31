@@ -206,6 +206,19 @@ class PowerViewSet(viewsets.ModelViewSet):
     serializer_class = PowerSerializer
     permission_classes = (IsOwnerOrReadOnly,)
 
+    def list(self, request, *args, **kwargs):
+        data = []
+        new_data = dict()
+        new_data['bus_count'] = Bus.objects.count()
+        new_data['utility_count'] = Utility.objects.count()
+        new_data['generator_count'] = SyncGenerator.objects.count()
+        new_data['load_count'] = Load.objects.count()
+        new_data['transformer_count'] = TwoWindingTransformer.objects.count()
+        new_data['branch_count'] = 0
+        data.append(new_data)
+        serializer = PowerSerializer(data, many=True)
+        return response.Response(serializer.data)
+
 
 class WireDataViewSet(viewsets.ModelViewSet):
     queryset = WireData.objects.all()
@@ -237,7 +250,8 @@ class ReservoirViewSet(viewsets.ModelViewSet):
         update_made()
         instance.delete()
 
-# ------------------------------------------------------------------ Water Connections
+
+# ------------------------------------------------------------ Water Connections
 class PipeViewSet(viewsets.ModelViewSet):
     queryset = Pipe.objects.all()
     serializer_class = PipeSerializer
@@ -254,6 +268,7 @@ class PipeViewSet(viewsets.ModelViewSet):
     def perform_destroy(self, instance):
         update_made()
         instance.delete()
+
 
 # -------------------------------------------------------------------- DB Update
 class DBChangeViewSet(viewsets.ModelViewSet):

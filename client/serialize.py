@@ -118,9 +118,7 @@ class OverheadLineSerializer(serializers.HyperlinkedModelSerializer):
 class PowerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Power
-        fields = ('temperature_units', 'ambient_temp_celsius',
-                  'ambient_temp_fahrenheit', 'voltage_units', 'current_units',
-                  'power_units', 'base_frequency', 'bus_count', 'utility_count',
+        fields = ('bus_count', 'utility_count',
                   'generator_count', 'load_count', 'transformer_count',
                   'branch_count')
 
@@ -140,7 +138,8 @@ class LineCodeSerializer(serializers.HyperlinkedModelSerializer):
                   'x_1', 'r_0', 'x_0',
                   'continuous_ampacity', 'emergency_ampacity')
 
-# -------------------------------------------------------------------- Water Nodes
+
+# ------------------------------------------------------------------ Water Nodes
 class ReservoirSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Reservoir
@@ -148,11 +147,12 @@ class ReservoirSerializer(serializers.HyperlinkedModelSerializer):
                   'longitude', 'type', 'created_date', 'elevation',
                   'net_inflow', 'water_age')
 
-# -------------------------------------------------------------------- Water Connections
+
+# ------------------------------------------------------------ Water Connections
 class PipeSerializer(serializers.HyperlinkedModelSerializer):
-  class Meta:
-      model = Pipe
-      fields = ('id', 'operational_status', 'name', 'from_bus_id', 'to_bus_id',
+    class Meta:
+        model = Pipe
+        fields = ('id', 'operational_status', 'name', 'from_bus_id', 'to_bus_id',
                 'type', 'created_date', 'diameter', 'flow', 'velocity', 'quality')
 
 

@@ -17,9 +17,6 @@ clientApp.config(function($routeProvider) {
 
 clientApp.controller('NodeListController',
     ['$scope', '$http', '$timeout', '$route', function(scope, http, timeout, route){
-        // Initialize global info
-        initPowerNetwork();
-
         // Initial node list GET
         http.get(Server.ADDRESS + 'data/api/node'
                  + '/?format=json').success(function(d){
@@ -29,6 +26,10 @@ clientApp.controller('NodeListController',
         http.get(Server.ADDRESS + 'data/api/connection'
                  + '/?format=json').success(function(d){
             refreshConnections(d);
+        });
+        http.get(Server.ADDRESS + 'data/api/power'
+                 + '/?format=json').success(function(d){
+            initPowerNetwork(d);
         });
 
         // Server poll for updates
@@ -48,6 +49,10 @@ clientApp.controller('NodeListController',
                                  + '/?format=json').success(function(d){
                             refreshConnections(d);
                             route.reload();
+                        });
+                        http.get(Server.ADDRESS + 'data/api/power'
+                                 + '/?format=json').success(function(d){
+                            initPowerNetwork(d);
                         });
                     }else{
 
@@ -118,7 +123,6 @@ clientApp.controller('NodeListController',
 
         scope.isLoad = function(type) {
           if (type == '0'){
-            console.log("LOAD");
             return true;
           }
           else{
@@ -128,7 +132,6 @@ clientApp.controller('NodeListController',
 
         scope.isSyncGen = function(type) {
           if (type == '1'){
-            console.log("Sync");
             return true;
           }
           else{
@@ -138,7 +141,6 @@ clientApp.controller('NodeListController',
 
         scope.isBus = function(type) {
           if (type == '2'){
-            console.log("Bus");
             return true;
           }
           else{
@@ -148,7 +150,6 @@ clientApp.controller('NodeListController',
 
         scope.isUtility = function(type) {
           if (type == '3'){
-            console.log("Utility");
             return true;
           }
           else{
@@ -414,17 +415,20 @@ function createToggle(td, count, value){
     td.appendChild(label);
 }
 
-function initPowerNetwork(){
+function initPowerNetwork(data){
+    /*
 	document.getElementById("ambTempC").innerHTML=0;
 	document.getElementById("ambTempF").innerHTML=32;
 	document.getElementById("voltUnits").innerHTML='kV';
 	document.getElementById("curUnits").innerHTML='A';
 	document.getElementById("powUnits").innerHTML='kW';
 	document.getElementById("baseFreq").innerHTML='20 kHz';
-	document.getElementById("busCount").innerHTML=0;
-	document.getElementById("utilCount").innerHTML=0;
-	document.getElementById("genCount").innerHTML=0;
-	document.getElementById("loadCount").innerHTML=0;
-	document.getElementById("transCount").innerHTML=0;
+    */
+	document.getElementById("busCount").innerHTML=data[0].bus_count;
+	document.getElementById("utilCount").innerHTML=data[0].utility_count;
+	document.getElementById("genCount").innerHTML=data[0].generator_count;
+	document.getElementById("loadCount").innerHTML=data[0].load_count;
+	document.getElementById("transCount").innerHTML=data[0].transformer_count;
 	document.getElementById("branchCount").innerHTML=0;
+
 }
