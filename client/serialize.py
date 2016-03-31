@@ -14,7 +14,7 @@ class NodeMarkerSerializer(serializers.HyperlinkedModelSerializer):
 class ConnectionListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Connection
-        fields = ('id', 'from_bus_id', 'to_bus_id', 'type')
+        fields = ('id', 'name','from_bus_id', 'to_bus_id', 'type')
 
 
 # ------------------------------------------------------------------- Power Node

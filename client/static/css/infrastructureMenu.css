@@ -65,6 +65,11 @@ h3.NodeHeader{
 
 .NodeList{
   color: rgb(59, 89, 152);
+  padding: 0px;
+
+}
+.NodeListDiv.ng-scope{
+  width: 100%;
 }
 
 div.attributesTable{

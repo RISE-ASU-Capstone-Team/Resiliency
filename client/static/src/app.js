@@ -25,6 +25,7 @@ clientApp.controller('NodeListController',
         });
         http.get(Server.ADDRESS + 'data/api/connection'
                  + '/?format=json').success(function(d){
+            scope.connectionList = d;
             refreshConnections(d);
         });
         http.get(Server.ADDRESS + 'data/api/power'
@@ -47,6 +48,7 @@ clientApp.controller('NodeListController',
                           });
                         http.get(Server.ADDRESS + 'data/api/connection'
                                  + '/?format=json').success(function(d){
+                            scope.connectionList = d;
                             refreshConnections(d);
                             route.reload();
                         });
@@ -121,6 +123,15 @@ clientApp.controller('NodeListController',
             })
         }
 
+        // Load component table with connection
+        scope.connectionListClicked = function(nodeID, type){
+            var data;
+            http.get(Server.ADDRESS + 'data/api/' + connectionType(type) + '/'
+                + nodeID + '/?format=json').success(function(d){
+                loadComponent(d, false);
+            })
+        }
+
         scope.isLoad = function(type) {
           if (type == '0'){
             return true;
@@ -157,6 +168,51 @@ clientApp.controller('NodeListController',
           }
         }
 
+//connections
+
+
+
+        scope.isTransformer = function(type) {
+          if (type == '0'){
+            console.log("Transformer");
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+
+        scope.isDirect = function(type) {
+          if (type == '1'){
+            console.log("Direct");
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+
+        scope.isCable = function(type) {
+          if (type == '2'){
+            console.log("Cable");
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+
+        scope.isOverhead = function(type) {
+          if (type == '3'){
+            console.log("overhead");
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+
+//components
         jQuery(document).ready(function(){
           jQuery('#hideshowLoads').on('click', function(event) {
                jQuery('#loadListContent').toggle('show');
@@ -178,6 +234,31 @@ clientApp.controller('NodeListController',
         jQuery(document).ready(function(){
           jQuery('#hideshowUtility').on('click', function(event) {
                jQuery('#utilityListContent').toggle('show');
+          });
+        });
+
+//connections
+        jQuery(document).ready(function(){
+          jQuery('#hideshowTransformer').on('click', function(event) {
+               jQuery('#transformerListContent').toggle('show');
+          });
+        });
+
+        jQuery(document).ready(function(){
+          jQuery('#hideshowDirect').on('click', function(event) {
+               jQuery('#directListContent').toggle('show');
+          });
+        });
+
+        jQuery(document).ready(function(){
+          jQuery('#hideshowCable').on('click', function(event) {
+               jQuery('#cableListContent').toggle('show');
+          });
+        });
+
+        jQuery(document).ready(function(){
+          jQuery('#hideshowOverhead').on('click', function(event) {
+               jQuery('#overheadListContent').toggle('show');
           });
         });
 
