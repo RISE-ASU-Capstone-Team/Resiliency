@@ -4,8 +4,10 @@ from powercalc.Constants import *
 
 def populate_components():
     try:
-        conn = psycopg2.connect("dbname='rise' user='admin' host='localhost' "
-                                "port='3306' password='capstone'")
+        conn = psycopg2.connect("dbname='" + Database.NAME + "' user='" +
+                                Database.USER + "' host='" + Database.HOST +
+                                "' port='" + Database.PORT + "' password='" +
+                                Database.PASSWORD + "'")
     except:
         print("I am unable to connect to the database")
 
@@ -50,7 +52,7 @@ def populate_load(cur, nodes):
              'is_bus': row[Load.IS_BUS],
              'voltage_1_magnitude': row[Load.VOLTAGE_1_MAGNITUDE],
              'voltage_1_angle': row[Load.VOLTAGE_1_ANGLE],
-             'voltage_1_pu': row[Load.VOLTAGE_1_PU],
+             'voltage_1_PU': row[Load.VOLTAGE_1_PU],
              'type': row[Load.TYPE],
              'latitude': row[Load.LATITUDE],
              'longitude': row[Load.LONGITUDE],
@@ -87,7 +89,7 @@ def populate_sync_gen(cur, nodes):
              'is_bus': row[SynchronousGenerator.IS_BUS],
              'voltage_1_magnitude': row[SynchronousGenerator.VOLTAGE_1_MAGNITUDE],
              'voltage_1_angle': row[SynchronousGenerator.VOLTAGE_1_ANGLE],
-             'voltage_1_pu': row[SynchronousGenerator.VOLTAGE_1_PU],
+             'voltage_1_PU': row[SynchronousGenerator.VOLTAGE_1_PU],
              'type': row[SynchronousGenerator.TYPE],
              'latitude': row[SynchronousGenerator.LATITUDE],
              'longitude': row[SynchronousGenerator.LONGITUDE],
@@ -123,7 +125,7 @@ def populate_bus(cur, nodes):
              'is_bus': row[Bus.IS_BUS],
              'voltage_1_magnitude': row[Bus.VOLTAGE_1_MAGNITUDE],
              'voltage_1_angle': row[Bus.VOLTAGE_1_ANGLE],
-             'voltage_1_pu': row[Bus.VOLTAGE_1_PU],
+             'voltage_1_PU': row[Bus.VOLTAGE_1_PU],
              'type': row[Bus.TYPE],
              'latitude': row[Bus.LATITUDE],
              'longitude': row[Bus.LONGITUDE],
@@ -149,7 +151,7 @@ def populate_utility(cur, nodes):
              'is_bus': row[Utility.IS_BUS],
              'voltage_1_magnitude': row[Utility.VOLTAGE_1_MAGNITUDE],
              'voltage_1_angle': row[Utility.VOLTAGE_1_ANGLE],
-             'voltage_1_pu': row[Utility.VOLTAGE_1_PU],
+             'voltage_1_PU': row[Utility.VOLTAGE_1_PU],
              'type': row[Utility.TYPE],
              'latitude': row[Utility.LATITUDE],
              'longitude': row[Utility.LONGITUDE],

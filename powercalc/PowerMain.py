@@ -6,6 +6,7 @@ import powercalc.Psycopg as Psycopg
 from powercalc.Constants import *
 import csv
 import psycopg2
+import time
 
 # Simulation process
 # 1. Begin Simulation (Loop with start/pause functionality)
@@ -197,8 +198,8 @@ def main():
         environ['PATH'] += ';e:\\Program Files\\OpenDSS\\x64'
         subprocess.run('OpenDSS riseout.dss -nogui', shell=True)
         read_currents(nodes, connections)
-        # read_powers()
-        # read_voltages()
+        read_powers(nodes, connections)
+        read_voltages(nodes)
         update_database(nodes, connections)
 
 
@@ -209,8 +210,9 @@ def read_currents(nodes, connections):
             cat = row[0].split('.')[0]
             if cat != OpenDSS.ELEMENT and len(row) > 5:
                 com_info = row[0].split('.')[1].split('_')
-                if com_info[0] != OpenDSS.SOURCE and len(com_info[0]) > 3:
-                    if cat == OpenDSS.VSOURCE or OpenDSS.LOAD or OpenDSS.GENERATOR:
+                if com_info[0] != OpenDSS.SOURCE and len(cat) > 3:
+                    if cat == OpenDSS.VSOURCE or cat == OpenDSS.LOAD \
+                            or cat == OpenDSS.GENERATOR:
                         node_id = int(com_info[0])
                         nodes[node_id]['current_1_magnitude'] = \
                             float(row[OpenDSS.CURRENT_1_MAGNITUDE])
@@ -224,10 +226,60 @@ def read_currents(nodes, connections):
                             float(row[OpenDSS.CURRENT_1_ANGLE])
 
 
+def read_powers(nodes, connections):
+    with open('powers.csv', 'r') as file_in:
+        reader = csv.reader(file_in, delimiter=',')
+        second = False
+        for row in reader:
+            cat = row[0].split('.')[0]
+            if cat != OpenDSS.ELEMENT and len(row) > 3:
+                com_info = row[0].split('.')[1].split('_')
+                if cat == OpenDSS.LOAD or cat == OpenDSS.GENERATOR:
+                    node_id = int(com_info[0])
+                    nodes[node_id]['real_power'] = \
+                        float(row[OpenDSS.REAL_POWER])
+                    nodes[node_id]['reactive_power'] = \
+                        float(row[OpenDSS.REACTIVE_POWER])
+                else:
+                    if not second:
+                        con_id = int(com_info[0])
+                        connections[con_id]['real_power_entering'] = \
+                            float(row[OpenDSS.REAL_POWER])
+                        connections[con_id]['reactive_power_entering'] = \
+                            float(row[OpenDSS.REACTIVE_POWER])
+                        second = True
+                    else:
+                        con_id = int(com_info[0])
+                        connections[con_id]['real_power_leaving'] = \
+                            float(row[OpenDSS.REAL_POWER])
+                        connections[con_id]['reactive_power_leaving'] = \
+                            float(row[OpenDSS.REACTIVE_POWER])
+                        second = False
+
+
+def read_voltages(nodes):
+    with open('voltages.csv', 'r') as file_in:
+        reader = csv.reader(file_in, delimiter=',')
+        for row in reader:
+            if len(row) > 5:
+                com_info = row[0].split('_')
+                if com_info[0] != OpenDSS.SOURCEBUS \
+                        and com_info[0] != OpenDSS.BUS:
+                    node_id = int(com_info[0])
+                    nodes[node_id]['voltage_1_magnitude'] = \
+                        float(row[OpenDSS.VOLTAGE_1_MAGNITUDE])
+                    nodes[node_id]['voltage_1_angle'] = \
+                        float(row[OpenDSS.VOLTAGE_1_ANGLE])
+                    nodes[node_id]['voltage_1_PU'] = \
+                        float(row[OpenDSS.VOLTAGE_1_PU])
+
+
 def update_database(nodes, connections):
     try:
-        conn = psycopg2.connect("dbname='rise' user='admin' host='localhost' "
-                                "port='3306' password='capstone'")
+        conn = psycopg2.connect("dbname='" + Database.NAME + "' user='" +
+                                Database.USER + "' host='" + Database.HOST +
+                                "' port='" + Database.PORT + "' password='" +
+                                Database.PASSWORD + "'")
     except:
         print("I am unable to connect to the database")
 
@@ -235,23 +287,54 @@ def update_database(nodes, connections):
 
     for key in nodes:
         node = nodes[key]
-        cols = node.keys()
-        vals_str = "=".join(["%({0})s".format(x) for x in cols])
-        node_id = node['id']
-        cur.execute('update ' + comp_type_eval(node['type']) +
-                    ' ({cols}) VALUES ({vals_str}) where id = ({id})'.format(
-                        cols=cols, vals_str=vals_str, id=node_id), node)
+        node_id = str(node['id'])
+        val_str = set_node(node)
+        query = 'update ' + Tables.NODE + ' SET ' + val_str + \
+                ' where id = ' + node_id
+        cur.execute(query)
+        conn.commit()
+        if node['type'] != Power.BUS:
+            val_str = 'current_1_magnitude=' + str(node['current_1_magnitude'])
+            val_str += ',current_1_angle=' + str(node['current_1_angle'])
+            if node['type'] != Power.UTILITY:
+                val_str += ',real_power=' + str(node['real_power'])
+                val_str += ',reactive_power=' + str(node['reactive_power'])
+            query = 'update ' + comp_type_eval(node['type'], is_node=True) + \
+                    " SET " + val_str + ' where node_ptr_id = ' + node_id
+            cur.execute(query)
+            conn.commit()
 
     for key in connections:
         con = connections[key]
-        cols = con.keys()
-        vals_str = ", ".join(["%({0})s".format(x) for x in cols])
-        con_id = con['id']
-        cur.execute('update ' + comp_type_eval(con['type']) +
-                    ' set ({cols})=({vals_str}) where id = ({id})'.format(
-                        cols=cols, vals_str=vals_str, id=con_id), con)
+        con_id = str(con['id'])
+        val_str = set_connection(con)
+        query = 'update ' + Tables.CONNECTION + ' SET ' + val_str + \
+                ' where id = ' + con_id
+        cur.execute(query)
+        conn.commit()
 
+    cur.execute('update client_dbchanges set update_check=' +
+                str(time.time())+' where id = 1')
+    conn.commit()
     conn.close()
+
+
+def set_node(node):
+    val_str = 'voltage_1_magnitude=' + str(node['voltage_1_magnitude'])
+    val_str += ',voltage_1_angle=' + str(node['voltage_1_angle'])
+    val_str += ',"voltage_1_PU"='
+    val_str += str(node['voltage_1_PU'])
+    return val_str
+
+
+def set_connection(con):
+    val_str = 'current_1_magnitude=' + str(con['current_1_magnitude'])
+    val_str += ',current_1_angle=' + str(con['current_1_angle'])
+    val_str += ',real_power_entering=' + str(con['real_power_entering'])
+    val_str += ',reactive_power_entering=' + str(con['reactive_power_entering'])
+    val_str += ',real_power_leaving=' + str(con['real_power_leaving'])
+    val_str += ',reactive_power_leaving=' + str(con['reactive_power_leaving'])
+    return val_str
 
 
 if __name__ == '__main__':

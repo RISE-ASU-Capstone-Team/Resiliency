@@ -4,6 +4,14 @@ class Simulation:
     ROAD = 2
 
 
+class Database:
+    HOST = '8.26.94.3'
+    PORT = '3304'
+    USER = 'rise'
+    NAME = 'calc'
+    PASSWORD = 'capstone'
+
+
 class Power:
     LOAD = 0
     SYNCHRONOUS_GENERATOR = 1
@@ -237,13 +245,20 @@ class OpenDSS:
     ELEMENT = 'Element'
     VSOURCE = 'Vsource'
     SOURCE = 'SOURCE'
+    SOURCEBUS = 'SOURCEBUS'
+    BUS = 'Bus'
     LINE = 'Line'
     TRANSFORMER = 'Transformer'
     GENERATOR = 'Generator'
-    LOAD = 'load'
+    LOAD = 'Load'
 
     CURRENT_1_MAGNITUDE = 1
     CURRENT_1_ANGLE = 2
+    REAL_POWER = 2
+    REACTIVE_POWER = 3
+    VOLTAGE_1_MAGNITUDE = 3
+    VOLTAGE_1_ANGLE = 4
+    VOLTAGE_1_PU = 5
 
 
 class Tables:
@@ -263,20 +278,22 @@ class Tables:
     WIRE_DATA = 'client_wiredata'
 
 
-def comp_type_eval(comp_type):
+def comp_type_eval(comp_type, is_node):
+    if is_node:
         if comp_type == Power.LOAD:
             return Tables.LOAD
         elif comp_type == Power.BUS:
             return Tables.BUS
-        elif comp_type == Power.CABLE:
+        elif comp_type == Power.UTILITY:
+            return Tables.UTILITY
+        elif comp_type == Power.SYNCHRONOUS_GENERATOR:
+            return Tables.SYNC_GEN
+    else:
+        if comp_type == Power.CABLE:
             return Tables.CABLE
         elif comp_type == Power.DIRECT_CONNECTION:
             return Tables.DIRECT
         elif comp_type == Power.OVERHEAD_LINE:
             return Tables.OVERHEAD
-        elif comp_type == Power.SYNCHRONOUS_GENERATOR:
-            return Tables.SYNC_GEN
         elif comp_type == Power.TWO_WINDING_TRANSFORMER:
             return Tables.TRANSFORMER
-        elif comp_type == Power.UTILITY:
-            return Tables.UTILITY
