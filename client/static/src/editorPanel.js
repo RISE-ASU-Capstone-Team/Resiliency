@@ -20,11 +20,11 @@ function loadPanelObjects(jsonobj) {
     defaultComponentsArr[component.RiseVariableName] = component;
 
     var src = null;
-    if (component.System = "Power") {
+    if (component.System == "Power") {
       src = document.getElementById("editor_power");
-    } else if (component.System = "Water") {
+    } else if (component.System == "Water") {
       src = document.getElementById("editor_water");
-    } else if (component.System = "Road") {
+    } else if (component.System == "Road") {
       src = document.getElementById("editor_road");
     }
     src.appendChild(img);
@@ -91,9 +91,8 @@ $(document).ready(function() {
         var y = dragMousePositionY - rect.top;
         var latlng = map.containerPointToLatLng([x, y]);
 
-        var newIcon = new compIcon({
-            iconUrl: component.Icon,
-            iconAnchor: [defaultIconSize.x/2.0, defaultIconSize.y/1.0]
+        var newIcon = new nodeIcon({
+            iconUrl: component.Icon
           });
 
         var options = {
@@ -129,83 +128,3 @@ $(document).ready(function() {
        }
     });
 });
-
-function nodeType(type){
-    switch(type){
-        case Power.LOAD:{
-            return 'load';
-        }
-        case Power.SYNC_GENERATOR:{
-            return 'genSynchronous'
-        }
-        case Power.BUS:{
-            return  'bus'
-        }
-        case Power.UTILITY:{
-            return  'utility'
-        }
-        default: {
-            return 'load'
-        }
-    }
-}
-
-function nodeTypeDisplay(type){
-    switch(type){
-        case Power.LOAD:{
-            return 'Load';
-        }
-        case Power.SYNC_GENERATOR:{
-            return 'Synchronous Generator'
-        }
-        case Power.BUS:{
-            return  'Bus'
-        }
-        case Power.UTILITY:{
-            return  'Utility'
-        }
-        default: {
-            return 'Node'
-        }
-    }
-}
-
-function connectionType(type){
-    switch(type){
-        case Power.Con.TRANSFORMER:{
-            return 'transformer';
-        }
-        case Power.Con.DIRECT:{
-            return 'direct'
-        }
-        case Power.Con.CABLE:{
-            return  'cable'
-        }
-        case Power.Con.OVERHEAD:{
-            return  'overhead'
-        }
-        default: {
-            return 'connection'
-        }
-    }
-}
-
-function connectionTypeDisplay(type){
-    switch(type){
-        case Power.Con.TRANSFORMER:{
-            return 'Two Winding Transformer';
-        }
-        case Power.Con.DIRECT:{
-            return 'Direct Connection'
-        }
-        case Power.Con.CABLE:{
-            return  'Cable'
-        }
-        case Power.Con.OVERHEAD:{
-            return  'Overhead Line'
-        }
-        default: {
-            return 'Connection'
-        }
-    }
-}

@@ -66,8 +66,36 @@ var toggleClicked = function(type){
 }
 
 function powerConnectionClicked(){
-    var list = document.getElementById("powerConSelect");
+    var list = document.getElementById("conSelect");
     list.style.display = 'block';
+    clearSelect(list);
+
+    addValueAndTextToSelect(0, "Two Winding Transformer", list);
+    addValueAndTextToSelect(1, "Direct Connection", list);
+    addValueAndTextToSelect(2, "Cable", list);
+    addValueAndTextToSelect(3, "Overhead Line", list);
+}
+
+function addValueAndTextToSelect(value, text, select) {
+  var option = document.createElement("option");
+  option.value = value;
+  option.text = text;
+  select.add(option);
+}
+
+function waterConnectionClicked(){
+    var list = document.getElementById("conSelect");
+    list.style.display = 'block';
+    clearSelect(list);
+
+    addValueAndTextToSelect(4, "Pipe", list);
+}
+
+function clearSelect(select) {
+  var length = select.options.length;
+  while(length--) {
+    select.options[0] = null;
+  }
 }
 
 $(".toggle-btn:not('.noscript') input[type=radio]").addClass("visuallyhidden");

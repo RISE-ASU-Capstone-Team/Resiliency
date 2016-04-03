@@ -17,9 +17,6 @@ clientApp.config(function($routeProvider) {
 
 clientApp.controller('NodeListController',
     ['$scope', '$http', '$timeout', '$route', function(scope, http, timeout, route){
-        // Initialize global info
-        initPowerNetwork();
-
         // Initial node list GET
         http.get(Server.ADDRESS + 'data/api/node'
                  + '/?format=json').success(function(d){
@@ -28,7 +25,12 @@ clientApp.controller('NodeListController',
         });
         http.get(Server.ADDRESS + 'data/api/connection'
                  + '/?format=json').success(function(d){
+            scope.connectionList = d;
             refreshConnections(d);
+        });
+        http.get(Server.ADDRESS + 'data/api/power'
+                 + '/?format=json').success(function(d){
+            initPowerNetwork(d);
         });
 
         // Server poll for updates
@@ -46,8 +48,13 @@ clientApp.controller('NodeListController',
                           });
                         http.get(Server.ADDRESS + 'data/api/connection'
                                  + '/?format=json').success(function(d){
+                            scope.connectionList = d;
                             refreshConnections(d);
                             route.reload();
+                        });
+                        http.get(Server.ADDRESS + 'data/api/power'
+                                 + '/?format=json').success(function(d){
+                            initPowerNetwork(d);
                         });
                     }else{
 
@@ -89,14 +96,11 @@ clientApp.controller('NodeListController',
             // make sure this marker hasn't been added to the map already
             if (!(marker.id in markers)) {
 
-              // DEBUG:  For now it just grabs a default component icon information
               var component = defaultComponentsArr[nodeType(marker.type)];
-              //console.log(marker.type);
               var latlng = L.latLng(marker.latitude, marker.longitude);
 
-              var newIcon = new compIcon({
-                  iconUrl: component.Icon,
-                  iconAnchor: [defaultIconSize.x/2.0, defaultIconSize.y/1.0]
+              var newIcon = new nodeIcon({
+                  iconUrl: component.Icon
                 });
               var options = {
         						icon: newIcon,
@@ -118,6 +122,146 @@ clientApp.controller('NodeListController',
                 loadComponent(d, true);
             })
         }
+
+        // Load component table with connection
+        scope.connectionListClicked = function(nodeID, type){
+            var data;
+            http.get(Server.ADDRESS + 'data/api/' + connectionType(type) + '/'
+                + nodeID + '/?format=json').success(function(d){
+                loadComponent(d, false);
+            })
+        }
+
+        scope.isLoad = function(type) {
+          if (type == '0'){
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+
+        scope.isSyncGen = function(type) {
+          if (type == '1'){
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+
+        scope.isBus = function(type) {
+          if (type == '2'){
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+
+        scope.isUtility = function(type) {
+          if (type == '3'){
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+
+//connections
+
+
+
+        scope.isTransformer = function(type) {
+          if (type == '0'){
+            console.log("Transformer");
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+
+        scope.isDirect = function(type) {
+          if (type == '1'){
+            console.log("Direct");
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+
+        scope.isCable = function(type) {
+          if (type == '2'){
+            console.log("Cable");
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+
+        scope.isOverhead = function(type) {
+          if (type == '3'){
+            console.log("overhead");
+            return true;
+          }
+          else{
+            return false;
+          }
+        }
+
+//components
+        jQuery(document).ready(function(){
+          jQuery('#hideshowLoads').on('click', function(event) {
+               jQuery('#loadListContent').toggle('show');
+          });
+        });
+
+        jQuery(document).ready(function(){
+          jQuery('#hideshowSynch').on('click', function(event) {
+               jQuery('#synchListContent').toggle('show');
+          });
+        });
+
+        jQuery(document).ready(function(){
+          jQuery('#hideshowBus').on('click', function(event) {
+               jQuery('#busListContent').toggle('show');
+          });
+        });
+
+        jQuery(document).ready(function(){
+          jQuery('#hideshowUtility').on('click', function(event) {
+               jQuery('#utilityListContent').toggle('show');
+          });
+        });
+
+//connections
+        jQuery(document).ready(function(){
+          jQuery('#hideshowTransformer').on('click', function(event) {
+               jQuery('#transformerListContent').toggle('show');
+          });
+        });
+
+        jQuery(document).ready(function(){
+          jQuery('#hideshowDirect').on('click', function(event) {
+               jQuery('#directListContent').toggle('show');
+          });
+        });
+
+        jQuery(document).ready(function(){
+          jQuery('#hideshowCable').on('click', function(event) {
+               jQuery('#cableListContent').toggle('show');
+          });
+        });
+
+        jQuery(document).ready(function(){
+          jQuery('#hideshowOverhead').on('click', function(event) {
+               jQuery('#overheadListContent').toggle('show');
+          });
+        });
+
     }
 ]);
 
@@ -138,6 +282,12 @@ function loadComponent(data, isNode){
     }
     var tr, td;
     var keys = Object.keys(data);
+
+    var coordIndices = new Array(2);
+    coordIndices[0] = new Array(4);
+    coordIndices[1] = new Array(4);
+    var hasCoordIndices = false;
+
     for(var i = 0; i < keys.length; i++){
         tr = document.createElement('tr');
         td = document.createElement('td');
@@ -157,9 +307,14 @@ function loadComponent(data, isNode){
         if(i+1 == keys.length){
             td.style = "padding-bottom: 15px";
         }
-        td = document.createElement('td');
-        td.id = keys[i];
-        td.className = "rowData";
+
+        if (keys[i].indexOf("_coordinate") > -1) {
+          td = undefined;
+        } else {
+          td = document.createElement('td');
+          td.id = keys[i];
+          td.className = "rowData";
+        }
         if(keys[i] != 'id' && keys[i] != 'type'){
             if(keys[i] == 'operational_status'){
                 createToggle(td, "1", data[keys[i]]);
@@ -176,6 +331,30 @@ function loadComponent(data, isNode){
                 var monthIndex = date.getMonth();
                 var year = date.getFullYear();
                 td.innerHTML = monthNames[monthIndex] + ' ' + day + ', ' + year;
+            }else if(keys[i] == 'x_1_coordinate') {
+                coordIndices[0][0] = i;
+                hasCoordIndices = true;
+            }else if(keys[i] == 'x_2_coordinate') {
+                coordIndices[0][1] = i;
+                hasCoordIndices = true;
+            }else if(keys[i] == 'x_3_coordinate') {
+                coordIndices[0][2] = i;
+                hasCoordIndices = true;
+            }else if(keys[i] == 'x_4_coordinate') {
+                coordIndices[0][3] = i;
+                hasCoordIndices = true;
+            }else if(keys[i] == 'h_1_coordinate') {
+                coordIndices[1][0] = i;
+                hasCoordIndices = true;
+            }else if(keys[i] == 'h_2_coordinate') {
+                coordIndices[1][1] = i;
+                hasCoordIndices = true;
+            }else if(keys[i] == 'h_3_coordinate') {
+                coordIndices[1][2] = i;
+                hasCoordIndices = true;
+            }else if(keys[i] == 'h_4_coordinate') {
+                coordIndices[1][3] = i;
+                hasCoordIndices = true;
             }else{
                 if(isNode){
                     td.onclick = function(e){editNodeComponent(this)};
@@ -185,9 +364,48 @@ function loadComponent(data, isNode){
                 td.innerHTML = data[keys[i]];
             }
         }
-        tr.appendChild(td);
-        componentTable.tBodies[0].appendChild(tr);
+        if (td != undefined) {
+          tr.appendChild(td);
+          componentTable.tBodies[0].appendChild(tr);
+        }
     }
+
+    if (hasCoordIndices) {
+      // Add Header
+      tr = document.createElement('tr');
+      var th = document.createElement('th');
+      th.innerHTML = 'Coordinates:';
+      th.className = "colName";
+      tr.appendChild(th);
+      componentTable.tBodies[0].appendChild(tr);
+
+      tr = document.createElement('tr');
+      var thX = document.createElement('th');
+      var thH = document.createElement('th');
+      thX.innerHTML = 'X';
+      thH.innerHTML = 'H';
+      thX.className = "colName";
+      thH.className = "colName";
+      tr.appendChild(thX);
+      tr.appendChild(thH);
+      componentTable.tBodies[0].appendChild(tr);
+
+      // Add Coordinate Data
+      for (var row = 0; row < 4; row++) {
+        tr = document.createElement('tr');
+        for (var col = 0; col < 2; col++) {
+          td = document.createElement('td');
+          var index = coordIndices[col][row];
+          td.id = keys[index];
+          td.className = "rowData";
+          td.onclick = function(e){editConnectionComponent(this)};
+          td.innerHTML = data[keys[index]];
+          tr.appendChild(td);
+        }
+        componentTable.tBodies[0].appendChild(tr);
+      }
+    }
+
     td.style = "padding-bottom: 15px";
 }
 
@@ -206,8 +424,9 @@ var editNodeComponent = function(cell){
     input.id = cell.id;
     input.innerHTML = "<input class='componentInput' value='" + cell.innerHTML
         + "' onkeydown='postChangeNode(this)'></input>";
-    row.removeChild(cell);
-    row.appendChild(input);
+    //row.removeChild(cell);
+    //row.appendChild(input);
+    row.replaceChild(input, cell);
 }
 
 var editConnectionComponent = function(cell){
@@ -216,8 +435,9 @@ var editConnectionComponent = function(cell){
     input.id = cell.id;
     input.innerHTML = "<input class='componentInput' value='" + cell.innerHTML
         + "' onkeydown='postChangeConnection(this)'></input>";
-    row.removeChild(cell);
-    row.appendChild(input);
+    //row.removeChild(cell);
+    //row.appendChild(input);
+    row.replaceChild(input, cell);
 }
 
 var postChangeNode = function(input){
@@ -253,13 +473,14 @@ var postChangeConnection = function(input){
 function resetCell(input){
     var cell = input.parentNode;
     var row = cell.parentNode;
-    row.removeChild(cell);
+    //row.removeChild(cell);
     cell.innerHTML = input.value;
     selectedComponent[cell.id] = input.value;
     cell.className = "rowData";
     cell.onclick = function(e){editComponent(this)};
     cell.id = input.id;
-    row.appendChild(cell);
+    //row.appendChild(cell);
+    //row.replaceChild(cell, input.parentNode);
 }
 
 function createToggle(td, count, value){
@@ -275,17 +496,20 @@ function createToggle(td, count, value){
     td.appendChild(label);
 }
 
-function initPowerNetwork(){
+function initPowerNetwork(data){
+    /*
 	document.getElementById("ambTempC").innerHTML=0;
 	document.getElementById("ambTempF").innerHTML=32;
 	document.getElementById("voltUnits").innerHTML='kV';
 	document.getElementById("curUnits").innerHTML='A';
 	document.getElementById("powUnits").innerHTML='kW';
 	document.getElementById("baseFreq").innerHTML='20 kHz';
-	document.getElementById("busCount").innerHTML=0;
-	document.getElementById("utilCount").innerHTML=0;
-	document.getElementById("genCount").innerHTML=0;
-	document.getElementById("loadCount").innerHTML=0;
-	document.getElementById("transCount").innerHTML=0;
+    */
+	document.getElementById("busCount").innerHTML=data[0].bus_count;
+	document.getElementById("utilCount").innerHTML=data[0].utility_count;
+	document.getElementById("genCount").innerHTML=data[0].generator_count;
+	document.getElementById("loadCount").innerHTML=data[0].load_count;
+	document.getElementById("transCount").innerHTML=data[0].transformer_count;
 	document.getElementById("branchCount").innerHTML=0;
+
 }

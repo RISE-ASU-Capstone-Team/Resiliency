@@ -202,6 +202,12 @@ class OverheadLine:
     NOMINAL_LL_VOLTAGE = 30
 
 
+class Water:
+    RESERVOIR = 0
+
+    PIPE = 0
+
+
 class WireData:
     ID = 0
     NAME = 1
@@ -217,4 +223,3 @@ class WireData:
 class WireType:
     PHASE = 0
     NEUTRAL = 1
-

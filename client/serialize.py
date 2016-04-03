@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from client.models import Load, DBChanges, Connection, Node, SyncGenerator, \
     Bus, Utility, TwoWindingTransformer, DirectConnection, Cable, OverheadLine,\
-    Power, WireData, LineCode
+    Power, WireData, LineCode, Reservoir, Pipe
 from django.contrib.auth.models import User
 
 
@@ -14,7 +14,7 @@ class NodeMarkerSerializer(serializers.HyperlinkedModelSerializer):
 class ConnectionListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Connection
-        fields = ('id', 'from_bus_id', 'to_bus_id', 'type')
+        fields = ('id', 'name','from_bus_id', 'to_bus_id', 'type')
 
 
 # ------------------------------------------------------------------- Power Node
@@ -105,9 +105,8 @@ class OverheadLineSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'operational_status', 'name', 'wiredata_object_id',
                   'number_of_conductors', 'length', 'soil_resistivity',
                   'kron_reduction', 'x_1_coordinate', 'x_2_coordinate',
-                  'x_3_coordinate', 'y_1_coordinate', 'y_2_coordinate',
-                  'y_3_coordinate', 'h_1_coordinate', 'h_2_coordinate',
-                  'h_3_coordinate', 'x_4_coordinate', 'y_4_coordinate',
+                  'x_3_coordinate', 'h_1_coordinate', 'h_2_coordinate',
+                  'h_3_coordinate', 'x_4_coordinate',
                   'h_4_coordinate', 'from_bus_id', 'to_bus_id',
                   'type', 'nominal_LL_voltage', 'current_1_magnitude',
                   'current_1_angle', 'real_power_entering',
@@ -119,9 +118,7 @@ class OverheadLineSerializer(serializers.HyperlinkedModelSerializer):
 class PowerSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Power
-        fields = ('temperature_units', 'ambient_temp_celsius',
-                  'ambient_temp_fahrenheit', 'voltage_units', 'current_units',
-                  'power_units', 'base_frequency', 'bus_count', 'utility_count',
+        fields = ('bus_count', 'utility_count',
                   'generator_count', 'load_count', 'transformer_count',
                   'branch_count')
 
@@ -140,6 +137,23 @@ class LineCodeSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('name', 'r_1',
                   'x_1', 'r_0', 'x_0',
                   'continuous_ampacity', 'emergency_ampacity')
+
+
+# ------------------------------------------------------------------ Water Nodes
+class ReservoirSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Reservoir
+        fields = ('id', 'operational_status', 'name', 'latitude',
+                  'longitude', 'type', 'created_date', 'elevation',
+                  'net_inflow', 'water_age')
+
+
+# ------------------------------------------------------------ Water Connections
+class PipeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Pipe
+        fields = ('id', 'operational_status', 'name', 'from_bus_id', 'to_bus_id',
+                'type', 'created_date', 'diameter', 'flow', 'velocity', 'quality')
 
 
 # -------------------------------------------------------------------- DB Change

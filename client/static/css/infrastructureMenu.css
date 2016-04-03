@@ -13,6 +13,13 @@ html *
    font-family: helvetica !important;
 }
 
+th.colName{
+	font-weight: bold;
+	color: rgb(59, 89, 152);
+	padding-left: 10px;
+	font-size:18px;
+}
+
 td.rowName{
 	font-weight: bold;
 	color: rgb(59, 89, 152);
@@ -24,6 +31,7 @@ td.rowData{
 	color: rgb(102,102,102);
 	font-size:16px;
 	margin-left: 10px;
+	padding-left: 10px;
 }
 td.topRow{
 	padding-top: 12px;
@@ -57,6 +65,11 @@ h3.NodeHeader{
 
 .NodeList{
   color: rgb(59, 89, 152);
+  padding: 0px;
+
+}
+.NodeListDiv.ng-scope{
+  width: 100%;
 }
 
 div.attributesTable{
@@ -130,4 +143,33 @@ select.dropDown {
    padding: 5px 10px;
    text-overflow: ellipsis;
    white-space: nowrap;
+}
+
+.nodeConnectionButtons{
+  display:none;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-style: solid;
+  border-color: rgb(59, 89, 152);
+  color: rgb(255, 255, 255);
+  background-color: rgb(59, 89, 152);
+  margin-left: auto;
+margin-right: auto;
+margin-top: 15px;
+margin-bottom: 10px;
+
+}
+
+.nodeConnectionButtons:hover{
+  display:none;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-style: solid;
+  border-color: rgb(59, 89, 152);
+  color: rgb(59, 89, 152);
+  background-color: rgb(255, 255, 255);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  margin-bottom: 10px;
 }

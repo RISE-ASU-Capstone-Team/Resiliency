@@ -6,10 +6,11 @@ from client.serialize import LoadSerializer, DBChangesSerializer, \
     UtilitySerializer, NodeMarkerSerializer, ConnectionListSerializer, \
     TwoWindingTransformerSerializer, DirectConnectionSerializer, \
     CableSerializer, OverheadLineSerializer, PowerSerializer, \
-    WireDataSerializer, LineCodeSerializer
+    WireDataSerializer, LineCodeSerializer, ReservoirSerializer, \
+    PipeSerializer
 from client.models import Connection, Load, DBChanges, Node, SyncGenerator, \
     Utility, Bus, TwoWindingTransformer, DirectConnection, Cable, OverheadLine, \
-    Power, WireData, LineCode
+    Power, WireData, LineCode, Reservoir, Pipe
 from client.permissions import IsOwnerOrReadOnly
 from rest_framework import viewsets, response, status, settings, decorators
 import time
@@ -269,6 +270,19 @@ class PowerViewSet(viewsets.ModelViewSet):
     serializer_class = PowerSerializer
     permission_classes = (IsOwnerOrReadOnly,)
 
+    def list(self, request, *args, **kwargs):
+        data = []
+        new_data = dict()
+        new_data['bus_count'] = Bus.objects.count()
+        new_data['utility_count'] = Utility.objects.count()
+        new_data['generator_count'] = SyncGenerator.objects.count()
+        new_data['load_count'] = Load.objects.count()
+        new_data['transformer_count'] = TwoWindingTransformer.objects.count()
+        new_data['branch_count'] = 0
+        data.append(new_data)
+        serializer = PowerSerializer(data, many=True)
+        return response.Response(serializer.data)
+
 
 class WireDataViewSet(viewsets.ModelViewSet):
     queryset = WireData.objects.all()
@@ -280,6 +294,44 @@ class LineDataViewSet(viewsets.ModelViewSet):
     queryset = LineCode.objects.all()
     serializer_class = LineCodeSerializer
     permission_classes = (IsOwnerOrReadOnly,)
+
+
+# ------------------------------------------------------------------ Water Nodes
+class ReservoirViewSet(viewsets.ModelViewSet):
+    queryset = Reservoir.objects.all()
+    serializer_class = ReservoirSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
+
+    def perform_create(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_update(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        update_made()
+        instance.delete()
+
+
+# ------------------------------------------------------------ Water Connections
+class PipeViewSet(viewsets.ModelViewSet):
+    queryset = Pipe.objects.all()
+    serializer_class = PipeSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
+
+    def perform_create(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_update(self, serializer):
+        update_made()
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        update_made()
+        instance.delete()
 
 
 # -------------------------------------------------------------------- DB Update
@@ -306,6 +358,8 @@ def get_query_set(node_type):
         return Bus.objects.all()
     elif node_type == const.Power.UTILITY:
         return Utility.objects.all()
+    elif node_type == const.Water.RESERVOIR:
+        return Reservoir.objects.all()
 
 
 def get_serializer(node_type, node):
@@ -317,6 +371,8 @@ def get_serializer(node_type, node):
         return BusSerializer(node)
     elif node_type == const.Power.UTILITY:
         return UtilitySerializer(node)
+    elif node_type == const.Water.RESERVOIR:
+        return ReservoirSerializer(node)
 
 
 def update_made():
@@ -458,15 +514,3 @@ def update_connection_voltage(cursor, data, voltage, to):
                 next_node = data[0]['id']
                 logger.info('Getting to bus in overhead =======')
         return True, next_node
-
-
-'''
-long ass query I'm not ready to part with yet:
-select n.id, foo.name, n.type FROM client_node n, (select name from client_load
-UNION select name from client_syncgenerator UNION select name from client_bus
-UNION select name from client_utility) as foo where foo.name = ((SELECT l.name
-from client_load l where n.type = 0 and n.f_id = l.id) UNION (SELECT sg.name
-FROM client_syncgenerator sg WHERE n.type = 1 and n.f_id = sg.id) UNION
-(SELECT b.name FROM client_bus b WHERE n.type = 2 and n.f_id = b.id) UNION
-(SELECT u.name FROM client_utility u WHERE n.type = 3 and n.f_id = u.id))
-'''
