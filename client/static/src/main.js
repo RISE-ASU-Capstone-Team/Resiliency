@@ -3,6 +3,8 @@ var selectedComponent = {};
 var loadEditableCount = 12;
 var syncGenEditableCount = 11;
 var busEditableCount = 5;
+var wireDataList = [];
+var lineCodeList = [];
 
 
 //Connecting Nodes
@@ -52,10 +54,16 @@ var monthNames = [
   "November", "December"
 ];
 
-var toggleClicked = function(type){
+var toggleClicked = function(type, isNode){
+    var compType;
+    if(isNode){
+        compType = nodeType(selectedComponent.type);
+    }else{
+        compType = connectionType(selectedComponent.type);
+    }
     selectedComponent[type] = selectedComponent[type]? false : true;
     $.ajax({
-        url: Server.ADDRESS + "data/api/" + nodeType(selectedComponent.type) + '/'
+        url: Server.ADDRESS + "data/api/" + compType + '/'
             + selectedComponent.id + "/" ,
         type: 'PUT',
         data: selectedComponent,

@@ -32,6 +32,14 @@ clientApp.controller('NodeListController',
                  + '/?format=json').success(function(d){
             initPowerNetwork(d);
         });
+        http.get(Server.ADDRESS + 'data/api/wiredata'
+                 + '/?format=json').success(function(d){
+            wireDataList = d;
+        });
+        http.get(Server.ADDRESS + 'data/api/linecode'
+                 + '/?format=json').success(function(d){
+            lineCodeList = d;
+        });
 
         // Server poll for updates
         var pollList = function() {
@@ -295,8 +303,9 @@ function loadComponent(data, isNode){
             }else{
                 compTitle.innerHTML = connectionTypeDisplay(data[keys[i]]);
             }
-        }
-        if(keys[i] != 'id' && keys[i] != 'type'){
+        }else if(keys[i] == 'from_bus_id' || keys[i] == 'to_bus_id'){
+
+        }else if(keys[i] != 'id' && keys[i] != 'type'){
             td.innerHTML = formatTableName(keys[i]);
             tr.appendChild(td);
         }
@@ -313,14 +322,28 @@ function loadComponent(data, isNode){
         }
         if(keys[i] != 'id' && keys[i] != 'type'){
             if(keys[i] == 'operational_status'){
-                createToggle(td, "1", data[keys[i]]);
+                createToggle(td, "1", data[keys[i]], isNode);
                 tr.appendChild(td);
             }else if(keys[i] == 'is_bus'){
-                createToggle(td, "2", data[keys[i]]);
+                createToggle(td, "2", data[keys[i]], isNode);
                 tr.appendChild(td);
             }else if(keys[i] == 'stiffness'){
-                createToggle(td, "3", data[keys[i]]);
+                createToggle(td, "3", data[keys[i]], isNode);
                 tr.appendChild(td);
+            }else if(keys[i] == 'kron_reduction'){
+                createToggle(td, "4", data[keys[i]], isNode);
+                tr.appendChild(td);
+            }else if(keys[i] == 'tap_side'){
+                createToggle(td, "5", data[keys[i]], isNode);
+                tr.appendChild(td);
+            }else if(keys[i] == 'wiredata_object_id'){
+                createWireDataComboBox(td, data[keys[i]]);
+                tr.appendChild(td);
+            }else if(keys[i] == 'linecode_object_id'){
+                createLineCodeComboBox(td, data[keys[i]]);
+                tr.appendChild(td);
+            }else if(keys[i] == 'from_bus_id' || keys[i] == 'to_bus_id'){
+                td = undefined;
             }else if(keys[i] == 'created_date'){
                 var date = new Date(data[keys[i]]*1000);
                 var day = date.getDate();
@@ -479,7 +502,7 @@ function resetCell(input){
     //row.replaceChild(cell, input.parentNode);
 }
 
-function createToggle(td, count, value){
+function createToggle(td, count, value, isNode){
     var input = document.createElement('input');
     var label = document.createElement('label');
     input.className = "cmn-toggle cmn-toggle-round";
@@ -487,7 +510,7 @@ function createToggle(td, count, value){
     input.id = "cmn-toggle-"+count;
     label.setAttribute('for', "cmn-toggle-"+count);
     input.checked = value;
-    input.onclick = function(e){toggleClicked(td.id)};
+    input.onclick = function(e){toggleClicked(td.id, isNode)};
     td.appendChild(input);
     td.appendChild(label);
 }
@@ -508,4 +531,58 @@ function initPowerNetwork(data){
 	document.getElementById("transCount").innerHTML=data[0].transformer_count;
 	document.getElementById("branchCount").innerHTML=0;
 
+}
+
+function createWireDataComboBox(td, id){
+    var select = document.createElement('select');
+    for (var i = 0; i < wireDataList.length; i++){
+        addValueAndTextToSelect(wireDataList[i].id, wireDataList[i].name, select);
+        if(wireDataList[i].id == id){
+            select.selectedIndex = i;
+        }
+    }
+    select.onchange = function(e){
+        updateSelectedWireData(e);
+    }
+    td.appendChild(select);
+}
+
+function updateSelectedWireData(e){
+    selectedComponent['wiredata_object_id'] = e.target[e.target.selectedIndex].value;
+    $.ajax({
+            url: Server.ADDRESS + "data/api/" + connectionType(selectedComponent.type) + '/'
+                + selectedComponent.id + "/" ,
+            type: 'PUT',
+            data: selectedComponent,
+            success: function(result) {
+                // Do something with the result
+            }
+        });
+}
+
+function createLineCodeComboBox(td, id){
+    var select = document.createElement('select');
+    for (var i = 0; i < lineCodeList.length; i++){
+        addValueAndTextToSelect(lineCodeList[i].id, lineCodeList[i].name, select);
+        if(lineCodeList[i].id == id){
+            select.selectedIndex = i;
+        }
+    }
+    select.onchange = function(e){
+        updateSelectedLineCode(e);
+    }
+    td.appendChild(select);
+}
+
+function updateSelectedLineCode(e){
+    selectedComponent['linecode_object_id'] = e.target[e.target.selectedIndex].value;
+    $.ajax({
+            url: Server.ADDRESS + "data/api/" + connectionType(selectedComponent.type) + '/'
+                + selectedComponent.id + "/" ,
+            type: 'PUT',
+            data: selectedComponent,
+            success: function(result) {
+                // Do something with the result
+            }
+        });
 }
