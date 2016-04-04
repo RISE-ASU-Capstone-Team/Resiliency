@@ -64,6 +64,23 @@ class LoadViewSet(viewsets.ModelViewSet):
         update_made()
         serializer.save()
 
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        if 'nominal_voltage' in request.data:
+            cursor = connection.cursor()
+            cursor.execute('select nominal_voltage '
+                           'FROM client_node where id = ' + request.data['id'])
+            data = dict_fetch_all(cursor)
+            cursor.close()
+            if float(request.data['nominal_voltage']) != float(data[0]['nominal_voltage']):
+                change_voltage(request.data['id'], request.data['nominal_voltage'])
+
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return response.Response(serializer.data)
+
     def perform_update(self, serializer):
         update_made()
         serializer.save()
@@ -81,6 +98,23 @@ class SyncGenViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         update_made()
         serializer.save()
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        if 'nominal_voltage' in request.data:
+            cursor = connection.cursor()
+            cursor.execute('select nominal_voltage '
+                           'FROM client_node where id = ' + request.data['id'])
+            data = dict_fetch_all(cursor)
+            cursor.close()
+            if float(request.data['nominal_voltage']) != float(data[0]['nominal_voltage']):
+                change_voltage(request.data['id'], request.data['nominal_voltage'])
+
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return response.Response(serializer.data)
 
     def perform_update(self, serializer):
         update_made()
@@ -100,6 +134,23 @@ class BusViewSet(viewsets.ModelViewSet):
         update_made()
         serializer.save()
 
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        if 'nominal_voltage' in request.data:
+            cursor = connection.cursor()
+            cursor.execute('select nominal_voltage '
+                           'FROM client_node where id = ' + request.data['id'])
+            data = dict_fetch_all(cursor)
+            cursor.close()
+            if float(request.data['nominal_voltage']) != float(data[0]['nominal_voltage']):
+                change_voltage(request.data['id'], request.data['nominal_voltage'])
+
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return response.Response(serializer.data)
+
     def perform_update(self, serializer):
         update_made()
         serializer.save()
@@ -117,6 +168,23 @@ class UtilityViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         update_made()
         serializer.save()
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        if 'nominal_voltage' in request.data:
+            cursor = connection.cursor()
+            cursor.execute('select nominal_voltage '
+                           'FROM client_node where id = ' + request.data['id'])
+            data = dict_fetch_all(cursor)
+            cursor.close()
+            if float(request.data['nominal_voltage']) != float(data[0]['nominal_voltage']):
+                change_voltage(request.data['id'], request.data['nominal_voltage'])
+
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return response.Response(serializer.data)
 
     def perform_update(self, serializer):
         update_made()
@@ -286,28 +354,28 @@ def dict_fetch_all(cursor):
 
 
 def get_query_set(node_type):
-    if node_type == const.LOAD:
+    if node_type == const.Power.LOAD:
         return Load.objects.all()
-    elif node_type == const.SYNC_GENERATOR:
+    elif node_type == const.Power.SYNCHRONOUS_GENERATOR:
         return SyncGenerator.objects.all()
-    elif node_type == const.BUS:
+    elif node_type == const.Power.BUS:
         return Bus.objects.all()
-    elif node_type == const.UTILITY:
+    elif node_type == const.Power.UTILITY:
         return Utility.objects.all()
-    elif node_type == const.RESERVOIR:
+    elif node_type == const.Water.RESERVOIR:
         return Reservoir.objects.all()
 
 
 def get_serializer(node_type, node):
-    if node_type == const.LOAD:
+    if node_type == const.Power.LOAD:
         return LoadSerializer(node)
-    elif node_type == const.SYNC_GENERATOR:
+    elif node_type == const.Power.SYNCHRONOUS_GENERATOR:
         return SyncGeneratorSerializer(node)
-    elif node_type == const.BUS:
+    elif node_type == const.Power.BUS:
         return BusSerializer(node)
-    elif node_type == const.UTILITY:
+    elif node_type == const.Power.UTILITY:
         return UtilitySerializer(node)
-    elif node_type == const.RESERVOIR:
+    elif node_type == const.Water.RESERVOIR:
         return ReservoirSerializer(node)
 
 
@@ -318,13 +386,63 @@ def update_made():
     transaction.commit()
     cursor.close()
 
-'''
-long ass query I'm not ready to part with yet:
-select n.id, foo.name, n.type FROM client_node n, (select name from client_load
-UNION select name from client_syncgenerator UNION select name from client_bus
-UNION select name from client_utility) as foo where foo.name = ((SELECT l.name
-from client_load l where n.type = 0 and n.f_id = l.id) UNION (SELECT sg.name
-FROM client_syncgenerator sg WHERE n.type = 1 and n.f_id = sg.id) UNION
-(SELECT b.name FROM client_bus b WHERE n.type = 2 and n.f_id = b.id) UNION
-(SELECT u.name FROM client_utility u WHERE n.type = 3 and n.f_id = u.id))
-'''
+
+def change_voltage(node_id, voltage):
+    cursor = connection.cursor()
+    cursor.execute('select nominal_voltage from client_node '
+                   'where id = ' + str(node_id))
+    data = dict_fetch_all(cursor)
+    # If voltage is different change node voltage and continue
+    if float(data[0]['nominal_voltage']) != float(voltage):
+        cursor.execute('update client_node set nominal_voltage = ' + str(voltage) +
+                       ' where id = ' + str(node_id))
+        cursor.execute('select id, type from client_connection '
+                       'where from_bus_id = ' + str(node_id))
+        data = dict_fetch_all(cursor)
+
+        # For each connection - from
+        for x in range(len(data)):
+            cont, next_node = update_connection_voltage(cursor, data[x], voltage, False)
+            if cont and next_node != -1:
+                change_voltage(next_node, voltage)
+
+        cursor.execute('select id, type from client_connection '
+                       'where to_bus_id = ' + str(node_id))
+        data = dict_fetch_all(cursor)
+        # For each connection - to
+        for x in range(len(data)):
+            cont, next_node = update_connection_voltage(cursor, data[x], voltage, True)
+            if cont and next_node != -1:
+                change_voltage(next_node, voltage)
+    else:
+        cursor.close()
+
+
+def update_connection_voltage(cursor, data, voltage, to):
+    current_con_id = data['id']
+    if data['type'] == const.Power.TWO_WINDING_TRANSFORMER:
+        if to:
+            cursor.execute('update client_twowindingtransformer '
+                           'set to_bus_voltage_rating = ' + str(voltage) +
+                           ' where connection_ptr_id = ' + str(current_con_id))
+        else:
+            cursor.execute('update client_twowindingtransformer '
+                           'set from_bus_voltage_rating = ' + str(voltage) +
+                           ' where connection_ptr_id = ' + str(current_con_id))
+        return False, -1
+    else:
+        if to:
+            cursor.execute('select n.id from client_node n '
+                           'where n.id = (select from_bus_id '
+                           'from client_connection c where c.id = ' +
+                           str(current_con_id) + ')')
+            data = dict_fetch_all(cursor)
+            next_node = data[0]['id']
+        else:
+            cursor.execute('select n.id from client_node n '
+                           'where n.id = (select to_bus_id '
+                           'from client_connection c where c.id = ' +
+                           str(current_con_id) + ')')
+            data = dict_fetch_all(cursor)
+            next_node = data[0]['id']
+        return True, next_node

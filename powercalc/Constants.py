@@ -4,6 +4,14 @@ class Simulation:
     ROAD = 2
 
 
+class Database:
+    HOST = '8.26.94.3'
+    PORT = '3304'
+    USER = 'rise'
+    NAME = 'calc'
+    PASSWORD = 'capstone'
+
+
 class Power:
     LOAD = 0
     SYNCHRONOUS_GENERATOR = 1
@@ -14,6 +22,9 @@ class Power:
     DIRECT_CONNECTION = 1
     CABLE = 2
     OVERHEAD_LINE = 3
+
+    PHASE = 0
+    NEUTRAL = 1
 
 
 class Load:
@@ -93,9 +104,9 @@ class Utility:
     TYPE = 7
     LATITUDE = 8
     LONGITUDE = 9
-    BASE_POWER = 14
     LL_VOLTAGE = 11
     NOMINAL_VOLTAGE = 12
+    BASE_POWER = 14
     VOLTAGE_ANGLE = 15
     SHORT_CIRCUIT_3_PHASE = 16
     SHORT_CIRCUIT_SLG = 17
@@ -187,25 +198,20 @@ class OverheadLine:
     NUMBER_OF_CONDUCTORS = 15
     LENGTH = 16
     SOIL_RESISTIVITY = 17
-    X_1 = 18
-    X_2 = 19
-    X_3 = 20
-    Y_1 = 21
-    Y_2 = 22
-    Y_3 = 23
-    H_1 = 24
-    H_2 = 25
-    H_3 = 26
-    X_4 = 27
-    Y_4 = 28
-    H_4 = 29
-    NOMINAL_LL_VOLTAGE = 30
-
-
-class Water:
-    RESERVOIR = 100
-
-    PIPE = 100
+    KRON_REDUCTION = 18
+    X_1 = 19
+    X_2 = 20
+    X_3 = 21
+    Y_1 = 22
+    Y_2 = 23
+    Y_3 = 24
+    H_1 = 25
+    H_2 = 26
+    H_3 = 27
+    X_4 = 28
+    Y_4 = 29
+    H_4 = 30
+    NOMINAL_LL_VOLTAGE = 31
 
 
 class WireData:
@@ -220,6 +226,75 @@ class WireData:
     WIRE_TYPE = 8
 
 
+class LineCode:
+    ID = 0
+    NAME = 1
+    R_1 = 2
+    X_1 = 3
+    R_0 = 4
+    X_0 = 5
+    CONTINUOUS_AMPACITY = 6
+    EMERGENCY_AMPACITY = 7
+
+
 class WireType:
     PHASE = 0
     NEUTRAL = 1
+
+
+class OpenDSS:
+    ELEMENT = 'Element'
+    VSOURCE = 'Vsource'
+    SOURCE = 'SOURCE'
+    SOURCEBUS = 'SOURCEBUS'
+    BUS = 'Bus'
+    LINE = 'Line'
+    TRANSFORMER = 'Transformer'
+    GENERATOR = 'Generator'
+    LOAD = 'Load'
+
+    CURRENT_1_MAGNITUDE = 1
+    CURRENT_1_ANGLE = 2
+    REAL_POWER = 2
+    REACTIVE_POWER = 3
+    VOLTAGE_1_MAGNITUDE = 3
+    VOLTAGE_1_ANGLE = 4
+    VOLTAGE_1_PU = 5
+
+
+class Tables:
+    NODE = 'client_node'
+    CONNECTION = 'client_connection'
+    BUS = 'client_bus'
+    CABLE = 'client_cable'
+    DB_CHANGE = 'client_dbchanges'
+    DIRECT = 'client_directconnection'
+    LINE_CODE = 'client_linecode'
+    LOAD = 'client_load'
+    OVERHEAD = 'client_overheadline'
+    POWER = 'client_power'
+    SYNC_GEN = 'client_syncgenerator'
+    TRANSFORMER = 'client_twowindingtransformer'
+    UTILITY = 'client_utility'
+    WIRE_DATA = 'client_wiredata'
+
+
+def comp_type_eval(comp_type, is_node):
+    if is_node:
+        if comp_type == Power.LOAD:
+            return Tables.LOAD
+        elif comp_type == Power.BUS:
+            return Tables.BUS
+        elif comp_type == Power.UTILITY:
+            return Tables.UTILITY
+        elif comp_type == Power.SYNCHRONOUS_GENERATOR:
+            return Tables.SYNC_GEN
+    else:
+        if comp_type == Power.CABLE:
+            return Tables.CABLE
+        elif comp_type == Power.DIRECT_CONNECTION:
+            return Tables.DIRECT
+        elif comp_type == Power.OVERHEAD_LINE:
+            return Tables.OVERHEAD
+        elif comp_type == Power.TWO_WINDING_TRANSFORMER:
+            return Tables.TRANSFORMER

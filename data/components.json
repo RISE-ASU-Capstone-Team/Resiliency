@@ -103,7 +103,7 @@
       "System": "Water",
       "Subsystem": "Water",
       "RiseVariableName": "reservoir",
-      "Type": 4,
+      "Type": 100,
       "Description": "Reservoir",
       "OpenDssName": "null",
       "Icon": "/static/icons/Reservoir.png"
