@@ -80,10 +80,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'rise',
-        'USER': 'admin',
+        'USER': 'rise',
         'PASSWORD': 'capstone',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
+        'HOST': '8.26.94.3',   # Or an IP Address that your DB is hosted on
+        'PORT': '3304',
     }
 }
 

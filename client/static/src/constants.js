@@ -14,9 +14,9 @@ var Power = {
 };
 
 var Water = {
-    RESERVOIR: 4,
+    RESERVOIR: 100,
     Con : {
-      PIPE: 4,
+      PIPE: 100,
       LINE_COLOR : '#33A3ff'
     }
 }
@@ -42,7 +42,7 @@ function isWaterConnection(type) {
 }
 
 function nodeType(type){
-    switch(type){
+    switch(parseInt(type)){
         case Power.LOAD:{
             return 'load';
         }
@@ -65,70 +65,70 @@ function nodeType(type){
 }
 
 function nodeTypeDisplay(type){
-    switch(type){
+    switch(parseInt(type)){
         case Power.LOAD:{
             return 'Load';
         }
         case Power.SYNC_GENERATOR:{
-            return 'Synchronous Generator'
+            return 'Synchronous Generator';
         }
         case Power.BUS:{
-            return  'Bus'
+            return  'Bus';
         }
         case Power.UTILITY:{
-            return  'Utility'
+            return  'Utility';
         }
         case Water.RESERVOIR:{
-            return  'Reservoir'
+            return  'Reservoir';
         }
         default: {
-            return 'Node'
+            return 'Node';
         }
     }
 }
 
 function connectionType(type){
-    switch(type){
+    switch(parseInt(type)){
         case Power.Con.TRANSFORMER:{
             return 'transformer';
         }
         case Power.Con.DIRECT:{
-            return 'direct'
+            return 'direct';
         }
         case Power.Con.CABLE:{
-            return  'cable'
+            return  'cable';
         }
         case Power.Con.OVERHEAD:{
-            return  'overhead'
+            return  'overhead';
         }
         case Water.Con.PIPE:{
-            return  'pipe'
+            return  'pipe';
         }
         default: {
-            return 'connection'
+            return 'connection';
         }
     }
 }
 
 function connectionTypeDisplay(type){
-    switch(type){
+    switch(parseInt(type)){
         case Power.Con.TRANSFORMER:{
             return 'Two Winding Transformer';
         }
         case Power.Con.DIRECT:{
-            return 'Direct Connection'
+            return 'Direct Connection';
         }
         case Power.Con.CABLE:{
-            return  'Cable'
+            return  'Cable';
         }
         case Power.Con.OVERHEAD:{
-            return  'Overhead Line'
+            return  'Overhead Line';
         }
         case Water.Con.PIPE:{
-            return  'Pipe'
+            return  'Pipe';
         }
         default: {
-            return 'Connection'
+            return 'Connection';
         }
     }
 }

@@ -70,10 +70,10 @@ function powerConnectionClicked(){
     list.style.display = 'block';
     clearSelect(list);
 
-    addValueAndTextToSelect(0, "Two Winding Transformer", list);
-    addValueAndTextToSelect(1, "Direct Connection", list);
-    addValueAndTextToSelect(2, "Cable", list);
-    addValueAndTextToSelect(3, "Overhead Line", list);
+    addValueAndTextToSelect(Power.Con.TRANSFORMER, "Two Winding Transformer", list);
+    addValueAndTextToSelect(Power.Con.DIRECT, "Direct Connection", list);
+    addValueAndTextToSelect(Power.Con.CABLE, "Cable", list);
+    addValueAndTextToSelect(Power.Con.OVERHEAD, "Overhead Line", list);
 }
 
 function addValueAndTextToSelect(value, text, select) {
@@ -88,7 +88,7 @@ function waterConnectionClicked(){
     list.style.display = 'block';
     clearSelect(list);
 
-    addValueAndTextToSelect(4, "Pipe", list);
+    addValueAndTextToSelect(Water.Con.PIPE, "Pipe", list);
 }
 
 function clearSelect(select) {

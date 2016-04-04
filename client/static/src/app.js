@@ -133,7 +133,7 @@ clientApp.controller('NodeListController',
         }
 
         scope.isLoad = function(type) {
-          if (type == '0'){
+          if (type == Power.LOAD){
             return true;
           }
           else{
@@ -142,7 +142,7 @@ clientApp.controller('NodeListController',
         }
 
         scope.isSyncGen = function(type) {
-          if (type == '1'){
+          if (type == Power.SYNC_GENERATOR){
             return true;
           }
           else{
@@ -151,7 +151,7 @@ clientApp.controller('NodeListController',
         }
 
         scope.isBus = function(type) {
-          if (type == '2'){
+          if (type == Power.BUS){
             return true;
           }
           else{
@@ -160,7 +160,7 @@ clientApp.controller('NodeListController',
         }
 
         scope.isUtility = function(type) {
-          if (type == '3'){
+          if (type == Power.Utility){
             return true;
           }
           else{
@@ -174,7 +174,6 @@ clientApp.controller('NodeListController',
 
         scope.isTransformer = function(type) {
           if (type == '0'){
-            console.log("Transformer");
             return true;
           }
           else{
@@ -184,7 +183,6 @@ clientApp.controller('NodeListController',
 
         scope.isDirect = function(type) {
           if (type == '1'){
-            console.log("Direct");
             return true;
           }
           else{
@@ -194,7 +192,6 @@ clientApp.controller('NodeListController',
 
         scope.isCable = function(type) {
           if (type == '2'){
-            console.log("Cable");
             return true;
           }
           else{
@@ -204,7 +201,6 @@ clientApp.controller('NodeListController',
 
         scope.isOverhead = function(type) {
           if (type == '3'){
-            console.log("overhead");
             return true;
           }
           else{

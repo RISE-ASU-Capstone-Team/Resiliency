@@ -203,9 +203,9 @@ class OverheadLine:
 
 
 class Water:
-    RESERVOIR = 0
+    RESERVOIR = 100
 
-    PIPE = 0
+    PIPE = 100
 
 
 class WireData:
