@@ -126,15 +126,15 @@ class PowerSerializer(serializers.HyperlinkedModelSerializer):
 class WireDataSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = WireData
-        fields = ('name', 'type',
+        fields = ('id', 'name', 'type',
                   'wire_type', 'resistance_50_C', 'GMR',
                   'continuous_ampacity', 'emergency_ampacity', 'diameter')
 
 
 class LineCodeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = WireData
-        fields = ('name', 'r_1',
+        model = LineCode
+        fields = ('id', 'name', 'r_1',
                   'x_1', 'r_0', 'x_0',
                   'continuous_ampacity', 'emergency_ampacity')
 

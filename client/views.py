@@ -294,7 +294,7 @@ class WireDataViewSet(viewsets.ModelViewSet):
     permission_classes = (IsOwnerOrReadOnly,)
 
 
-class LineDataViewSet(viewsets.ModelViewSet):
+class LineCodeViewSet(viewsets.ModelViewSet):
     queryset = LineCode.objects.all()
     serializer_class = LineCodeSerializer
     permission_classes = (IsOwnerOrReadOnly,)
