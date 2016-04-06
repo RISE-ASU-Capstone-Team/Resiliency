@@ -278,7 +278,13 @@ clientApp.controller('PowerDetailController',
     }
 ]);
 
+var xhTdCells = null;
+var xhTextCells = null;
 function loadComponent(data, isNode){
+
+    xhTdCells = new Array();
+    xhTextCells = new Array();
+
     selectedComponent = data;
     var componentTable = document.getElementById('componentTable');
     for(var i = componentTable.rows.length-1; i > 1; i--){
@@ -417,9 +423,12 @@ function loadComponent(data, isNode){
           var index = coordIndices[col][row];
           td.id = keys[index];
           td.className = "rowData";
-          td.onclick = function(e){editConnectionComponent(this)};
+          td.onclick = function(e){editCoordinateComponent(this)};
           td.innerHTML = data[keys[index]];
+
           tr.appendChild(td);
+          td.parentNode = tr;
+          xhTdCells.push(td);
         }
         componentTable.tBodies[0].appendChild(tr);
       }
@@ -443,8 +452,6 @@ var editNodeComponent = function(cell){
     input.id = cell.id;
     input.innerHTML = "<input class='componentInput' value='" + cell.innerHTML
         + "' onkeydown='postChangeNode(this)'></input>";
-    //row.removeChild(cell);
-    //row.appendChild(input);
     row.replaceChild(input, cell);
 }
 
@@ -454,9 +461,21 @@ var editConnectionComponent = function(cell){
     input.id = cell.id;
     input.innerHTML = "<input class='componentInput' value='" + cell.innerHTML
         + "' onkeydown='postChangeConnection(this)'></input>";
-    //row.removeChild(cell);
-    //row.appendChild(input);
     row.replaceChild(input, cell);
+}
+
+var editCoordinateComponent = function() {
+  // Switch All of the Coordinate Cells into Text Fields
+  for (var key in xhTdCells) {
+      var cell = xhTdCells[key];
+      var row = cell.parentNode;
+      var input = document.createElement("td");
+      input.id = cell.id;
+      input.innerHTML = "<input class='componentInput' value='" + cell.innerHTML
+          + "' onkeydown='postCoordinateChangeConnection(this)'></input>";
+      row.replaceChild(input, cell);
+      xhTextCells[key] = input;
+  }
 }
 
 var postChangeNode = function(input){
@@ -471,6 +490,7 @@ var postChangeNode = function(input){
                 // Do something with the result
             }
         });
+
     }
 }
 
@@ -489,6 +509,21 @@ var postChangeConnection = function(input){
     }
 }
 
+var postCoordinateChangeConnection = function(input){
+  if(event.keyCode == 13){
+    resetAllCells();
+    $.ajax({
+        url: Server.ADDRESS + "data/api/" + connectionType(selectedComponent.type) + '/'
+            + selectedComponent.id + "/" ,
+        type: 'PUT',
+        data: selectedComponent,
+        success: function(result) {
+            // Do something with the result
+        }
+    });
+  }
+}
+
 function resetCell(input){
     var cell = input.parentNode;
     var row = cell.parentNode;
@@ -498,8 +533,22 @@ function resetCell(input){
     cell.className = "rowData";
     cell.onclick = function(e){editComponent(this)};
     cell.id = input.id;
-    //row.appendChild(cell);
-    //row.replaceChild(cell, input.parentNode);
+}
+
+function resetAllCells() {
+  for (var key in xhTextCells) {
+    var cell = xhTextCells[key];
+    if (cell.childNodes.length > 0) {
+      var input = cell.childNodes[0];
+      var row = cell.parentNode;
+      //row.removeChild(cell);
+      cell.innerHTML = input.value;
+      selectedComponent[cell.id] = input.value;
+      cell.className = "rowData";
+      cell.onclick = function(e){editCoordinateComponent(this)};
+      cell.id = input.id;
+    }
+  }
 }
 
 function createToggle(td, count, value, isNode){
