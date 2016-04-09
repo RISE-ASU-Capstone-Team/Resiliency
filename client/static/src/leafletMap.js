@@ -16,6 +16,7 @@ var connections = [];
 var connectionMarkers = [];
 
 function addMarkerToMap(key, componentData, position, options) {
+
     var newMarker = L.marker(position, options).addTo(map);
     newMarker.componentData = componentData;
     newMarker.on('click', handleMarkerClick);
@@ -33,8 +34,13 @@ function addMarkerToMap(key, componentData, position, options) {
         });
 
     });
-    newMarker.id = key;
-    markers[key] = newMarker;
+    
+    // If we have a key, add it to the markers array
+    if (key != null) {
+      newMarker.id = key;
+      markers[key] = newMarker;
+    }
+
     resizeMarkers();
     Alert.log("Node: '" + newMarker.id + "' created at " + newMarker._latlng);
     return newMarker;

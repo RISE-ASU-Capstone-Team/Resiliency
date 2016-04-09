@@ -102,13 +102,15 @@ $(document).ready(function() {
               keyboard: false
             };
 
-        var marker = addMarkerToMap(markers.length+1+"", component, latlng, options);
+        var marker = addMarkerToMap(null, component, latlng, options);
 
         $.post(Server.ADDRESS + "data/api/" + nodeType(component.Type)
                 + '/', {type: component.Type,
           latitude: latlng.lat, longitude: latlng.lng, active: true}).
           done(function(data){
               marker.id = data.id;
+              markers[marker.id] = marker;
+              resizeMarkers();
             });
       }
     });
