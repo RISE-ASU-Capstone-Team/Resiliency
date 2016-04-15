@@ -7,7 +7,10 @@ function initEditorPanel() {
 function loadPanelObjects(jsonobj) {
 
   for (var i = 0; i < jsonobj.Components.length; i++) {
-    var component = jsonobj.Components[i]
+    var component = jsonobj.Components[i];
+
+    defaultComponentsArr[component.RiseVariableName] = component;
+
     if (component.Icon != undefined){
       var img = document.createElement("img");
       img.class = "dragComponent";
@@ -17,8 +20,6 @@ function loadPanelObjects(jsonobj) {
       img.draggable="true";
       img.dataset.RiseVariableName=component.RiseVariableName;
       img.title = component.Description;
-
-      defaultComponentsArr[component.RiseVariableName] = component;
 
       var src = null;
       if (component.System == "Power") {

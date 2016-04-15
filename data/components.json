@@ -172,7 +172,7 @@
         "longitude": "°E",
         "elevation": "ft",
         "net_inflow": "gpm",
-        "water_age": "days"
+        "water_age": "hours"
       }
     },
     {
@@ -190,6 +190,99 @@
       "Description": "Valve",
       "OpenDssName": "null",
       "Icon": "/static/icons/Valve.png"
+    },
+    {
+      "System": "Power",
+      "Subsystem": "Power",
+      "RiseVariableName": "transformer",
+      "Description": "TwoWindingTransformer",
+      "FieldUnits":
+      {
+        "from_bus_voltage_rating": "kV",
+        "to_bus_voltage_rating": "kV",
+        "power_rating": "kVa",
+        "x_percent": "%",
+        "r_percent": "%",
+        "tap_percent": "%",
+        "current_1_magnitude": "amps",
+        "current_1_angle": "°",
+        "real_power_entering": "kW",
+        "reactive_power_entering": "kVar",
+        "real_power_leaving": "kW",
+        "reactive_power_leaving": "kVar"
+      }
+    },
+    {
+      "System": "Power",
+      "Subsystem": "Power",
+      "RiseVariableName": "direct",
+      "Description": "DirectConnection",
+      "FieldUnits":
+      {
+        "from_bus_voltage_rating": "kV",
+        "to_bus_voltage_rating": "kV",
+        "current_1_magnitude": "amps",
+        "current_1_angle": "°",
+        "real_power_entering": "kW",
+        "reactive_power_entering": "kVar",
+        "real_power_leaving": "kW",
+        "reactive_power_leaving": "kVar"
+      }
+    },
+    {
+      "System": "Power",
+      "Subsystem": "Power",
+      "RiseVariableName": "cable",
+      "Description": "Cable",
+      "FieldUnits":
+      {
+        "current_1_magnitude": "amps",
+        "current_1_angle": "°",
+        "real_power_entering": "kW",
+        "reactive_power_entering": "kVar",
+        "real_power_leaving": "kW",
+        "reactive_power_leaving": "kVar",
+        "voltage_rating": "kV",
+        "length": "ft"
+      }
+    },
+    {
+      "System": "Power",
+      "Subsystem": "Power",
+      "RiseVariableName": "overhead",
+      "Description": "OverheadLine",
+      "FieldUnits":
+      {
+        "current_1_magnitude": "amps",
+        "current_1_angle": "°",
+        "real_power_entering": "kW",
+        "reactive_power_entering": "kVar",
+        "real_power_leaving": "kW",
+        "reactive_power_leaving": "kVar",
+        "x_1_coordinate": "ft",
+        "x_2_coordinate": "ft",
+        "x_3_coordinate": "ft",
+        "x_4_coordinate": "ft",
+        "h_1_coordinate": "ft",
+        "h_2_coordinate": "ft",
+        "h_3_coordinate": "ft",
+        "h_4_coordinate": "ft",
+        "length": "ft",
+        "soil_resistivity": "ohms-meters"
+      }
+    },
+    {
+      "System": "Water",
+      "Subsystem": "Water",
+      "RiseVariableName": "pipe",
+      "Description": "Pipe",
+      "FieldUnits":
+      {
+        "diameter": "inch",
+        "flow": "gpm",
+        "velocity": "ft/s",
+        "quality": "hours"
+      }
     }
   ]
 }

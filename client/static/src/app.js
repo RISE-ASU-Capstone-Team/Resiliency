@@ -427,7 +427,12 @@ function loadComponent(data, isNode){
         if (td != undefined) {
           tr.appendChild(td);
 
-          var units = defaultComponentsArr[nodeType(type)].FieldUnits;
+          var units;
+          if(isNode){
+            units = defaultComponentsArr[nodeType(type)].FieldUnits;
+          } else {
+            units = defaultComponentsArr[connectionType(type)].FieldUnits;
+          }
           if (units != undefined && units[td.id] != undefined) {
             var tdUnits = document.createElement('td');
             tdUnits.innerHTML = units[td.id];
