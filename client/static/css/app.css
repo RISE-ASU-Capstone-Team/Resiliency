@@ -376,14 +376,14 @@ body {
   border-radius: 5px;
   padding-top: 5px;
   padding-bottom: 5px;
-  padding-left: 5px;
+  padding-left: 20px;
   width: 100%;
   margin-left: 0;
   border-style: solid;
-  border-color: rgb(255, 255, 255);
-  background-color: rgb(59, 89, 152);
-  color: white;
-  text-align: center;
+  border-color: white;
+  background-color: white;
+  color: rgb(59, 89, 152);
+  text-align: left;
   font-size:20px;
 
 }
@@ -398,8 +398,9 @@ body {
 }
 
 .hierarchyDivList{
-  box-shadow: 0 0 8px #888;
   width: 98%;
   margin: auto;
   margin-bottom: 10px;
+  text-align: left;
+  padding-left: 50px;
 }

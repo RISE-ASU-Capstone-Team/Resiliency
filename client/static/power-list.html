@@ -3,7 +3,7 @@
 </div>-->
 
 <h3 class="hierarchyHeader"> Power Nodes</h3>
-<input type='button' class="hierarchyListButton" id='hideshowLoads' value='Loads'> <br/>
+<input type='button' class="hierarchyListButton" id='hideshowLoads' value='+ Loads'> <br/>
 <div class="hierarchyDivList" id='loadListContent' style="display:none;">
   <div ng-repeat="p in nodeList track by $index">
     <div  ng-if="isLoad(p.type)">
@@ -12,7 +12,7 @@
   </div>
 </div>
 
-<input type='button' class="hierarchyListButton" id='hideshowSynch' value='Synchronous Generators'> <br/>
+<input type='button' class="hierarchyListButton" id='hideshowSynch' value='+ Synchronous Generators'> <br/>
 <div class="hierarchyDivList" id='synchListContent' style="display:none;">
 <div ng-repeat="p in nodeList track by $index" >
   <div ng-if="isSyncGen(p.type)">
@@ -21,7 +21,7 @@
 </div>
 </div>
 
-<input type='button'  class="hierarchyListButton" id='hideshowBus' value='Buses'> <br/>
+<input type='button'  class="hierarchyListButton" id='hideshowBus' value='+ Buses'> <br/>
 <div class="hierarchyDivList" id='busListContent' style="display:none;">
 <div ng-repeat="p in nodeList track by $index" >
   <div ng-if="isBus(p.type)">
@@ -30,7 +30,7 @@
 </div>
 </div>
 
-<input type='button' class="hierarchyListButton" id='hideshowUtility' value='Utilities'> <br/>
+<input type='button' class="hierarchyListButton" id='hideshowUtility' value='+ Utilities'> <br/>
 <div class="hierarchyDivList" id='utilityListContent' style="display:none;">
 <div ng-repeat="p in nodeList track by $index" >
   <div ng-if="isUtility(p.type)">
@@ -43,7 +43,7 @@
 
 
 <h3 class="hierarchyHeader"> Power Connections</h3>
-<input type='button' class="hierarchyListButton" id='hideshowTransformer' value='Transformers'> <br/>
+<input type='button' class="hierarchyListButton" id='hideshowTransformer' value='+ Transformers'> <br/>
 <div class="hierarchyDivList" id='transformerListContent' style="display:none;">
   <div ng-repeat="p in connectionList track by $index">
     <div ng-if="isTransformer(p.type)">
@@ -52,7 +52,7 @@
   </div>
 </div>
 
-<input type='button' class="hierarchyListButton" id='hideshowDirect' value='Direct Connection'> <br/>
+<input type='button' class="hierarchyListButton" id='hideshowDirect' value='+ Direct Connection'> <br/>
 <div class="hierarchyDivList" id='directListContent' style="display:none;">
 <div ng-repeat="p in connectionList track by $index" >
   <div ng-if="isDirect(p.type)">
@@ -61,7 +61,7 @@
 </div>
 </div>
 
-<input type='button'  class="hierarchyListButton" id='hideshowCable' value='Cables'> <br/>
+<input type='button'  class="hierarchyListButton" id='hideshowCable' value='+ Cables'> <br/>
 <div class="hierarchyDivList" id='cableListContent' style="display:none;">
 <div ng-repeat="p in connectionList track by $index" >
   <div ng-if="isCable(p.type)">
@@ -70,7 +70,7 @@
 </div>
 </div>
 
-<input type='button' class="hierarchyListButton" id='hideshowOverhead' value='Overhead'> <br/>
+<input type='button' class="hierarchyListButton" id='hideshowOverhead' value='+ Overhead'> <br/>
 <div class="hierarchyDivList" id='overheadListContent' style="display:none;">
 <div ng-repeat="p in connectionList track by $index" >
   <div ng-if="isOverhead(p.type)">

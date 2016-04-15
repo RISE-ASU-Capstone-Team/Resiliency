@@ -236,24 +236,29 @@ clientApp.controller('NodeListController',
         jQuery(document).ready(function(){
           jQuery('#hideshowLoads').on('click', function(event) {
                jQuery('#loadListContent').toggle('show');
+               toggleText('hideshowLoads', '+ Loads','- Loads')
+
           });
         });
 
         jQuery(document).ready(function(){
           jQuery('#hideshowSynch').on('click', function(event) {
                jQuery('#synchListContent').toggle('show');
+               toggleText('hideshowSynch', '+ Synchronous Generators','- Synchronous Generators')
           });
         });
 
         jQuery(document).ready(function(){
           jQuery('#hideshowBus').on('click', function(event) {
                jQuery('#busListContent').toggle('show');
+               toggleText('hideshowBus', '+ Buses','- Buses')
           });
         });
 
         jQuery(document).ready(function(){
           jQuery('#hideshowUtility').on('click', function(event) {
                jQuery('#utilityListContent').toggle('show');
+               toggleText('hideshowUtility', '+ Utilities','- Utilities')
           });
         });
 
@@ -261,29 +266,41 @@ clientApp.controller('NodeListController',
         jQuery(document).ready(function(){
           jQuery('#hideshowTransformer').on('click', function(event) {
                jQuery('#transformerListContent').toggle('show');
+               toggleText('hideshowTransformer', '+ Transformers','- Transformers')
           });
         });
 
         jQuery(document).ready(function(){
           jQuery('#hideshowDirect').on('click', function(event) {
                jQuery('#directListContent').toggle('show');
+               toggleText('hideshowDirect', '+ Direct Connection','- Direct Connection')
           });
         });
 
         jQuery(document).ready(function(){
           jQuery('#hideshowCable').on('click', function(event) {
                jQuery('#cableListContent').toggle('show');
+               toggleText('hideshowCable', '+ Cables','- Cables')
           });
         });
 
         jQuery(document).ready(function(){
           jQuery('#hideshowOverhead').on('click', function(event) {
                jQuery('#overheadListContent').toggle('show');
+               toggleText('hideshowOverhead', '+ Overhead','- Overhead')
           });
         });
 
     }
 ]);
+
+function toggleText (idOfDiv, beforeText, afterTest) {
+if (document.getElementById(idOfDiv).value == beforeText) {
+    document.getElementById(idOfDiv).value = afterTest;
+} else {
+    document.getElementById(idOfDiv).value = beforeText;
+}
+}
 
 clientApp.controller('PowerDetailController',
     ['$scope', '$http', '$routeParams', function(scope, http, params){
