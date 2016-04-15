@@ -120,6 +120,22 @@ clientApp.controller('NodeListController',
               addMarkerToMap(marker.id, component, latlng, options);
             }
           }
+          markers.forEach(function(element, index, array){
+            //TODO: array 'd' is not structured well to efficiently detect elements. Ideally I would replace d.forEach with
+            // if (!(element.id in d)){delete}
+            var found = false;
+            d.forEach(function(dElement, dIndex, dArray){
+              if(dElement.id == element.id)
+              {
+                found = true;
+              }
+            });
+            if (!found)
+            {
+              delete markers[index];
+              map.removeLayer(element);
+            }
+          });
         }
 
         // Load component table
