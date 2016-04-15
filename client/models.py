@@ -12,10 +12,9 @@ class DBChanges(models.Model):
 
 # ------------------------------------------------------------------------ Nodes
 class Node(models.Model):
-    # Total editable = 3
+    # Total editable = 2
     name = models.CharField(max_length=100, default="Untitled Node")
     operational_status = models.BooleanField(default=True)
-    is_bus = models.BooleanField(default=True)
 
     # Non-editable = 9
     nominal_voltage = models.FloatField(max_length=100, default=0.0)

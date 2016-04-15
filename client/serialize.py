@@ -21,7 +21,7 @@ class ConnectionListSerializer(serializers.HyperlinkedModelSerializer):
 class LoadSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Load
-        fields = ('id', 'operational_status', 'is_bus', 'name', 'latitude',
+        fields = ('id', 'operational_status', 'name', 'latitude',
                   'longitude', 'type', 'power_rating',
                   'power_factor_percent', 'power_factor_type', 'min_PU_voltage',
                   'wiring', 'load_model', 'current_rating', 'nominal_voltage',
@@ -33,7 +33,7 @@ class LoadSerializer(serializers.HyperlinkedModelSerializer):
 class SyncGeneratorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = SyncGenerator
-        fields = ('id', 'operational_status', 'is_bus', 'name', 'latitude',
+        fields = ('id', 'operational_status', 'name', 'latitude',
                   'longitude', 'type', 'stiffness', 'power_rating',
                   'RPM_rating', 'number_of_poles', 'power_factor_percent',
                   'wiring', 'nominal_voltage', 'LL_voltage',
@@ -45,7 +45,7 @@ class SyncGeneratorSerializer(serializers.HyperlinkedModelSerializer):
 class BusSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Bus
-        fields = ('id', 'operational_status', 'is_bus', 'name', 'latitude',
+        fields = ('id', 'operational_status', 'name', 'latitude',
                   'longitude', 'type', 'nominal_voltage', 'LL_voltage',
                   'voltage_1_magnitude', 'voltage_1_angle', 'voltage_1_PU',
                   'created_date')
@@ -54,7 +54,7 @@ class BusSerializer(serializers.HyperlinkedModelSerializer):
 class UtilitySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Utility
-        fields = ('id', 'operational_status', 'is_bus', 'type', 'name',
+        fields = ('id', 'operational_status', 'type', 'name',
                   'latitude', 'longitude', 'base_power', 'nominal_voltage',
                   'voltage_angle', 'short_circuit_3_phase', 'short_circuit_SLG',
                   'stiffness', 'r_1', 'x_1', 'r_0', 'x_0', 'LL_voltage',

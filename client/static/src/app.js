@@ -346,17 +346,14 @@ function loadComponent(data, isNode){
             if(keys[i] == 'operational_status'){
                 createToggle(td, "1", data[keys[i]], isNode);
                 tr.appendChild(td);
-            }else if(keys[i] == 'is_bus'){
+            }else if(keys[i] == 'stiffness'){
                 createToggle(td, "2", data[keys[i]], isNode);
                 tr.appendChild(td);
-            }else if(keys[i] == 'stiffness'){
+            }else if(keys[i] == 'kron_reduction'){
                 createToggle(td, "3", data[keys[i]], isNode);
                 tr.appendChild(td);
-            }else if(keys[i] == 'kron_reduction'){
-                createToggle(td, "4", data[keys[i]], isNode);
-                tr.appendChild(td);
             }else if(keys[i] == 'tap_side'){
-                createToggle(td, "5", data[keys[i]], isNode);
+                createToggle(td, "4", data[keys[i]], isNode);
                 tr.appendChild(td);
             }else if(keys[i] == 'wiredata_object_id'){
                 createWireDataComboBox(td, data[keys[i]]);

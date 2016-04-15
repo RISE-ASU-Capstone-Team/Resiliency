@@ -31,7 +31,6 @@ class Load:
     ID = 0
     NAME = 1
     OPERATIONAL_STATUS = 2
-    IS_BUS = 3
     VOLTAGE_1_MAGNITUDE = 4
     VOLTAGE_1_ANGLE = 5
     VOLTAGE_1_PU = 6
@@ -57,7 +56,6 @@ class SynchronousGenerator:
     ID = 0
     NAME = 1
     OPERATIONAL_STATUS = 2
-    IS_BUS = 3
     VOLTAGE_1_MAGNITUDE = 4
     VOLTAGE_1_ANGLE = 5
     VOLTAGE_1_PU = 6
@@ -82,7 +80,6 @@ class Bus:
     ID = 0
     NAME = 1
     OPERATIONAL_STATUS = 2
-    IS_BUS = 3
     VOLTAGE_1_MAGNITUDE = 4
     VOLTAGE_1_ANGLE = 5
     VOLTAGE_1_PU = 6
@@ -97,7 +94,6 @@ class Utility:
     ID = 0
     NAME = 1
     OPERATIONAL_STATUS = 2
-    IS_BUS = 3
     VOLTAGE_1_MAGNITUDE = 4
     VOLTAGE_1_ANGLE = 5
     VOLTAGE_1_PU = 6

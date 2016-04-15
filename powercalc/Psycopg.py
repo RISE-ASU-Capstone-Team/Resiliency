@@ -49,7 +49,6 @@ def populate_load(cur, nodes):
         nodes[row[Load.ID]] = \
             {'id': row[Load.ID], 'name': row[Load.NAME],
              'operational_status': row[Load.OPERATIONAL_STATUS],
-             'is_bus': row[Load.IS_BUS],
              'voltage_1_magnitude': row[Load.VOLTAGE_1_MAGNITUDE],
              'voltage_1_angle': row[Load.VOLTAGE_1_ANGLE],
              'voltage_1_PU': row[Load.VOLTAGE_1_PU],
@@ -83,10 +82,9 @@ def populate_sync_gen(cur, nodes):
 
     for row in rows:
         nodes[row[SynchronousGenerator.ID]] = \
-            {'id': row[SynchronousGenerator.ID], 
+            {'id': row[SynchronousGenerator.ID],
              'name': row[SynchronousGenerator.NAME],
              'operational_status': row[SynchronousGenerator.OPERATIONAL_STATUS],
-             'is_bus': row[SynchronousGenerator.IS_BUS],
              'voltage_1_magnitude': row[SynchronousGenerator.VOLTAGE_1_MAGNITUDE],
              'voltage_1_angle': row[SynchronousGenerator.VOLTAGE_1_ANGLE],
              'voltage_1_PU': row[SynchronousGenerator.VOLTAGE_1_PU],
@@ -119,10 +117,9 @@ def populate_bus(cur, nodes):
 
     for row in rows:
         nodes[row[Bus.ID]] = \
-            {'id': row[Bus.ID], 
+            {'id': row[Bus.ID],
              'name': row[Bus.NAME],
              'operational_status': row[Bus.OPERATIONAL_STATUS],
-             'is_bus': row[Bus.IS_BUS],
              'voltage_1_magnitude': row[Bus.VOLTAGE_1_MAGNITUDE],
              'voltage_1_angle': row[Bus.VOLTAGE_1_ANGLE],
              'voltage_1_PU': row[Bus.VOLTAGE_1_PU],
@@ -145,10 +142,9 @@ def populate_utility(cur, nodes):
 
     for row in rows:
         nodes[row[Utility.ID]] = \
-            {'id': row[Utility.ID], 
+            {'id': row[Utility.ID],
              'name': row[Utility.NAME],
              'operational_status': row[Utility.OPERATIONAL_STATUS],
-             'is_bus': row[Utility.IS_BUS],
              'voltage_1_magnitude': row[Utility.VOLTAGE_1_MAGNITUDE],
              'voltage_1_angle': row[Utility.VOLTAGE_1_ANGLE],
              'voltage_1_PU': row[Utility.VOLTAGE_1_PU],
@@ -182,7 +178,7 @@ def populate_transformer(cur, connections):
 
     for row in rows:
         connections[row[TwoWindingTransformer.ID]] = \
-            {'id': row[TwoWindingTransformer.ID], 
+            {'id': row[TwoWindingTransformer.ID],
              'name': row[TwoWindingTransformer.NAME],
              'operational_status': row[TwoWindingTransformer.OPERATIONAL_STATUS],
              'real_power_entering': row[TwoWindingTransformer.REAL_POWER_ENTERING],
