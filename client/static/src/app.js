@@ -313,13 +313,18 @@ function loadComponent(data, isNode){
     coordIndices[0] = new Array(4);
     coordIndices[1] = new Array(4);
     var hasCoordIndices = false;
+    var type = -1;
 
     for(var i = 0; i < keys.length; i++){
         tr = document.createElement('tr');
         td = document.createElement('td');
         td.className = "rowName";
+
+        type = data['type'];
+
         if(keys[i] == 'type'){
             var compTitle = document.getElementById('compTitle');
+            type = data[keys[i]];
             if(isNode){
                 compTitle.innerHTML = nodeTypeDisplay(data[keys[i]]);
             }else{
@@ -404,6 +409,14 @@ function loadComponent(data, isNode){
         }
         if (td != undefined) {
           tr.appendChild(td);
+
+          var units = defaultComponentsArr[nodeType(type)].FieldUnits;
+          if (units != undefined && units[td.id] != undefined) {
+            var tdUnits = document.createElement('td');
+            tdUnits.innerHTML = units[td.id];
+            tr.appendChild(tdUnits);
+          }
+
           componentTable.tBodies[0].appendChild(tr);
         }
     }

@@ -8,26 +8,28 @@ function loadPanelObjects(jsonobj) {
 
   for (var i = 0; i < jsonobj.Components.length; i++) {
     var component = jsonobj.Components[i]
-    var img = document.createElement("img");
-    img.class = "dragComponent";
-    img.className = "dragComponent";
-    img.src = component.Icon;
-    img.style = "width:64px;height:64px;"
-    img.draggable="true";
-    img.dataset.RiseVariableName=component.RiseVariableName;
-    img.title = component.Description;
+    if (component.Icon != undefined){
+      var img = document.createElement("img");
+      img.class = "dragComponent";
+      img.className = "dragComponent";
+      img.src = component.Icon;
+      img.style = "width:64px;height:64px;"
+      img.draggable="true";
+      img.dataset.RiseVariableName=component.RiseVariableName;
+      img.title = component.Description;
 
-    defaultComponentsArr[component.RiseVariableName] = component;
+      defaultComponentsArr[component.RiseVariableName] = component;
 
-    var src = null;
-    if (component.System == "Power") {
-      src = document.getElementById("editor_power");
-    } else if (component.System == "Water") {
-      src = document.getElementById("editor_water");
-    } else if (component.System == "Road") {
-      src = document.getElementById("editor_road");
+      var src = null;
+      if (component.System == "Power") {
+        src = document.getElementById("editor_power");
+      } else if (component.System == "Water") {
+        src = document.getElementById("editor_water");
+      } else if (component.System == "Road") {
+        src = document.getElementById("editor_road");
+      }
+      src.appendChild(img);
     }
-    src.appendChild(img);
   }
 }
 
