@@ -94,6 +94,25 @@ clientApp.controller('NodeListController',
             //polyLine.on('click', handleConnectionClick);
             //console.log("Received connection:" + connection);
           }
+          connections.forEach(function(element, index, array){
+            var found = false;
+            d.forEach(function(dElement, dIndex, dArray){
+              if(dElement.id == element.id)
+              {
+                found = true;
+              }
+            });
+            if (!found)
+            {
+              if (connections[index].middleMarker)
+              {
+                map.removeLayer(connections[index].middleMarker);
+                delete connections[index].middleMarker;
+              }
+              delete connections[index];
+              map.removeLayer(element);
+            }
+          });
         }
 
         var refreshMarkers = function(d) {
