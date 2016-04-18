@@ -34,7 +34,7 @@ function addMarkerToMap(key, componentData, position, options) {
         });
 
     });
-    
+
     // If we have a key, add it to the markers array
     if (key != null) {
       newMarker.id = key;
@@ -73,10 +73,19 @@ function handleConnectionClick(e) {
   document.getElementById('deleteConnectionButton').style.display = "block";
   document.getElementById('deleteNodeButton').style.display = "none";
   document.getElementById('deleteConnectionButton').onclick = function deleteNode(){
-    map.removeLayer(connections[id].middleMarker);
-    map.removeLayer(connections[id]);
 
-    connections
+
+    if (typeof connections[id].middleMarker != undefined) {
+      map.removeLayer(connections[id].middleMarker);
+      map.removeLayer(connections[id]);
+      connections.splice(id, 1);
+
+    }
+    else{
+    map.removeLayer(connections[id]);
+    connections.splice(id, 1);
+  }
+
     $.ajax({
         url: Server.ADDRESS + "data/api/" + connectionType(type) + '/'
             + id + "/" ,
@@ -286,4 +295,9 @@ function sizeFactor(zoom) {
   else if (zoom == 16) return 1.9;
   else // zoom >= 17
   return 2.2;
+}
+
+
+function showFailure(id,type){
+
 }
