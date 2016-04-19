@@ -104,6 +104,8 @@ function handleMarkerClick(e) {
   var typeNumer = this.componentData.Type;
   var id = this.id
 
+  showFailureOnMarker(markers[id]);
+
   if (event.altKey && !connectionStarted)
   {
     connectionStarted = true;
@@ -141,6 +143,8 @@ function handleMarkerClick(e) {
     });
 
     document.getElementById('deleteNodeButton').style.display = "none";
+
+    //clearFailureOnMarker(markers[id])
   }
 }
 
@@ -298,6 +302,23 @@ function sizeFactor(zoom) {
 }
 
 
-function showFailure(id,type){
+function showFailureOnMarker(m){
+  var newIcon = new L.Icon({
+    iconUrl: "/static/icons/powerFailure.png",
+    iconAnchor: m.iconAnchor,
+    iconSize: m.iconSize,
+    popupAnchor: m.popupAnchor
+    });
+  m.setIcon(newIcon)
 
+}
+
+function clearFailureOnMarker(m){
+  var newIcon = new L.Icon({
+    iconUrl: m.componentData.Icon,
+    iconAnchor: m.iconAnchor,
+    iconSize: m.iconSize,
+    popupAnchor: m.popupAnchor
+    });
+  m.setIcon(newIcon)
 }
