@@ -98,7 +98,9 @@ function handleMarkerClick(e) {
   var typeNumer = this.componentData.Type;
   var id = this.id
 
-  showFailureOnMarker(markers[id]);
+  if (event.shiftKey){
+    showFailureOnMarker(markers[id]);
+  }
 
   if (event.altKey && !connectionStarted)
   {
