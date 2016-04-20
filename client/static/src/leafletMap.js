@@ -74,17 +74,11 @@ function handleConnectionClick(e) {
   document.getElementById('deleteNodeButton').style.display = "none";
   document.getElementById('deleteConnectionButton').onclick = function deleteNode(){
 
-
-    if (typeof connections[id].middleMarker != undefined) {
+    if (connections[id].middleMarker != undefined) {
       map.removeLayer(connections[id].middleMarker);
-      map.removeLayer(connections[id]);
-      connections.splice(id, 1);
-
     }
-    else{
     map.removeLayer(connections[id]);
     connections.splice(id, 1);
-  }
 
     $.ajax({
         url: Server.ADDRESS + "data/api/" + connectionType(type) + '/'
