@@ -133,3 +133,24 @@ $(document).ready(function() {
        }
     });
 });
+
+
+$(document).ready(function(){
+    $(".toggler").click(function(e){
+        e.preventDefault();
+        $(this).closest('tr').nextAll('.cat'+$(this).attr('data-prod-cat')).toggle();
+        //select the parent and find the span so you can
+//toggle the "cat-plus" class
+toggleText('toggler', '+','-')
+
+//toggle the cat-minus class
+    });
+});
+
+function toggleText (idOfDiv, beforeText, afterTest) {
+if (document.getElementById(idOfDiv).innerHTML == beforeText) {
+    document.getElementById(idOfDiv).innerHTML = afterTest;
+} else {
+    document.getElementById(idOfDiv).innerHTML = beforeText;
+}
+}

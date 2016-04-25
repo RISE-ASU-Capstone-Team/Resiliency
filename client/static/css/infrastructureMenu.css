@@ -173,3 +173,11 @@ margin-bottom: 10px;
   margin-top: 15px;
   margin-bottom: 10px;
 }
+
+.toggler{
+  border-style: solid;
+  border-color: rgb(59, 89, 152);
+  color: rgb(255, 255, 255);
+  background-color: rgb(59, 89, 152);
+  text-align: left;
+}
