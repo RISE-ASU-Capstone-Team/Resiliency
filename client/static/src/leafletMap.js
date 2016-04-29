@@ -127,8 +127,10 @@ function handleMarkerClick(e) {
   document.getElementById('deleteConnectionButton').style.display = "none";
 
   document.getElementById('deleteNodeButton').onclick = function deleteNode(){
+    deleteConnectionsFromMarker(markers[id]);
     map.removeLayer(markers[id]);
     markers.splice(id, 1);
+
     $.ajax({
         url: Server.ADDRESS + "data/api/" + nodeType(typeNumer) + '/'
             + id + "/" ,
@@ -137,6 +139,7 @@ function handleMarkerClick(e) {
             markers.splice(id, 1);
         }
     });
+
 
     document.getElementById('deleteNodeButton').style.display = "none";
 
@@ -234,9 +237,39 @@ function repositionConnectionsFromMarker(marker)
     delete connections[id];
     addConnectionToMap(id, type, markerA, markerB, options);
   });
-  {
+}
 
+function deleteConnectionsFromMarker(marker)
+{
+  if (!marker.connections)
+  {
+    return;
   }
+  marker.connections.forEach(function(id){
+
+    var type = connections[id].type;
+    var markerA = connections[id].markerA;
+    var markerB = connections[id].markerB;
+    var options = connections[id].options;
+    if (connections[id].middleMarker)
+    {
+      map.removeLayer(connections[id].middleMarker);
+    }
+    map.removeLayer(connections[id]);
+
+    /*
+    Shouldn't need because of Cascading Deletes
+    $.ajax({
+        url: Server.ADDRESS + "data/api/" + connectionType(type) + '/'
+            + id + "/" ,
+        type: 'delete',
+        success: function(result) {
+            connections.splice(id, 1);
+        }
+    });*/
+
+    delete connections[id];
+  });
 }
 
 function handleMapZoom(e) {
