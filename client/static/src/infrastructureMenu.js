@@ -26,7 +26,7 @@ var projectJSON = {
     "projectDescription":"Rise Project: Test 1"
 }
 
-//waterNetworkTable(networkWaterJSON);
+waterNetworkTable(networkWaterJSON);
 projectDescriptionTable(projectJSON);
 //jsontoTable(jsonObjectTest);
 
