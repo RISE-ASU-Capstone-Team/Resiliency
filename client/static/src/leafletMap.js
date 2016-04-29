@@ -78,14 +78,13 @@ function handleConnectionClick(e) {
       map.removeLayer(connections[id].middleMarker);
     }
     map.removeLayer(connections[id]);
-    connections.splice(id, 1);
 
     $.ajax({
         url: Server.ADDRESS + "data/api/" + connectionType(type) + '/'
             + id + "/" ,
         type: 'delete',
         success: function(result) {
-            connections.splice(id, 1);
+            delete connections[id];
         }
     });
 document.getElementById('deleteConnectionButton').style.display = "none";
@@ -129,14 +128,13 @@ function handleMarkerClick(e) {
   document.getElementById('deleteNodeButton').onclick = function deleteNode(){
     deleteConnectionsFromMarker(markers[id]);
     map.removeLayer(markers[id]);
-    markers.splice(id, 1);
 
     $.ajax({
         url: Server.ADDRESS + "data/api/" + nodeType(typeNumer) + '/'
             + id + "/" ,
         type: 'delete',
         success: function(result) {
-            markers.splice(id, 1);
+            delete markers[id];
         }
     });
 
@@ -257,18 +255,18 @@ function deleteConnectionsFromMarker(marker)
     }
     map.removeLayer(connections[id]);
 
-    /*
-    Shouldn't need because of Cascading Deletes
+
+    //Shouldn't need because of Cascading Deletes
     $.ajax({
         url: Server.ADDRESS + "data/api/" + connectionType(type) + '/'
             + id + "/" ,
         type: 'delete',
         success: function(result) {
-            connections.splice(id, 1);
+            delete connections[id];
         }
-    });*/
+    });
 
-    delete connections[id];
+    //delete connections[id];
   });
 }
 
